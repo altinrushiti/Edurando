@@ -17,6 +17,8 @@ public class UserProfile implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //hiho
+
     private String firstname;
     private String lastname;
     private String profilePictureReference;
