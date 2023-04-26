@@ -14,6 +14,11 @@ public class Subject {
 
     //test
     private boolean test;
+
+    //test2 -> DEV
+
+    //test3
+
     private String name;
 
     @ManyToMany
