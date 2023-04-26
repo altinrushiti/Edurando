@@ -12,6 +12,11 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //test
+    private boolean test;
+
+    //test2 -> DEV
+
     private String name;
 
     @ManyToMany
