@@ -20,7 +20,7 @@ public class EdurandoApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        UserProfile  user1 = UserProfile.builder().id(1L).firstname("Krish").lastname("Kalra").personalBiography("").profilePictureReference("").rating(5.0F).email("krish.kalra3@gmail.com").role(Role.admin).password("Test").build();
+        UserProfile  user1 = UserProfile.builder().role(Role.admin).build();
         userProfileRepository.save(user1);
     }
 }
