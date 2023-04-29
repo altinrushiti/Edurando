@@ -9,7 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EdurandoApplication implements CommandLineRunner {
+public class EdurandoApplication /*implements CommandLineRunner*/ {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EdurandoApplication.class, args);
@@ -18,9 +18,9 @@ public class EdurandoApplication implements CommandLineRunner {
     @Autowired
     private UserProfileRepository userProfileRepository;
 
-    @Override
+    /*@Override
     public void run(String... args) throws Exception {
-        UserProfile  user1 = UserProfile.builder().id(1L).firstname("Krish").lastname("Kalra").personalBiography("").profilePictureReference("").rating(5.0F).email("krish.kalra3@gmail.com").role(Role.admin).password("Test").build();
+        UserProfile  user1 = UserProfile.builder().role(Role.admin).build();
         userProfileRepository.save(user1);
-    }
+    }*/
 }
