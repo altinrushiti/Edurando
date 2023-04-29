@@ -1,28 +1,60 @@
 package de.app_solutions.Edurando.service;
 
+import de.app_solutions.Edurando.model.ConfirmationToken;
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
-@AllArgsConstructor
-public class UserProfileService /*implements UserDetailsService */{
-    @Autowired
-    private final UserProfileRepository userProfileRepository;
+@Data
+public class UserProfileService implements UserDetailsService {
 
-    public List<UserProfile> getAllProfiles() {
-        return userProfileRepository.findAll();
+    private final static String USER_NOT_FOUND = "user with email %s not found";
+    private final UserProfileRepository appUserRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ConfirmationTokenService confirmationTokenService;
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return appUserRepository.findUserProfileByUsername(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
     }
 
-    /*@Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userProfileRepository.findUserProfileByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
-    }*/
+    public String signUpUser(UserProfile user) {
+        boolean userExists = appUserRepository.findUserProfileByUsername(user.getUsername()).isPresent();
+
+        if (userExists) {
+            throw new IllegalStateException("email already taken");
+        }
+
+        String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+
+        user.setPassword(encodedPassword);
+
+        appUserRepository.save(user);
+
+        String token = UUID.randomUUID().toString();
+
+        ConfirmationToken confirmationToken = new ConfirmationToken(
+                token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                user
+        );
+
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
+
+        return token;
+    }
+
+    public int enableAppUser(String email) {
+        return appUserRepository.enableAppUser(email);
+    }
 }

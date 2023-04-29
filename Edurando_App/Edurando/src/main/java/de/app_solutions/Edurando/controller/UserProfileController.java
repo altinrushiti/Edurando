@@ -1,3 +1,4 @@
+/*
 package de.app_solutions.Edurando.controller;
 
 import de.app_solutions.Edurando.model.UserProfile;
@@ -23,3 +24,4 @@ public class UserProfileController {
     }
 
 }
+*/
