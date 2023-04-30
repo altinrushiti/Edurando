@@ -4,7 +4,7 @@
             <div class="flex justify-between">
                 <div class="justify-between items-center">
                     <h3 class="text-base leading-6 font-medium text-[#231e44]">Links</h3>
-                    <ul class="mt-2 mr-6 text-base leading-6 text-[#7b73ac]">
+                    <ul class="mt-2 mr-6 text-base leading-6 text-[#7b73ac] max-w-7xl flex-col sm:flex-row py-4 mx-auto justify-between items-center">
                         <li><router-link to="/TermsOfService">Terms of Service</router-link></li>
                         <li><router-link to="/PrivacyPolicy">Privacy Policy</router-link></li>
                         <li><router-link to="/LegalNotice">Legal Notice</router-link></li>
