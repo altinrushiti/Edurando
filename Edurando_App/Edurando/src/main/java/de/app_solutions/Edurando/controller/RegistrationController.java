@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-@RequestMapping(path = "api/v1/registration")
+@RequestMapping(path = "api/v1")
 @Data
-@AllArgsConstructor
+@CrossOrigin
 public class RegistrationController {
 
     private final RegistrationService registrationService;
 
-    @PostMapping
+    @PostMapping("/register")
     public String register(@RequestBody RegistrationRequest request) {
         return registrationService.register(request);
     }

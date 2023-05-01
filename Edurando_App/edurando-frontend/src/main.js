@@ -4,6 +4,7 @@ import { faFacebook, faTwitter, faInstagram, faTiktok } from '@fortawesome/free-
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import '@fortawesome/fontawesome-free/css/all.css';
+import router from './router'
 
 import App from './App.vue';
 
@@ -16,3 +17,4 @@ library.add(faFacebook, faTwitter, faInstagram, faTiktok, faArrowUp);
 const app = createApp(App);
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.mount('#app');
+app.use(router);
