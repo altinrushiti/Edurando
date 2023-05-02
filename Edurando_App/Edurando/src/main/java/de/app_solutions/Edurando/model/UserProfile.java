@@ -15,7 +15,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class UserProfile implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +25,7 @@ public class UserProfile implements UserDetails {
     private String profilePictureReference;
     private String personalBiography;
     private Float rating;
+    private String gender;
     private String username;
     private String password;
 
@@ -47,12 +47,13 @@ public class UserProfile implements UserDetails {
 
     private boolean enabled;
 
-    public UserProfile(String firstName, String lastName, String email, String password, Role role) {
+    public UserProfile(String firstName, String lastName, String gender, Role role, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.gender = gender;
+        this.role = role;
         this.username = email;
         this.password = password;
-        this.role = role;
     }
 
     @Override

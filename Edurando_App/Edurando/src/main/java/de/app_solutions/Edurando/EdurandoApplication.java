@@ -9,18 +9,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EdurandoApplication /*implements CommandLineRunner*/ {
+public class EdurandoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EdurandoApplication.class, args);
 	}
 
-    @Autowired
-    private UserProfileRepository userProfileRepository;
 
-    /*@Override
-    public void run(String... args) throws Exception {
-        UserProfile  user1 = UserProfile.builder().role(Role.admin).build();
-        userProfileRepository.save(user1);
-    }*/
 }

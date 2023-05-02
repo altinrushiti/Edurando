@@ -69,6 +69,8 @@ export default defineComponent({
             user: {
                 firstName: '',
                 lastName: '',
+                gender: 'Male',
+                role: 2,
                 email: '',
                 password: '',
                 passwordRepeat: ''
@@ -84,6 +86,7 @@ export default defineComponent({
         registerUser() {
             axios.post('http://localhost:9001/api/v1/register', this.user)
                 .then(response => {
+                    console.log(response.data);
                     this.result = response.data
                 })
                 .catch(error => {

@@ -1,4 +1,4 @@
-package de.app_solutions.Edurando.security;
+package de.app_solutions.Edurando.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
