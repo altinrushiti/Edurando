@@ -58,8 +58,8 @@ public class RegistrationService {
             pw_count++;
         } if (pw_count > 0) {
             String final_msg = sb.toString();
-            System.err.printf("(%b , %s)\n", false, final_msg);
-            return String.format("(%b , %s)\n", false, final_msg);
+            System.err.printf("(%b , %s)", false, final_msg);
+            return String.format("(%b , %s)", false, final_msg);
 
         } else {
             String token = userProfileService.signUpUser(new UserProfile(
