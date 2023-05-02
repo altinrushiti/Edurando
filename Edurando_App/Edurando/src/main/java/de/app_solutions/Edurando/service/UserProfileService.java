@@ -31,7 +31,7 @@ public class UserProfileService implements UserDetailsService {
         boolean userExists = appUserRepository.findUserProfileByUsername(user.getUsername()).isPresent();
 
         if (userExists) {
-            throw new IllegalStateException("email already taken");
+            throw new IllegalStateException("E-Mail already taken");
         }
 
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());

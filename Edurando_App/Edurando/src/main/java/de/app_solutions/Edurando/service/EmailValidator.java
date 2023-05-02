@@ -24,7 +24,8 @@ public class EmailValidator {
         for (String email : emails) {
             if (mail.contains(email)) return true;
         }
-        return false;
+            return false;
+
     }
 
     public boolean mailExists(String email) {

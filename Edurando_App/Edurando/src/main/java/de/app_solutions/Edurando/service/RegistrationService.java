@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Tuple;
 import java.time.LocalDateTime;
 
 @Service
@@ -21,17 +22,45 @@ public class RegistrationService {
     private final EmailSender emailSender;
     private final PasswordValidator passwordValidator;
 
+
     public String register(RegistrationRequest request) {
-        boolean isValidEmail = emailValidator.test(request.getEmail());
-        boolean isValidPassword = passwordValidator.test(request.getPassword());
-        if (!isValidEmail) {
-            System.err.println("email not valid");
-            return "";
-            //throw new IllegalStateException();
-        } else if (!isValidPassword) {
-            System.err.println("password not valid");
-            //throw new IllegalStateException();
-            return "";
+        boolean isValidEmail = emailValidator.testMail(request.getEmail());
+        boolean passwordsMatch = passwordValidator.matchTest(request.getPassword(), request.getPasswordRepeat());
+        boolean passwordsLength = passwordValidator.lengthTest(request.getPassword());
+        boolean passwordHasUpperAndLowerCase = passwordValidator.upperLowerCaseTest(request.getPassword());
+        boolean passwordHasDigit = passwordValidator.digitTest(request.getPassword());
+        boolean passwordHasSpecialChar = passwordValidator.specialCharTest(request.getPassword());
+        boolean mailIsExists = emailValidator.mailExists(request.getEmail());
+
+        int pw_count = 0;
+        StringBuilder sb = new StringBuilder();
+
+        if (mailIsExists) {
+            sb.append("Email Exists\n");
+            pw_count++;
+        } if (!isValidEmail) {
+            sb.append("E-Mail not valid\n");
+            pw_count++;
+        } if (!passwordsMatch) {
+            sb.append("Passwords do not match\n");
+            pw_count++;
+        } if (!passwordsLength) {
+            sb.append("Password needs minimum length of 8\n");
+            pw_count++;
+        } if (!passwordHasUpperAndLowerCase) {
+            sb.append("Password needs at least 1 upper and 1 lower case character\n");
+            pw_count++;
+        } if (!passwordHasDigit) {
+            sb.append("Password needs at least 1 digit\n");
+            pw_count++;
+        } if (!passwordHasSpecialChar) {
+            sb.append("Password needs at least 1 special character\n");
+            pw_count++;
+        } if (pw_count > 0) {
+            String final_msg = sb.toString();
+            System.err.printf("(%b , %s)\n", false, final_msg);
+            return String.format("(%b , %s)\n", false, final_msg);
+
         } else {
             String token = userProfileService.signUpUser(new UserProfile(
                             request.getFirstName(),
