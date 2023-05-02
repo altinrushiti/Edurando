@@ -6,13 +6,13 @@ stages:
 build-job:
   stage: build
   script:
-    - cd Edurando_App/Edurando/build.gradle
+    - cd Edurando_App/Edurando
     - gradle build --no-daemon
 
 unit-test-job:
   stage: test
   script:
-    - cd Edurando_App/Edurando/build.gradle
+    - cd Edurando_App/Edurando
     - gradle test --no-daemon
 
 deploy-job:
