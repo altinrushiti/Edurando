@@ -9,14 +9,14 @@
             <form class="mt-8 space-y-6" @submit.prevent="registerUser">
                 <div class="rounded-md shadow-sm space-y-2">
                     <div>
-                        <label for="firstname" class="">First Name</label>
+                        <label for="firstname" class="text-black font-font-family p-2">First Name</label>
                         <input id="firstname" name="firstname" type="text" v-model="user.firstName"
                                autocomplete="firstname" required
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Firstname">
                     </div>
                     <div>
-                        <label for="lastname" class="">Last Name</label>
+                        <label for="lastname" class="text-black font-font-family p-1">Last Name</label>
                         <input id="lastname" name="lastname" type="text" v-model="user.lastName" autocomplete="lastname"
                                required
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
@@ -24,21 +24,21 @@
                     </div>
 
                     <div>
-                        <label for="email-address" class="">Email address</label>
+                        <label for="email-address" class="text-black font-font-family p-1">Email address</label>
                         <input id="email-address" name="email" type="email" v-model="user.email" autocomplete="email"
                                required
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Email address">
                     </div>
                     <div>
-                        <label for="password" class="">Password</label>
+                        <label for="password" class="text-black font-font-family p-1">Password</label>
                         <input id="password1" name="password1" type="password" v-model="user.password"
                                autocomplete="new-password" required
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Password">
                     </div>
                     <div>
-                        <label for="password" class="">Password</label>
+                        <label for="password" class="text-black font-font-family p-1">Repeat your Password</label>
                         <input id="password2" name="password2" type="password" v-model="user.passwordRepeat"
                                autocomplete="new-password" required
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
