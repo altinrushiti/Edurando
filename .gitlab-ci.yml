@@ -7,15 +7,16 @@ build-job:
   stage: build
   script:
     - cd Edurando_App/Edurando
-    - gradle build --no-daemon
+    - ./gradlew build
 
 unit-test-job:
   stage: test
   script:
     - cd Edurando_App/Edurando
-    - gradle test --no-daemon
+    - ./gradlew test
 
 deploy-job:
   stage: deploy
   script:
-    - echo "Deploying to production server"
+    - cd Edurando_App/Edurando
+    - ./gradlew deploy
