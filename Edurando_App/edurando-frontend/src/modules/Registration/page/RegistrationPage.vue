@@ -9,6 +9,14 @@
             <form class="mt-8 space-y-6" @submit.prevent="registerUser">
                 <div class="rounded-md shadow-sm space-y-2">
                     <div>
+                        <label for="role" class="text-black font-font-family p-2 font-size=10px">Role:  </label>
+                        <select class="text-black" id="role" v-model="user.role">
+                            <option value="Student">Student</option>
+                            <option value="Teacher">Teacher</option>
+                        </select>
+                    </div>
+
+                    <div>
                         <label for="firstname" class="text-black font-font-family p-2">First Name</label>
                         <input id="firstname" name="firstname" type="text" v-model="user.firstName"
                                autocomplete="firstname" required
@@ -67,10 +75,9 @@ export default defineComponent({
         return {
             result: {},
             user: {
+                role: '',
                 firstName: '',
                 lastName: '',
-                gender: 'Male',
-                role: 2,
                 email: '',
                 password: '',
                 passwordRepeat: ''

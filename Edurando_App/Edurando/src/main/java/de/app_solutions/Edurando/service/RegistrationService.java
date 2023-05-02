@@ -63,16 +63,15 @@ public class RegistrationService {
 
         } else {
             String token = userProfileService.signUpUser(new UserProfile(
-                            request.getFirstName(),
-                            request.getLastName(),
-                            request.getGender(),
-                            request.getRole(),
-                            request.getEmail(),
-                            request.getPassword()
+                    request.getRole(),
+                    request.getFirstName(),
+                    request.getLastName(),
+                    request.getEmail(),
+                    request.getPassword()
                     )
             );
             String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", token);
-            emailSender.send(request.getEmail(), buildEmail(request.getLastName(), request.getGender(), link));
+            emailSender.send(request.getEmail(), buildEmail(request, link));
 
             System.err.printf("(%b, Registration was successful)\n", true);
             return String.format("(%b, Registration was successful)\n", true);
@@ -99,8 +98,7 @@ public class RegistrationService {
 
     }
 
-    private String buildEmail(String name, String gender, String link) {
-        gender = gender.equals("Male") ? "Herr" : "Frau";
+    private String buildEmail(RegistrationRequest user, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
                 "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
@@ -156,7 +154,7 @@ public class RegistrationService {
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
                 "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
                 "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hallo " + gender + " " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Vielen Dank für die Registrierung bei Edurando! Bitte klicken Sie auf den folgenden Link, um ihr Account zu aktivieren:</p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Jetzt aktivieren</a> </p></blockquote>\nDer Link läuft in 15 min ab.<p style=\"margin-bottom: 0\">Mit freundlichen Grüßen</p><p style=\"margin: 0\">Ihr Edurando - Team</p>" +
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hallo " + user.getFirstName() + " " + user.getLastName() + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Vielen Dank für die Registrierung bei Edurando! Bitte klicken Sie auf den folgenden Link, um ihr Account zu aktivieren:</p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Jetzt aktivieren</a> </p></blockquote>\nDer Link läuft in 15 min ab.<p style=\"margin-bottom: 0\">Mit freundlichen Grüßen</p><p style=\"margin: 0\">Ihr Edurando - Team</p>" +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
