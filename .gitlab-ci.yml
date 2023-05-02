@@ -6,7 +6,7 @@ stages:
 build-job:
   stage: build
   variables:
-    JAVA_HOME: "C:\\Program Files\\Common Files\\Oracle\\Java"
+    JAVA_HOME: "/usr/lib/jvm/java-17-openjdk-amd64/ "
   script:
     - cd Edurando_App/Edurando
     - chmod +x ./gradlew
@@ -15,7 +15,7 @@ build-job:
 unit-test-job:
   stage: test
   variables:
-    JAVA_HOME: "C:\\Program Files\\Common Files\\Oracle\\Java"
+    JAVA_HOME: "/usr/lib/jvm/java-17-openjdk-amd64/"
   script:
     - cd Edurando_App/Edurando
     - chmod +x ./gradlew
@@ -24,7 +24,7 @@ unit-test-job:
 deploy-job:
   stage: deploy
   variables:
-    JAVA_HOME: "C:\\Program Files\\Common Files\\Oracle\\Java"
+    JAVA_HOME: "/usr/lib/jvm/java-17-openjdk-amd64/"
   script:
     - cd Edurando_App/Edurando
     - chmod +x ./gradlew
