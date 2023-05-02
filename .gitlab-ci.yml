@@ -7,16 +7,19 @@ build-job:
   stage: build
   script:
     - cd Edurando_App/Edurando
-    - ./gradlew.bat build
+    - chmod +x ./gradlew
+    - ./gradlew build
 
 unit-test-job:
   stage: test
   script:
     - cd Edurando_App/Edurando
-    - ./gradlew.bat test
+    - chmod +x ./gradlew
+    - ./gradlew test
 
 deploy-job:
   stage: deploy
   script:
     - cd Edurando_App/Edurando
-    - ./gradlew.bat deploy
+    - chmod +x ./gradlew
+    - ./gradlew deploy
