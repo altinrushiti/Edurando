@@ -47,11 +47,11 @@ public class UserProfile implements UserDetails {
 
     private boolean enabled;
 
-    public UserProfile(String firstName, String lastName, String gender, Role role, String email, String password) {
+    public UserProfile(String role, String firstName, String lastName,  String email, String password) {
+        if (role.equals("Student")) this.role = Role.student;
+        else this.role = Role.teacher;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.gender = gender;
-        this.role = role;
         this.username = email;
         this.password = password;
     }
