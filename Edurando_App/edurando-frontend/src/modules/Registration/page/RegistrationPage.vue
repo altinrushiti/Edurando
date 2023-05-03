@@ -8,15 +8,13 @@
             </div>
             <form class="mt-8 space-y-6" @submit.prevent="registerUser">
                 <div class="rounded-md shadow-sm space-y-2">
-
-                  <div>
-                    <label for="role" class="text-black font-font-family p-2 font-size=10px">Role:  </label>
-                    <select class="text-black" id="role" v-model="user.role">
-                      <option value="Student">Student</option>
-                      <option value="Teacher">Teacher</option>
-                      <option value="Student and Teacher">Student and Teacher</option>
-                    </select>
-                  </div>
+                    <div>
+                        <label for="role" class="text-black font-font-family p-2 font-size=10px">Role:  </label>
+                        <select class="text-black" id="role" v-model="user.role">
+                            <option value="Student">Student</option>
+                            <option value="Teacher">Teacher</option>
+                        </select>
+                    </div>
 
                     <div>
                         <label for="firstname" class="text-black font-font-family p-2">First Name</label>
@@ -71,40 +69,39 @@ import {defineComponent} from "vue";
 import axios from 'axios';
 
 export default defineComponent({
-      name: "Register",
-      data() {
+    name: "Register",
+    data() {
 
         return {
-          result: {},
-          user: {
-            firstName: '',
-            lastName: '',
-            gender: 'Male',
-            role: 2,
-            email: '',
-            password: '',
-            passwordRepeat: ''
+            result: {},
+            user: {
+                role: '',
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                passwordRepeat: ''
 
-          }
+            }
         }
-      },
-      created() {
-      }, mounted() {
+    },
+    created() {
+    },mounted() {
 
-      },
-      methods: {
+    },
+    methods: {
         registerUser() {
-          axios.post('http://localhost:9001/api/v1/register', this.user)
-              .then(response => {
-                console.log(response.data);
-                this.result = response.data
-              })
-              .catch(error => {
-                console.log(error)
-              })
+            axios.post('http://localhost:9001/api/v1/register', this.user)
+                .then(response => {
+                    console.log(response.data);
+                    this.result = response.data
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         }
-      }
     }
+}
 )
 </script>
 <style>
