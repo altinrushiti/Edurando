@@ -28,11 +28,11 @@ public class EmailValidator {
 
     }
 
-    public boolean mailExists(String email) {
+    public boolean uniqueMail(String email) {
         List<UserProfile> users = userProfileRepository.findAll();
         for (UserProfile user : users) {
-            if (user.getUsername().equals(email)) return true;
+            if (user.getUsername().equals(email)) return false;
         }
-        return false;
+        return true;
     }
 }
