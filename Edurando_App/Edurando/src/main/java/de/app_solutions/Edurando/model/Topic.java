@@ -1,6 +1,6 @@
 package de.app_solutions.Edurando.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
