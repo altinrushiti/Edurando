@@ -1,6 +1,6 @@
 package de.app_solutions.Edurando.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
@@ -12,11 +12,18 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //test
+    private boolean test;
+
+    //test2 -> DEV
+
+    //test3
+
     private String name;
 
     @ManyToMany
     private List<UserProfile> userProfile;
 
-    @OneToMany
-    private List<Topic> topics;
+    @ManyToOne
+    private Subject subject;
 }
