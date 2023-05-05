@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/userProfile")
+@RequestMapping("api/v1")
 public class UserProfileController {
     private final UserProfileRepository userProfileRepository;
 
@@ -22,7 +22,7 @@ public class UserProfileController {
     }
 
 
-    @GetMapping("profiles")
+    @GetMapping("/profiles")
     public List<UserProfile> getUserProfiles() {
         return userProfileRepository.findAll();
     }

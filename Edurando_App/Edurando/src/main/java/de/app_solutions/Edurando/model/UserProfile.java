@@ -22,6 +22,7 @@ public class UserProfile implements UserDetails {
 
     private String firstName;
     private String lastName;
+    private String mobile;
     private String profilePictureReference;
     private String personalBiography;
     private Float rating;
@@ -32,16 +33,17 @@ public class UserProfile implements UserDetails {
     @ManyToMany
     private List<Subject> subjects;
 
-
     @ManyToMany
     private List<Topic> topics;
-
 
     @ManyToMany
     private List<Rating> ratings;
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @ManyToOne
+    private Address address;
 
     private boolean locked;
 
