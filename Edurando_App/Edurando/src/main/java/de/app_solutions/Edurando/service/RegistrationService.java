@@ -25,17 +25,17 @@ public class RegistrationService {
 
     public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.testMail(request.getEmail());
+        boolean uniqueMail = emailValidator.uniqueMail(request.getEmail());
         boolean passwordsMatch = passwordValidator.matchTest(request.getPassword(), request.getPasswordRepeat());
         boolean passwordsLength = passwordValidator.lengthTest(request.getPassword());
         boolean passwordHasUpperAndLowerCase = passwordValidator.upperLowerCaseTest(request.getPassword());
         boolean passwordHasDigit = passwordValidator.digitTest(request.getPassword());
         boolean passwordHasSpecialChar = passwordValidator.specialCharTest(request.getPassword());
-        boolean mailIsExists = emailValidator.mailExists(request.getEmail());
 
         int pw_count = 0;
         StringBuilder sb = new StringBuilder();
 
-        if (mailIsExists) {
+        if (!uniqueMail) {
             sb.append("Email Exists\n");
             pw_count++;
         } if (!isValidEmail) {
