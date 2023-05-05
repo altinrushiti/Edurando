@@ -18,17 +18,17 @@ import java.util.UUID;
 public class UserProfileService implements UserDetailsService {
 
     private final static String USER_NOT_FOUND = "user with email %s not found";
-    private final UserProfileRepository appUserRepository;
+    private final UserProfileRepository userProfileRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return appUserRepository.findUserProfileByUsername(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
+        return userProfileRepository.findUserProfileByUsername(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
     }
 
     public String signUpUser(UserProfile user) {
-        boolean userExists = appUserRepository.findUserProfileByUsername(user.getUsername()).isPresent();
+        boolean userExists = userProfileRepository.findUserProfileByUsername(user.getUsername()).isPresent();
 
         if (userExists) {
             throw new IllegalStateException("E-Mail already taken");
@@ -38,7 +38,7 @@ public class UserProfileService implements UserDetailsService {
 
         user.setPassword(encodedPassword);
 
-        appUserRepository.save(user);
+        userProfileRepository.save(user);
 
         String token = UUID.randomUUID().toString();
 
@@ -55,7 +55,7 @@ public class UserProfileService implements UserDetailsService {
     }
 
     public int enableAppUser(String email) {
-        return appUserRepository.enableAppUser(email);
+        return userProfileRepository.enableAppUser(email);
     }
 
 }

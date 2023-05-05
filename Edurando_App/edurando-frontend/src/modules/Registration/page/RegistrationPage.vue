@@ -67,6 +67,7 @@
 <script>
 import {defineComponent} from "vue";
 import axios from 'axios';
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
     name: "Register",
@@ -99,7 +100,7 @@ export default defineComponent({
                 .catch(error => {
                     console.log(error)
                 })
-        }
+        },
     }
 }
 )
