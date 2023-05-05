@@ -1,9 +1,16 @@
 <script setup>
 
+import NavBar from "./modules/NavBar/components/NavBar.vue";
+import RegistrationPage from "@/modules/Registration/page/RegistrationPage.vue";
+import Footer from "@/modules/Footer/Footer.vue"
+import '@fortawesome/fontawesome-free/css/all.css'
+
 </script>
 
 <template>
-<h1 class="text-3xl text-cyan-700 text-center ">Hello World</h1>
+<NavBar />
+    <router-view></router-view>
+<Footer />
 </template>
 
 <style scoped>

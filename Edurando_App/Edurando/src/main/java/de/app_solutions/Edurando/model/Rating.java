@@ -1,8 +1,9 @@
 package de.app_solutions.Edurando.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -12,7 +13,9 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ratingID;
     private Float stars;
-    private String comment;
+    private String title;
+    private Date date;
+    private String description;
 
     @ManyToOne
     private UserProfile author;
