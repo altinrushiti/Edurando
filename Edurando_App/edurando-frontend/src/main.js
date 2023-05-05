@@ -12,5 +12,5 @@ library.add(faFacebook, faTwitter, faInstagram, faTiktok, faArrowUp, faHome, faC
 
 const app = createApp(App);
 app.component('font-awesome-icon', FontAwesomeIcon);
-app.mount('#app');
 app.use(router);
+app.mount('#app');
