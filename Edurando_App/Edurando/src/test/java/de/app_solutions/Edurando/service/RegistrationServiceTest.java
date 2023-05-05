@@ -22,7 +22,7 @@ public class RegistrationServiceTest {
     private UserProfileService userProfileService;
 
     @Mock
-    private EmailValidatorTest emailValidator;
+    private EmailValidator emailValidator;
     @Mock
     private EmailSender emailSender;
     @Mock
