@@ -98,7 +98,7 @@ export default defineComponent({
         registerUser() {
           axios.post('http://localhost:9001/api/v1/register', this.user)
               .then(response => {
-                console.log(response.data);
+                console.log(response);
                 this.result = response.data
               })
               .catch(error => {

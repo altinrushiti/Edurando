@@ -27,6 +27,7 @@ public class UserProfile implements UserDetails {
     private String personalBiography;
     private Float rating;
     private String gender;
+    private String tutoringLocation;
     private String username;
     private String password;
 
