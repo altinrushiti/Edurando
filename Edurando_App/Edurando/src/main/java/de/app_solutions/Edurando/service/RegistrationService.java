@@ -91,8 +91,8 @@ public class RegistrationService {
         if (expiredAt.isBefore(LocalDateTime.now())) {
             throw new IllegalStateException("token expired");
         }
-
-        confirmationTokenService.setConfirmationAt(token);
+        confirmationToken.setConfirmedAt(LocalDateTime.now());
+        //confirmationTokenService.setConfirmationAt(token);
         userProfileService.enableAppUser(confirmationToken.getUser().getUsername());
         return "verifizierung_erfolgreich";
 
