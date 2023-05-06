@@ -10,10 +10,14 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -38,18 +42,21 @@ public class ConfirmationTokenServiceTest {
     }
 
     @Test
-    public void testSetConfirmationAt() {
+    void testGetToken() {
         // Arrange
         String token = "test_token";
-        LocalDateTime now = LocalDateTime.now();
-        //when(confirmationTokenRepository.updateConfirmedAt(eq(token), eq(now))).thenReturn(1);
+        ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(30), null);
+        when(confirmationTokenRepository.findByToken(token)).thenReturn(Optional.of(confirmationToken));
 
         // Act
-        int result = confirmationTokenService.setConfirmationAt(token);
+        Optional<ConfirmationToken> result = confirmationTokenService.getToken(token);
 
         // Assert
-        assertEquals(1, result);
-        verify(confirmationTokenRepository, times(1)).updateConfirmedAt(eq(token), eq(now));
+        assertTrue(result.isPresent());
+        assertEquals(confirmationToken, result.get());
     }
+
+
+
 
 }
