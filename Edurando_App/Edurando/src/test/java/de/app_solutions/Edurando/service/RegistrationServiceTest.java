@@ -8,7 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,20 +21,20 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 public class RegistrationServiceTest {
 
-    @Mock
+    @MockBean
     private UserProfileService userProfileService;
 
-    @Mock
+    @MockBean
     private EmailValidator emailValidator;
-    @Mock
+    @MockBean
     private EmailSender emailSender;
-    @Mock
+    @MockBean
     private ConfirmationTokenService confirmationTokenService;
 
-    @Mock
+    @MockBean
     private PasswordValidator passwordValidator;
 
-    @InjectMocks
+    @Autowired
     private RegistrationService registrationService;
 
     @Test
