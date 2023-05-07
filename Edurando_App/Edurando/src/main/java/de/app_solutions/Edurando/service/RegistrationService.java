@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @Service
 @AllArgsConstructor
 public class RegistrationService {
-
     private final UserProfileService userProfileService;
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
@@ -57,28 +56,34 @@ public class RegistrationService {
         } if (!passwordHasSpecialChar) {
             sb.append("Password needs at least 1 special character,");
             pw_count++;
+        } if (!request.getTermsAgreed()) {
+            sb.append("Terms of Service not Agreed");
+            pw_count++;
+        } if (!request.getPrivacyAgreed()) {
+            sb.append("Privacy Policy not Agreed");
+            pw_count++;
         } if (pw_count > 0) {
-            String final_msg = sb.toString();
-            //System.err.printf("%b,%s", false, final_msg.substring(0, final_msg.length() - 1));
-            Pair<Boolean, String> tuple = Pair.of(false, final_msg.substring(0, final_msg.length() - 1));
-            System.err.println(tuple);
-            return tuple;
+                String final_msg = sb.toString();
+                //System.err.printf("%b,%s", false, final_msg.substring(0, final_msg.length() - 1));
+                Pair<Boolean, String> tuple = Pair.of(false, final_msg.substring(0, final_msg.length() - 1));
+                System.err.println(tuple);
+                return tuple;
 
         } else {
-            String token = userProfileService.signUpUser(new UserProfile(
-                    request.getRole(),
-                    request.getFirstName(),
-                    request.getLastName(),
-                    request.getEmail(),
-                    request.getPassword()
-                    )
-            );
-            String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", token);
-            emailSender.send(request.getEmail(), buildEmail(request, link));
+                String token = userProfileService.signUpUser(new UserProfile(
+                                request.getRole(),
+                                request.getFirstName(),
+                                request.getLastName(),
+                                request.getEmail(),
+                                request.getPassword()
+                        )
+                );
+                String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", token);
+                emailSender.send(request.getEmail(), buildEmail(request, link));
 
-            Pair<Boolean, String> tuple = Pair.of(true, "Registration was successful");
-            System.err.println(tuple);
-            return tuple;
+                Pair<Boolean, String> tuple = Pair.of(true, "Registration was successful");
+                System.err.println(tuple);
+                return tuple;
         }
     }
 

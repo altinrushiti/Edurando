@@ -18,7 +18,7 @@ class ConfirmationTokenRepositoryTest {
 
     @Autowired
     private ConfirmationTokenRepository confirmationTokenRepository;
-   @Autowired
+    @Autowired
     private UserProfileRepository userProfileRepository;
 
     @Test

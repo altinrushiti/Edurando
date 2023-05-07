@@ -43,7 +43,7 @@ public class RegistrationServiceTest {
     @Test
     void testRegisterSuccess() {
         // Mocking
-        RegistrationRequest request = new RegistrationRequest("Student", "Max", "Mustermann", "max.mustermann@example.com", "password", "password");
+        RegistrationRequest request = new RegistrationRequest("Student", "Max", "Mustermann", "max.mustermann@example.com", "password", "password", true, true);
         when(emailValidator.uniqueMail(anyString())).thenReturn(true);
         when(emailValidator.testMail(anyString())).thenReturn(true);
         when(passwordValidator.matchTest(anyString(), anyString())).thenReturn(true);
@@ -68,7 +68,7 @@ public class RegistrationServiceTest {
 
         // Arrange
         RegistrationRequest request = new RegistrationRequest("Student", "Max", "Mustermann",
-                "max.mustermann@example.com", "password", "password");
+                "max.mustermann@example.com", "password", "password", true, true);
         when(emailValidator.uniqueMail(Mockito.anyString())).thenReturn(false);
         sb.append("Email Exists,");
         when(emailValidator.testMail(Mockito.anyString())).thenReturn(false);
