@@ -6,6 +6,7 @@ import de.app_solutions.Edurando.model.RegistrationRequest;
 import de.app_solutions.Edurando.model.Role;
 import de.app_solutions.Edurando.model.UserProfile;
 import lombok.AllArgsConstructor;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +24,7 @@ public class RegistrationService {
     private final PasswordValidator passwordValidator;
 
 
-    public String register(RegistrationRequest request) {
+    public Pair<Boolean, String> register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.testMail(request.getEmail());
         boolean uniqueMail = emailValidator.uniqueMail(request.getEmail());
         boolean passwordsMatch = passwordValidator.matchTest(request.getPassword(), request.getPasswordRepeat());
@@ -36,30 +37,32 @@ public class RegistrationService {
         StringBuilder sb = new StringBuilder();
 
         if (!uniqueMail) {
-            sb.append("Email Exists\n");
+            sb.append("Email Exists,");
             pw_count++;
         } if (!isValidEmail) {
-            sb.append("E-Mail not valid\n");
+            sb.append("E-Mail not valid,");
             pw_count++;
         } if (!passwordsMatch) {
-            sb.append("Passwords do not match\n");
+            sb.append("Passwords do not match,");
             pw_count++;
         } if (!passwordsLength) {
-            sb.append("Password needs minimum length of 8\n");
+            sb.append("Password needs minimum length of 8,");
             pw_count++;
         } if (!passwordHasUpperAndLowerCase) {
-            sb.append("Password needs at least 1 upper and 1 lower case character\n");
+            sb.append("Password needs at least 1 upper and 1 lower case character,");
             pw_count++;
         } if (!passwordHasDigit) {
-            sb.append("Password needs at least 1 digit\n");
+            sb.append("Password needs at least 1 digit,");
             pw_count++;
         } if (!passwordHasSpecialChar) {
-            sb.append("Password needs at least 1 special character\n");
+            sb.append("Password needs at least 1 special character,");
             pw_count++;
         } if (pw_count > 0) {
             String final_msg = sb.toString();
-            System.err.printf("(%b , %s)", false, final_msg);
-            return String.format("(%b , %s)", false, final_msg);
+            //System.err.printf("%b,%s", false, final_msg.substring(0, final_msg.length() - 1));
+            Pair<Boolean, String> tuple = Pair.of(false, final_msg.substring(0, final_msg.length() - 1));
+            System.err.println(tuple);
+            return tuple;
 
         } else {
             String token = userProfileService.signUpUser(new UserProfile(
@@ -73,8 +76,9 @@ public class RegistrationService {
             String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", token);
             emailSender.send(request.getEmail(), buildEmail(request, link));
 
-            System.err.printf("(%b, Registration was successful)\n", true);
-            return String.format("(%b, Registration was successful)\n", true);
+            Pair<Boolean, String> tuple = Pair.of(true, "Registration was successful");
+            System.err.println(tuple);
+            return tuple;
         }
     }
 

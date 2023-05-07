@@ -38,6 +38,7 @@
                    required
                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="Email address">
+              <p>{{this.user.email}}</p>
           </div>
           <div>
             <label for="password" class="text-black font-font-family p-1">Password</label>
@@ -57,9 +58,9 @@
         <div>
           <button type="submit"
                   class=" text-center mx-auto w-1/2 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#483d8b] hover:bg-purple-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-            <router-link to="/confirm">
+<!--            <router-link to="/confirm">-->
             Sign up
-            </router-link>
+<!--            </router-link>-->
           </button>
         </div>
       </form>
@@ -90,22 +91,20 @@ export default defineComponent({
           }
         }
       },
-      created() {
-      }, mounted() {
-
-      },
       methods: {
-        registerUser() {
-          axios.post('http://localhost:9001/api/v1/register', this.user)
-              .then(response => {
-                console.log(response.data);
-                this.result = response.data
-              })
-              .catch(error => {
-                console.log(error)
-              })
-        },
-      }
+          registerUser() {
+            axios.post('http://localhost:9001/api/v1/register', this.user)
+                .then(response => {
+                    response.statusText = response.data
+                    this.result = response.data
+                    this.$router.push({path: '/confirm'})
+                    console.log(response)
+                })
+                .catch(error => {
+                  console.log(error.request.response)
+                })
+          },
+      },
     }
 )
 </script>

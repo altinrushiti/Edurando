@@ -4,9 +4,16 @@ import de.app_solutions.Edurando.model.RegistrationRequest;
 import de.app_solutions.Edurando.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.data.util.Pair;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "api/v1")
@@ -17,8 +24,10 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @PostMapping("/register")
-    public String register(@RequestBody RegistrationRequest request) {
-        return registrationService.register(request);
+    public ResponseEntity<String> register(@RequestBody RegistrationRequest request) {
+        Pair<Boolean, String> response = registrationService.register(request);
+        if (response.getFirst()) return ResponseEntity.ok(response.getSecond());
+        else return ResponseEntity.badRequest().body(response.getSecond());
     }
 
 
