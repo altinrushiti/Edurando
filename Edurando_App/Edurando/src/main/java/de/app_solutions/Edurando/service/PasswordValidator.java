@@ -3,8 +3,7 @@ package de.app_solutions.Edurando.service;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
-import java.util.function.BiPredicate;
-import java.util.function.Predicate;
+
 
 @Service
 public class PasswordValidator {
