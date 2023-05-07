@@ -8,14 +8,7 @@
       </div>
       <form class="mt-8 space-y-6" @submit.prevent="registerUser">
         <div class="rounded-md shadow-sm space-y-2">
-          <div>
-            <label for="role" class="text-black font-font-family p-2 font-size=10px">Role:  </label>
-            <select class="text-black" id="role" v-model="user.role">
-              <option value="" disabled>select role</option>
-              <option value="Student">Student</option>
-              <option value="Teacher">Teacher</option>
-            </select>
-          </div>
+
 
           <div>
             <label for="firstname" class="text-black font-font-family p-2">First Name</label>
@@ -54,6 +47,28 @@
                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="Repeat Password">
           </div>
+            <div>
+                <label for="role" class="text-black font-font-family flex p-1 font-size=10px">Role</label>
+                <select class="bg-white text-gray-900 rounded-none relative block w-full px-3 py-2 border border-gray-300 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" id="role" v-model="user.role">
+                    <option value="" disabled>Select role</option>
+                    <option value="Student">Student</option>
+                    <option value="Teacher">Teacher</option>
+                </select>
+            </div>
+            <div>
+                <label for="terms" class="text-black font-font-family flex p-1 font-size=10px">
+                    <input id="terms" name="terms" type="checkbox" v-model="user.termsAgreed" required>
+                    <span class="ml-2">Ich bin mit den Nutzungsbedingungen einverstanden.</span>
+                </label>
+            </div>
+            <div>
+                <label for="privacy" class="text-black font-font-family flex p-1 font-size=10px">
+                    <input id="privacy" name="privacy" type="checkbox" v-model="user.privacyAgreed" required>
+                    <span class="ml-2">Ich stimme der Datenschutzerklärung zu.</span>
+                </label>
+            </div>
+
+
         </div>
         <div>
           <button type="submit"
@@ -86,8 +101,9 @@ export default defineComponent({
             lastName: '',
             email: '',
             password: '',
-            passwordRepeat: ''
-
+            passwordRepeat: '',
+            termsAgreed: false,
+            privacyAgreed: false
           }
         }
       },
