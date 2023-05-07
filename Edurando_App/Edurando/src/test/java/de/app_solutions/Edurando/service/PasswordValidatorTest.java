@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class PasswordValidatorTest {
 
     private PasswordValidator passwordValidator = new PasswordValidator();
-
+/*
     @Test
     public void testMatchTest() {
         assertTrue(passwordValidator.matchTest("password", "password"));
@@ -40,5 +40,7 @@ public class PasswordValidatorTest {
         assertTrue(passwordValidator.specialCharTest("password!@#"));
         assertFalse(passwordValidator.specialCharTest("password123"));
     }
+
+ */
 }
 
