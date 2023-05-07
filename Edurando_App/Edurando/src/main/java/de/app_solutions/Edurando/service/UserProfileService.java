@@ -1,10 +1,13 @@
 package de.app_solutions.Edurando.service;
 
+import de.app_solutions.Edurando.config.security.PasswordEncoder;
 import de.app_solutions.Edurando.model.ConfirmationToken;
-import de.app_solutions.Edurando.model.EditPersonalDataRequest;
+import de.app_solutions.Edurando.model.EditPasswordRequest;
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -23,6 +25,9 @@ public class UserProfileService implements UserDetailsService {
     private final UserProfileRepository userProfileRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    private EditPasswordRequest pwRequest;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -60,12 +65,30 @@ public class UserProfileService implements UserDetailsService {
         return userProfileRepository.enableAppUser(email);
     }
 
-    public List<UserProfile> getAllUsers() {
-        return userProfileRepository.findAll();
-    }
+    public Pair<Boolean, String> editPassword(UserProfile user) {
 
-    public String editPersonalData(EditPersonalDataRequest editPersonalDataRequest) {
-        UserProfile user = userProfileRepository.findUserProfileById(editPersonalDataRequest.getId()).orElseThrow();
-        return "";
+      /*  if (pwRequest.getCurrentPassword().equals(user.getPassword())) {
+            Pair<Boolean, String> tuple = Pair.of(false, "Neues Passwort konnte nicht gesetzt werden, da es dem Vorigen entspricht.");
+            System.err.println(tuple);
+            return tuple;
+        }
+        if (pwRequest.matchTest(pwRequest.getCurrentPassword(), pwRequest.getCurrentPasswordRepeat()) &&
+                pwRequest.lengthTest(pwRequest.getCurrentPassword()) &&
+                pwRequest.upperLowerCaseTest(pwRequest.getCurrentPassword()) &&
+                pwRequest.digitTest(pwRequest.getCurrentPassword()) &&
+                pwRequest.specialCharTest(pwRequest.getCurrentPassword())) {
+
+
+        }
+
+        // Setzen Sie das neue Passwort
+        String encodedNewPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedNewPassword);
+
+        // Speichern Sie die aktualisierten Nutzerdaten in der Datenbank
+        userRepository.save(user);
+    }
+*/
+        return null;
     }
 }

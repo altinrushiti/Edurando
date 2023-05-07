@@ -37,7 +37,7 @@ public class RegistrationControllerTest {
     @Test
     void testRegister() throws Exception {
         // Arrange
-        RegistrationRequest request = new RegistrationRequest("Student","Max", "Mustermann", "max.mustermann@example.com", "password","password");
+        RegistrationRequest request = new RegistrationRequest("Student","Max", "Mustermann", "max.mustermann@example.com", "password","password",true,true);
         String requestJson = new ObjectMapper().writeValueAsString(request); // serializing the request object to JSON string
         Pair<Boolean, String> registrationResponse = Pair.of(true, "Registration was successful");
         when(registrationService.register(request)).thenReturn(registrationResponse);

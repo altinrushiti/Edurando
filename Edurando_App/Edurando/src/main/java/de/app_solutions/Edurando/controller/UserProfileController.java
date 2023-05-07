@@ -22,7 +22,7 @@ public class UserProfileController {
     private final UserProfileService userProfileService;
 
 
-    @GetMapping("/profiles")
+    /*@GetMapping("/profiles")
     public List<UserProfile> getUserProfiles() {
         return userProfileService.getAllUsers();
     }
@@ -30,6 +30,6 @@ public class UserProfileController {
     @PostMapping("/updatePersonalData")
     public String updatePersonalData(EditPersonalDataRequest editPersonalDataRequest) {
         return userProfileService.editPersonalData(editPersonalDataRequest);
-    }
+    }*/
 
 }
