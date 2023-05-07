@@ -13,9 +13,6 @@ import java.util.Optional;
 public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {
     Optional<UserProfile> findUserProfileByUsername(String email);
 
-
-
-
     @Transactional
     @Modifying
     @Query("UPDATE UserProfile a " +
