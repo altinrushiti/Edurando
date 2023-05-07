@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.util.Pair;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -26,8 +27,10 @@ public class RegistrationServiceTest {
 
     @MockBean
     private EmailValidator emailValidator;
+
     @MockBean
     private EmailSender emailSender;
+
     @MockBean
     private ConfirmationTokenService confirmationTokenService;
 
@@ -50,9 +53,11 @@ public class RegistrationServiceTest {
         when(passwordValidator.specialCharTest(anyString())).thenReturn(true);
         when(userProfileService.signUpUser(Mockito.any(UserProfile.class))).thenReturn("token");
         // Test
-        String result = registrationService.register(request);
+        Pair<Boolean,String> result = registrationService.register(request);
+
+
         // Verify
-        assertEquals("(true, Registration was successful)\n", result);
+        assertEquals(Pair.of(true, "Registration was successful"), result);
         //Mockito.verify(emailSender).send(anyString(), anyString());
     }
 
@@ -65,27 +70,28 @@ public class RegistrationServiceTest {
         RegistrationRequest request = new RegistrationRequest("Student", "Max", "Mustermann",
                 "max.mustermann@example.com", "password", "password");
         when(emailValidator.uniqueMail(Mockito.anyString())).thenReturn(false);
-        sb.append("Email Exists\n");
+        sb.append("Email Exists,");
         when(emailValidator.testMail(Mockito.anyString())).thenReturn(false);
-        sb.append("E-Mail not valid\n");
+        sb.append("E-Mail not valid,");
         when(passwordValidator.matchTest(Mockito.anyString(), Mockito.anyString())).thenReturn(false);
-        sb.append("Passwords do not match\n");
+        sb.append("Passwords do not match,");
         when(passwordValidator.lengthTest(Mockito.anyString())).thenReturn(false);
-        sb.append("Password needs minimum length of 8\n");
+        sb.append("Password needs minimum length of 8,");
         when(passwordValidator.upperLowerCaseTest(Mockito.anyString())).thenReturn(false);
-        sb.append("Password needs at least 1 upper and 1 lower case character\n");
+        sb.append("Password needs at least 1 upper and 1 lower case character,");
         when(passwordValidator.digitTest(Mockito.anyString())).thenReturn(false);
-        sb.append("Password needs at least 1 digit\n");
+        sb.append("Password needs at least 1 digit,");
         when(passwordValidator.specialCharTest(Mockito.anyString())).thenReturn(false);
-        sb.append("Password needs at least 1 special character\n");
+        sb.append("Password needs at least 1 special character,");
 
-        String final_msg = String.format("(%b , %s)", false, sb.toString());
+        String final_msg = sb.toString();
+        Pair<Boolean, String> final_tuple = Pair.of(false, final_msg.substring(0, final_msg.length() - 1));
 
         // Act
-        String result = registrationService.register(request);
+        Pair<Boolean,String> result = registrationService.register(request);
 
         // Assert
-        Assertions.assertEquals(final_msg, result);
+        Assertions.assertEquals(final_tuple, result);
 
     }
 
