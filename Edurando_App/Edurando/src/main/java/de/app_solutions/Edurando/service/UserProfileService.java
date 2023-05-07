@@ -1,6 +1,7 @@
 package de.app_solutions.Edurando.service;
 
 import de.app_solutions.Edurando.model.ConfirmationToken;
+import de.app_solutions.Edurando.model.EditPersonalDataRequest;
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
 import lombok.Data;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -58,4 +60,12 @@ public class UserProfileService implements UserDetailsService {
         return userProfileRepository.enableAppUser(email);
     }
 
+    public List<UserProfile> getAllUsers() {
+        return userProfileRepository.findAll();
+    }
+
+    public String editPersonalData(EditPersonalDataRequest editPersonalDataRequest) {
+        UserProfile user = userProfileRepository.findUserProfileById(editPersonalDataRequest.getId()).orElseThrow();
+        return "";
+    }
 }
