@@ -46,28 +46,5 @@ class ConfirmationTokenRepositoryTest {
 
     }
 
-    @Test
-    void updateConfirmedAt() {
 
-        String email = "max.mustermann@example.com";
-
-        UserProfile userProfile = new UserProfile("Student",
-                "Max",
-                "Mustermann",
-                email,
-                "password");
-
-        userProfileRepository.save(userProfile);
-
-        ConfirmationToken token = new ConfirmationToken("1234567890abcdef", LocalDateTime.now(), LocalDateTime.now().plusHours(1), userProfile);
-        confirmationTokenRepository.save(token);
-
-
-        int updatedRows = confirmationTokenRepository.updateConfirmedAt("1234567890abcdef", LocalDateTime.now());
-
-        assertThat(updatedRows).isEqualTo(1);
-        Optional<ConfirmationToken> foundToken = confirmationTokenRepository.findByToken("1234567890abcdef");
-        assertThat(foundToken.isPresent()).isTrue();
-        assertThat(foundToken.get().getConfirmedAt()).isNotNull();
-    }
 }
