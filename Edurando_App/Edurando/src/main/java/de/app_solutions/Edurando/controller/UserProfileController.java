@@ -2,12 +2,8 @@ package de.app_solutions.Edurando.controller;
 
 import de.app_solutions.Edurando.model.EditPersonalDataRequest;
 import de.app_solutions.Edurando.model.UserProfile;
-import de.app_solutions.Edurando.repository.UserProfileRepository;
 import de.app_solutions.Edurando.service.UserProfileService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +18,7 @@ public class UserProfileController {
     private final UserProfileService userProfileService;
 
 
-    /*@GetMapping("/profiles")
+    @GetMapping("/profiles")
     public List<UserProfile> getUserProfiles() {
         return userProfileService.getAllUsers();
     }
@@ -30,6 +26,6 @@ public class UserProfileController {
     @PostMapping("/updatePersonalData")
     public String updatePersonalData(EditPersonalDataRequest editPersonalDataRequest) {
         return userProfileService.editPersonalData(editPersonalDataRequest);
-    }*/
+    }
 
 }

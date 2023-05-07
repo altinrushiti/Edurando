@@ -67,5 +67,4 @@ public class UserProfileControllerTest {
                 .andExpect(content().json("[{\"id\":null,\"firstName\":\"Max\",\"lastName\":\"Mustermann\",\"mobile\":null,\"profilePictureReference\":null,\"personalBiography\":null,\"rating\":null,\"gender\":null,\"username\":\"max.mustermann@stud.th-luebeck.de\",\"password\":\"MaxMustermann_123\",\"subjects\":null,\"topics\":null,\"ratings\":null,\"role\":\"student\",\"address\":null,\"locked\":false,\"enabled\":false,\"authorities\":[{\"authority\":\"student\"}],\"accountNonExpired\":true,\"credentialsNonExpired\":true,\"accountNonLocked\":true}]"));
 
     }
-
 }
