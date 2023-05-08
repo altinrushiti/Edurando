@@ -48,7 +48,7 @@ public class EmailValidator {
         if (isUnique && isValid) {
             return Pair.of(true, "Email is valid");
         } else {
-            return Pair.of(false, finalMsg);
+            return Pair.of(false, finalMsg.substring(0, finalMsg.length() - 1));
         }
 
     }
