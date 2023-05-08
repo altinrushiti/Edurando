@@ -3,11 +3,12 @@ stages:
   - test
   - deploy
 
+before_script:
+  -apk update && apk add findutils
+
 build-job:
   stage: build
   image: openjdk:17
-  #variables:
-  #  JAVA_HOME: "/mnt/c/Program Files/Common Files/Oracle/Java/"
   script:
     - cd Edurando_App/Edurando
     - chmod +x ./gradlew
@@ -15,8 +16,6 @@ build-job:
 
 unit-test-job:
   stage: test
-  variables:
-    JAVA_HOME: "/mnt/c/Program Files/Common Files/Oracle/Java/"
   script:
     - cd Edurando_App/Edurando
     - chmod +x ./gradlew
