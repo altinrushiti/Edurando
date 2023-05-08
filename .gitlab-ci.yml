@@ -4,8 +4,6 @@ stages:
   - test
   - deploy
 
-before_script:
-  - apk add findutils
 
 build-job:
   stage: build
@@ -24,8 +22,6 @@ unit-test-job:
 
 deploy-job:
   stage: deploy
-  variables:
-    JAVA_HOME: "/mnt/c/Program Files/Common Files/Oracle/Java/"
   script:
     - cd Edurando_App/Edurando
     - chmod +x ./gradlew
