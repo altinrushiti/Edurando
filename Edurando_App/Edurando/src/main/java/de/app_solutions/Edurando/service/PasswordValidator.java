@@ -31,7 +31,7 @@ public class PasswordValidator {
             sb.append("Password needs at least 1 digit,");
             pw_count++;
         }
-        if (s1.chars().anyMatch(Character::isLetterOrDigit)) {
+        if (s1.matches("[a-zA-Z0-9]*")) {
             sb.append("Password needs at least 1 special character,");
             pw_count++;
         }
