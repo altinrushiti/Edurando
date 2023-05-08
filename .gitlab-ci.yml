@@ -5,8 +5,9 @@ stages:
 
 build-job:
   stage: build
-  variables:
-    JAVA_HOME: "/mnt/c/Program Files/Common Files/Oracle/Java/"
+  image: openjdk:17
+  #variables:
+  #  JAVA_HOME: "/mnt/c/Program Files/Common Files/Oracle/Java/"
   script:
     - cd Edurando_App/Edurando
     - chmod +x ./gradlew
