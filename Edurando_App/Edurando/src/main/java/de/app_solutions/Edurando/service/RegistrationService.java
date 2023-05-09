@@ -33,11 +33,16 @@ public class RegistrationService {
         Pair<Boolean, String> result;
 
         boolean valid = pwTest.getFirst() && emailTest.getFirst();
+        boolean pwValid = true;
 
         if (!pwTest.getFirst()) {
             sb.append(pwTest.getSecond());
+            pwValid = false;
         }
         if (!emailTest.getFirst()) {
+            if(!pwValid) {
+                sb.append(",");
+            }
             sb.append(emailTest.getSecond());
         }
         //sb.append(pwTest.getSecond()).append(emailTest.getSecond());
@@ -46,7 +51,7 @@ public class RegistrationService {
             valid = false;
         }
         if (!request.getPrivacyAgreed()) {
-            sb.append("Privacy Policy not Agreed,");
+            sb.append("Privacy Policy not Agreed");
             valid = false;
         }
         if (valid) {
@@ -64,7 +69,7 @@ public class RegistrationService {
 
         } else {
             String message = sb.toString();
-            result = Pair.of(false, message.substring(0, message.length() - 1));
+            result = Pair.of(false, message);
 
         }
         System.err.println(result);

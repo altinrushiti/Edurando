@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import RegistrationPage from "./RegistrationPage.vue"
 
 export default {}
 </script>
