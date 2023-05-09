@@ -25,23 +25,23 @@ public class PasswordValidatorTest {
     @Test
     public void passwordUpperLowerCaseFailTest() {
         assertEquals(Pair.of(false, "Password needs at least 1 upper and 1 lower case character"), passwordValidator.passwordTest("hello123!", "hello123!"));
-
     }
 
     @Test
     public void passwordDigitFailTest() {
         assertEquals(Pair.of(false, "Password needs at least 1 digit"), passwordValidator.passwordTest("HelloWorld!", "HelloWorld!"));
-
     }
 
     @Test
     public void passwordSpecialCharFailTest() {
         assertEquals(Pair.of(false, "Password needs at least 1 special character"), passwordValidator.passwordTest("HelloWorld123", "HelloWorld123"));
     }
+
     @Test
     public void passwordAllCriteriumFailTest() {
         assertEquals(Pair.of(false, "Passwords do not match,Password needs minimum length of 8,Password needs at least 1 upper and 1 lower case character,Password needs at least 1 digit,Password needs at least 1 special character"), passwordValidator.passwordTest("hell", "hello"));
     }
+
     @Test
     public void passwordAllCriteriumSuccessTest() {
         assertEquals(Pair.of(true, "Password is valid"), passwordValidator.passwordTest("Hello_World123!", "Hello_World123!"));

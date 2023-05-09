@@ -46,9 +46,9 @@ public class EmailValidator {
         finalMsg = sb.toString();
 
         if (isUnique && isValid) {
-            return Pair.of(true, "Email is valid");
+            return Pair.of(true, "Email is valid,");
         } else {
-            return Pair.of(false, finalMsg.substring(0, finalMsg.length() - 1));
+            return Pair.of(false, finalMsg);
         }
 
     }

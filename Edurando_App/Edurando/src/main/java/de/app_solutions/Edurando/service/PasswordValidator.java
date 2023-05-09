@@ -37,10 +37,10 @@ public class PasswordValidator {
         }
         if (pw_count > 0) {
             finalMsg = sb.toString();
-            tuple = Pair.of(false, finalMsg.substring(0, finalMsg.length() - 1));
+            tuple = Pair.of(false, finalMsg);
 
         } else {
-            tuple = Pair.of(true, "Password is valid");
+            tuple = Pair.of(true, "Password is valid,");
         }
         return tuple;
 
