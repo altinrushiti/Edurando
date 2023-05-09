@@ -1,10 +1,8 @@
 package de.app_solutions.Edurando.service;
 
 import de.app_solutions.Edurando.config.security.PasswordEncoder;
-import de.app_solutions.Edurando.model.ConfirmationToken;
-import de.app_solutions.Edurando.model.EditPasswordRequest;
-import de.app_solutions.Edurando.model.EditPersonalDataRequest;
-import de.app_solutions.Edurando.model.UserProfile;
+import de.app_solutions.Edurando.model.*;
+import de.app_solutions.Edurando.repository.AddressRepository;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -25,8 +25,10 @@ public class UserProfileService implements UserDetailsService {
 
     private final static String USER_NOT_FOUND = "user with email %s not found";
     private final UserProfileRepository userProfileRepository;
+    private final AddressRepository addressRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
     private EditPasswordRequest pwRequest;
@@ -99,6 +101,45 @@ public class UserProfileService implements UserDetailsService {
     }
 
     public String editPersonalData(EditPersonalDataRequest editPersonalDataRequest) {
+        Address address;
+        Optional<Address> addressN = addressRepository.findAddressByStreetAndHouseNumberAndCityAndPostCodeAndState(editPersonalDataRequest.getStreet(),
+                                                                                                                editPersonalDataRequest.getHouseNumber(),
+                                                                                                                editPersonalDataRequest.getCity(),
+                                                                                                                editPersonalDataRequest.getPostCode(),
+                                                                                                                editPersonalDataRequest.getState());
+        UserProfile user = userProfileRepository.findById(editPersonalDataRequest.getId()).orElseThrow(() -> new UsernameNotFoundException(String.format("User not found: %s", editPersonalDataRequest.getId())));
+        if (!editPersonalDataRequest.getFirstName().trim().equals("")) user.setFirstName(editPersonalDataRequest.getFirstName());
+        if (!editPersonalDataRequest.getLastName().trim().equals("")) user.setLastName(editPersonalDataRequest.getLastName());
+        if (!editPersonalDataRequest.getGender().trim().equals("")) user.setGender(editPersonalDataRequest.getGender());
+        if (!editPersonalDataRequest.getRole().trim().equals("")) user.setRole(editPersonalDataRequest.getRole().equals("Student") ? Role.student : Role.teacher);
+        if (!editPersonalDataRequest.getPersonalBiography().trim().equals("")) user.setPersonalBiography(editPersonalDataRequest.getPersonalBiography());
+        if (!editPersonalDataRequest.getMobile().trim().equals("")) user.setMobile(editPersonalDataRequest.getMobile());
+        if (!editPersonalDataRequest.getProfilePictureReference().trim().equals("")) user.setProfilePictureReference(editPersonalDataRequest.getProfilePictureReference());
+        if (addressN.isEmpty()) {
+            List<UserProfile> users = List.of(user);
+            address = new Address(editPersonalDataRequest.getStreet(),
+                    editPersonalDataRequest.getHouseNumber(),
+                    editPersonalDataRequest.getCity(),
+                    editPersonalDataRequest.getPostCode(),
+                    editPersonalDataRequest.getState(),
+                    users);
+        } else {
+            address = addressN.get();
+            if (!editPersonalDataRequest.getStreet().trim().equals(""))
+                address.setStreet(editPersonalDataRequest.getStreet());
+            if (!editPersonalDataRequest.getHouseNumber().trim().equals(""))
+                address.setHouseNumber(editPersonalDataRequest.getHouseNumber());
+            if (!editPersonalDataRequest.getCity().trim().equals(""))
+                address.setCity(editPersonalDataRequest.getCity());
+            if (!editPersonalDataRequest.getState().trim().equals(""))
+                address.setState(editPersonalDataRequest.getState());
+            if (editPersonalDataRequest.getPostCode() != -1)
+                address.setPostCode(editPersonalDataRequest.getPostCode());
+        }
+        addressRepository.save(address);
+        user.setAddress(address);
+        userProfileRepository.save(user);
+
         return "";
     }
 }

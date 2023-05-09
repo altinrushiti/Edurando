@@ -22,8 +22,17 @@ public class Address {
     private String street;
     private String houseNumber;
     private String city;
-    private String state;
     private Integer postCode;
+    private String state;
+
+    public Address(String street, String houseNumber, String city, Integer postCode, String state, List<UserProfile> userProfile) {
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.city = city;
+        this.postCode = postCode;
+        this.state = state;
+        this.userProfile = userProfile;
+    }
 
     @OneToMany
     private List<UserProfile> userProfile;
