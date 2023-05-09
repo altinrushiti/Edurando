@@ -34,7 +34,13 @@ public class RegistrationService {
 
         boolean valid = pwTest.getFirst() && emailTest.getFirst();
 
-        sb.append(pwTest.getSecond()).append(emailTest.getSecond());
+        if (!pwTest.getFirst()) {
+            sb.append(pwTest.getSecond());
+        }
+        if (!emailTest.getFirst()) {
+            sb.append(emailTest.getSecond());
+        }
+        //sb.append(pwTest.getSecond()).append(emailTest.getSecond());
         if (!request.getTermsAgreed()) {
             sb.append("Terms of Service not Agreed,");
             valid = false;
@@ -58,7 +64,7 @@ public class RegistrationService {
 
         } else {
             String message = sb.toString();
-            result = Pair.of(false,message.substring(0,message.length()-1));
+            result = Pair.of(false, message.substring(0, message.length() - 1));
 
         }
         System.err.println(result);
