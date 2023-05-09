@@ -1,7 +1,6 @@
 <script setup>
 
 import NavBar from "./modules/NavBar/components/NavBar.vue";
-import RegistrationPage from "@/modules/Registration/page/RegistrationPage.vue";
 import Footer from "@/modules/Footer/Footer.vue"
 import '@fortawesome/fontawesome-free/css/all.css'
 
@@ -9,7 +8,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 
 <template>
 <NavBar />
-  <RegistrationPage />
+    <RouterView />
 <Footer />
 </template>
 

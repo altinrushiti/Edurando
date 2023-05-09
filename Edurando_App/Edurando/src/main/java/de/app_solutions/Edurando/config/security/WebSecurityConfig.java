@@ -2,6 +2,7 @@ package de.app_solutions.Edurando.config.security;
 
 import de.app_solutions.Edurando.service.UserProfileService;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
+@EqualsAndHashCode(callSuper = false)
 @Data
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {

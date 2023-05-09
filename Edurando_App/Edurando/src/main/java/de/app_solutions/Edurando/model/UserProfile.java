@@ -22,26 +22,31 @@ public class UserProfile implements UserDetails {
 
     private String firstName;
     private String lastName;
+    private String mobile;
     private String profilePictureReference;
     private String personalBiography;
     private Float rating;
     private String gender;
+    private String tutoringLocation;
     private String username;
     private String password;
+    private Boolean termsAgreed;
+    private Boolean privacyAgreed;
 
     @ManyToMany
     private List<Subject> subjects;
 
-
     @ManyToMany
     private List<Topic> topics;
-
 
     @ManyToMany
     private List<Rating> ratings;
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @ManyToOne
+    private Address address;
 
     private boolean locked;
 
