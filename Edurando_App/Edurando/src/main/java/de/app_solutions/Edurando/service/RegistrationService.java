@@ -25,61 +25,45 @@ public class RegistrationService {
 
 
     public Pair<Boolean, String> register(RegistrationRequest request) {
-        boolean isValidEmail = emailValidator.testMail(request.getEmail());
-        boolean uniqueMail = emailValidator.uniqueMail(request.getEmail());
-        boolean passwordsMatch = passwordValidator.matchTest(request.getPassword(), request.getPasswordRepeat());
-        boolean passwordsLength = passwordValidator.lengthTest(request.getPassword());
-        boolean passwordHasUpperAndLowerCase = passwordValidator.upperLowerCaseTest(request.getPassword());
-        boolean passwordHasDigit = passwordValidator.digitTest(request.getPassword());
-        boolean passwordHasSpecialChar = passwordValidator.specialCharTest(request.getPassword());
 
-        int pw_count = 0;
+        //Password valid Test
+        Pair<Boolean, String> pwTest = passwordValidator.passwordTest(request.getPassword(), request.getPasswordRepeat());
+        Pair<Boolean, String> emailTest = emailValidator.testMail(request.getEmail());
         StringBuilder sb = new StringBuilder();
+        Pair<Boolean, String> result;
 
-        if (!uniqueMail) {
-            sb.append("Email Exists,");
-            pw_count++;
-        } if (!isValidEmail) {
-            sb.append("E-Mail not valid,");
-            pw_count++;
-        } if (!passwordsMatch) {
-            sb.append("Passwords do not match,");
-            pw_count++;
-        } if (!passwordsLength) {
-            sb.append("Password needs minimum length of 8,");
-            pw_count++;
-        } if (!passwordHasUpperAndLowerCase) {
-            sb.append("Password needs at least 1 upper and 1 lower case character,");
-            pw_count++;
-        } if (!passwordHasDigit) {
-            sb.append("Password needs at least 1 digit,");
-            pw_count++;
-        } if (!passwordHasSpecialChar) {
-            sb.append("Password needs at least 1 special character,");
-            pw_count++;
-        } if (pw_count > 0) {
-            String final_msg = sb.toString();
-            //System.err.printf("%b,%s", false, final_msg.substring(0, final_msg.length() - 1));
-            Pair<Boolean, String> tuple = Pair.of(false, final_msg.substring(0, final_msg.length() - 1));
-            System.err.println(tuple);
-            return tuple;
+        boolean valid = pwTest.getFirst() && emailTest.getFirst();
 
-        } else {
+        sb.append(pwTest.getSecond()).append(emailTest.getSecond());
+        if (!request.getTermsAgreed()) {
+            sb.append("Terms of Service not Agreed,");
+            valid = false;
+        }
+        if (!request.getPrivacyAgreed()) {
+            sb.append("Privacy Policy not Agreed,");
+            valid = false;
+        }
+        if (valid) {
             String token = userProfileService.signUpUser(new UserProfile(
-                    request.getRole(),
-                    request.getFirstName(),
-                    request.getLastName(),
-                    request.getEmail(),
-                    request.getPassword()
+                            request.getRole(),
+                            request.getFirstName(),
+                            request.getLastName(),
+                            request.getEmail(),
+                            request.getPassword()
                     )
             );
             String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", token);
             emailSender.send(request.getEmail(), buildEmail(request, link));
+            result = Pair.of(true, "Registration was successful");
 
-            Pair<Boolean, String> tuple = Pair.of(true, "Registration was successful");
-            System.err.println(tuple);
-            return tuple;
+        } else {
+            String message = sb.toString();
+            result = Pair.of(false,message.substring(0,message.length()-1));
+
         }
+        System.err.println(result);
+        return result;
+
     }
 
     @Transactional

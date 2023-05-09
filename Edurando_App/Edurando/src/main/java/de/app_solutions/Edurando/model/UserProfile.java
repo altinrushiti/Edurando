@@ -30,6 +30,8 @@ public class UserProfile implements UserDetails {
     private String tutoringLocation;
     private String username;
     private String password;
+    private Boolean termsAgreed;
+    private Boolean privacyAgreed;
 
     @ManyToMany
     private List<Subject> subjects;

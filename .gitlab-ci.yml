@@ -3,10 +3,10 @@ stages:
   - test
   - deploy
 
+
 build-job:
   stage: build
-  variables:
-    JAVA_HOME: "/mnt/c/Program Files/Common Files/Oracle/Java/"
+  image: openjdk:17
   script:
     - cd Edurando_App/Edurando
     - chmod +x ./gradlew
@@ -14,8 +14,6 @@ build-job:
 
 unit-test-job:
   stage: test
-  variables:
-    JAVA_HOME: "/mnt/c/Program Files/Common Files/Oracle/Java/"
   script:
     - cd Edurando_App/Edurando
     - chmod +x ./gradlew
@@ -23,8 +21,6 @@ unit-test-job:
 
 deploy-job:
   stage: deploy
-  variables:
-    JAVA_HOME: "/mnt/c/Program Files/Common Files/Oracle/Java/"
   script:
     - cd Edurando_App/Edurando
     - chmod +x ./gradlew
