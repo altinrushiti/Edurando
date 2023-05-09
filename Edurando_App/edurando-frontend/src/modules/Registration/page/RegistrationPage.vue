@@ -38,7 +38,6 @@
                    required
                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="Email address">
-              <p>{{this.user.email}}</p>
           </div>
           <div>
             <label for="password" class="text-black font-font-family p-1">Password</label>
@@ -92,7 +91,7 @@ export default defineComponent({
         }
       },
       methods: {
-          registerUser() {
+          ser() {
             axios.post('http://localhost:9001/api/v1/register', this.user)
                 .then(response => {
                     response.statusText = response.data
