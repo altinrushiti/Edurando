@@ -101,17 +101,16 @@ export default defineComponent({
         }
       },
       methods: {
-          registerUser() {
-            axios.post('http://localhost:9001/api/v1/register', this.user)
-                .then(response => {
-                    response.statusText = response.data
-                    this.result = response.data
-                    this.$router.push({path: '/confirm'})
-                    console.log(response)
-                })
-                .catch(error => {
-                  console.log(error.request.response)
-                })
+       async   registerUser() {
+           try {
+               const response = await axios.post('/register', this.user)
+               response.statusText = response.data
+               this.result = response.data
+               this.$router.push({ path: '/confirm' })
+               console.log(response)
+           } catch (error) {
+               console.log(error.request.response)
+           }
           },
       },
     }
