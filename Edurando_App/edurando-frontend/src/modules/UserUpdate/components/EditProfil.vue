@@ -48,18 +48,50 @@
               <option value="Teacher">Teacher</option>
             </select>
           </div>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label for="street" class="text-black font-font-family p-1">Street</label>
+              <input id="street" name="street" type="text" v-model="user.street"
+                     autocomplete="new-password" required
+                     class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                     placeholder="Street">
+            </div>
+            <div class="w-full md:w-1/2 px-3">
+              <label for="houseNumber" class="text-black font-font-family p-1">House Number</label>
+              <input id="houseNumber" name="houseNumber" type="text" v-model="user.houseNumber"
+                     autocomplete="new-password" required
+                     class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                     placeholder="House Number">
+            </div>
+          </div>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label for="city" class="text-black font-font-family p-1">City</label>
+              <input id="city" name="city" type="text" v-model="user.city"
+                     autocomplete="new-password" required
+                     class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                     placeholder="City">
+            </div>
+            <div class="w-full md:w-1/2 px-3">
+              <label for="state" class="text-black font-font-family p-1">State</label>
+              <input id="state" name="state" type="text" v-model="user.state"
+                     autocomplete="new-password" required
+                     class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                     placeholder="State">
+            </div>
+          </div>
           <div>
-            <label for="Street" class="text-black font-font-family p-1">Street</label>
-            <input id="Street" name="Street" type="Street" v-model="user.street"
+            <label for="mobile" class="text-black font-font-family mb-2">Mobile</label>
+            <input id="mobile" name="mobile" type="tel" v-model="user.mobile"
                    autocomplete="new-password" required
                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                   placeholder="Street">
+                   placeholder="Mobile number">
           </div>
         </div>
         <div>
           <button type="submit"
                   class=" text-center mx-auto w-1/2 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#483d8b] hover:bg-purple-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-            Save Change
+            Save Changes
           </button>
         </div>
       </form>
@@ -83,6 +115,10 @@ export default defineComponent({
         password: '',
         passwordRepeat: '',
         street: '',
+        housenumber:'',
+        city:'',
+        state:'',
+        mobilephone:'',
         biography: '',
         role: '',
         termsAgreed: false,
