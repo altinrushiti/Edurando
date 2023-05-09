@@ -1,114 +1,35 @@
 <template>
-    <div class="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8">
-            <div>
-                <h2 class="mt-5 text-center text-3xl font-extrabold text-gray-900">
-                    User Bearbeiten
-                </h2>
-            </div>
-            <form class="mt-8 space-y-6" @submit.prevent="edit">
-                <div class="rounded-md shadow-sm space-y-2">
-                    <div>
-                        <label for="firstname" class="text-black font-font-family p-2">First Name</label>
-                        <input id="firstname" name="firstname" type="text" v-model="user.firstName"
-                               autocomplete="firstname" required
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                               placeholder="Firstname">
-                    </div>
-                    <div>
-                        <label for="lastname" class="text-black font-font-family p-1">Last Name</label>
-                        <input id="lastname" name="lastname" type="text" v-model="user.lastName" autocomplete="lastname"
-                               required
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                               placeholder="Lastname">
-                    </div>
-
-                    <div>
-                        <label for="email-address" class="text-black font-font-family p-1">Email address</label>
-                        <input id="email-address" name="email" type="email" v-model="user.email" autocomplete="email"
-                               required
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                               placeholder="Email address">
-                    </div>
-                    <div>
-                        <label for="password" class="text-black font-font-family p-1">Current Password</label>
-                        <input id="password1" name="password1" type="password" v-model="user.password"
-                               autocomplete="new-password" required
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                               placeholder="Password">
-                    </div>
-                    <div>
-                        <label for="password" class="text-black font-font-family p-1">New Password</label>
-                        <input id="password1" name="password1" type="password" v-model="user.password"
-                               autocomplete="new-password" required
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                               placeholder="Password">
-                    </div>
-                    <div>
-                        <label for="password" class="text-black font-font-family p-1">Repeat New Password</label>
-                        <input id="password2" name="password2" type="password" v-model="user.passwordRepeat"
-                               autocomplete="new-password" required
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                               placeholder="Repeat Password">
-                    </div>
-                    <div>
-                        <label for="biography" class="text-black font-font-family p-1">Biography</label>
-                        <textarea id="biography" name="biography" v-model="user.biography" rows="5" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" placeholder="Write your biography here"></textarea>
-                    </div>
-                    <div>
-                        <label for="role" class="text-black font-font-family flex p-1 font-size=10px">Gender</label>
-                        <select class="bg-white text-gray-900 rounded-none relative block w-full px-3 py-2 border border-gray-300 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" id="role" v-model="user.role">
-                            <option value="" disabled>Select role</option>
-                            <option value="Student">Man</option>
-                            <option value="Teacher">Women</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="role" class="text-black font-font-family flex p-1 font-size=10px">Role</label>
-                        <select class="bg-white text-gray-900 rounded-none relative block w-full px-3 py-2 border border-gray-300 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" id="role" v-model="user.role">
-                            <option value="" disabled>Select role</option>
-                            <option value="Student">Student</option>
-                            <option value="Teacher">Teacher</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <button type="submit"
-                            class=" text-center mx-auto w-1/2 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#483d8b] hover:bg-purple-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                        Save Change
-                    </button>
-                </div>
-            </form>
+    <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+        <span class="sr-only">Open sidebar</span>
+        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+        </svg>
+    </button>
+    <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-50 h-screen transition-transform -translate-x-full sm:translate-x-0 mt-16" aria-label="Sidebar">
+    <div class="h-full px-3 py-4 overflow-y-auto bg-purple-50">
+            <ul class="space-y-2 font-medium text-[#483d8b]">
+                <li>
+                    <a href="/PersonalData" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
+                        <font-awesome-icon :icon="['fas', 'user']" />
+                        <span class="flex-1 ml-3 whitespace-nowrap">Personal Data</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/ChangePassword" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
+                        <font-awesome-icon :icon="['fas', 'key']" />
+                        <span class="flex-1 ml-3 whitespace-nowrap">Change Password</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SubjectsTopics" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
+                        <font-awesome-icon :icon="['fas', 'table-list']" />
+                        <span class="flex-1 ml-3 whitespace-nowrap">Subjects/Topics</span>
+                    </a>
+                </li>
+            </ul>
         </div>
-    </div>
-
+    </aside>
 </template>
 
-
 <script >
-import {defineComponent} from "vue";
-
-export default defineComponent({
-    name: 'Register',
-    data() {
-        return {
-            user: {
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                passwordRepeat: '',
-                biography: '',
-                role: '',
-                termsAgreed: false,
-                privacyAgreed: false
-            }
-        }
-    },
-    methods: {
-        register() {
-            console.log(this.user)
-        }
-    }
-})
 </script>
