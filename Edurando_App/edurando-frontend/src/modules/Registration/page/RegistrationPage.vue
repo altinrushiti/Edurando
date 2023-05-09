@@ -101,7 +101,7 @@ export default defineComponent({
         }
       },
       methods: {
-          registerUser() {
+          ser() {
             axios.post('http://localhost:9001/api/v1/register', this.user)
                 .then(response => {
                     response.statusText = response.data
