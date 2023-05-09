@@ -20,9 +20,13 @@ const router = createRouter({
         },
         {
             path: '/confirm',
-            props: true,
             name: 'confirm',
             component: Confirmation
+        },
+        {
+            path: '/edit',
+            name: 'edit',
+            component: EditPage
         },
     ]
 })
