@@ -7,16 +7,16 @@
       </div>
         <ul class="flex justify-around gap-2 ml-3 mr-2 text-2xl">
             <li class="hidden md:block">
-                <router-link to="/">
+                <RouterLink to="/">
                     <font-awesome-icon class="mr-2" icon="fa-solid fa-house"/>
                     <span>Home</span>
-                </router-link>
+                </RouterLink>
             </li>
             <li class="hidden md:block">
-                <router-link to="/about">
+                <RouterLink to="/about">
                     <font-awesome-icon class="mr-2" icon="fa-solid fa-circle-info"/>
                     <span>About</span>
-                </router-link>
+                </RouterLink>
             </li>
             <li class="flex-col md:hidden flex">
                 <button @click="toggleMenu">
@@ -24,14 +24,14 @@
                 </button>
                 <ul :class="showMenu ? 'flex-col' : 'hidden' ">
                     <li class="py-4">
-                        <router-link to="/">
+                        <RouterLink to="/">
                             <font-awesome-icon icon="fa-solid fa-house"/>
-                        </router-link>
+                        </RouterLink>
                     </li>
                     <li class="py-4">
-                        <router-link to="/">
+                        <RouterLink to="/">
                             <font-awesome-icon icon="fa-solid fa-circle-info"/>
-                        </router-link>
+                        </RouterLink>
                     </li>
                 </ul>
             </li>
