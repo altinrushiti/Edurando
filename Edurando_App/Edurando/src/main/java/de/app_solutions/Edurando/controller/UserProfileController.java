@@ -34,7 +34,6 @@ public class UserProfileController {
         return userProfileService.editPersonalData(editPersonalDataRequest);
     }
 
-
     @PutMapping("/editPassword")
     public ResponseEntity<String> editPassword(@RequestBody EditPasswordRequest passwordRequest) {
 

@@ -75,14 +75,14 @@ public class UserProfileService implements UserDetailsService {
         String currentUserPw = user.getPassword();
 
         if (!bCryptPasswordEncoder.matches(pwRequest.getCurrentPassword(), currentUserPw)) {
-            Pair<Boolean, String> tuple = Pair.of(false, "Das eingegebene aktuelle Passwort entspricht nicht dem aktuellen Nutzerpasswort.");
+            Pair<Boolean, String> tuple = Pair.of(false, "The current password entered does not match the current user password.");
             System.err.println(tuple);
             return tuple;
         }
 
         if (bCryptPasswordEncoder.matches(pwRequest.getNewPassword(), currentUserPw)) {
-            Pair<Boolean, String> tuple = Pair.of(false, "Passwort konnte nicht geändert werden, " +
-                    "da Ihre Eingabe mit dem Ihren vorigen Passwort übereinstimmt.");
+            Pair<Boolean, String> tuple = Pair.of(false, "Password could not be changed, \n" +
+                    "                    because the password you entered is the same as your previous password.");
             System.err.println(tuple);
             return tuple;
         }
@@ -101,7 +101,7 @@ public class UserProfileService implements UserDetailsService {
         // Speichern Sie die aktualisierten Nutzerdaten in der Datenbank
         userProfileRepository.save(user);
 
-        return Pair.of(true, "Passwort erfolgreich geändert.");
+        return Pair.of(true, "Password changed successfully.");
 }
 
     public List<UserProfile> getAllUsers() {
