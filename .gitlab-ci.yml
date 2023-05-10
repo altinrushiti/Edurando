@@ -21,6 +21,10 @@ before_script:
 
 
 build-job:
+  artifacts:
+    when: always
+    paths:
+      - builds
   stage: build
   script:
     - cd Edurando_App/Edurando
