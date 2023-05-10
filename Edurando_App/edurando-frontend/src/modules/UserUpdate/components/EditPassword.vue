@@ -7,26 +7,26 @@
       <form class="mt-8 space-y-6" @submit.prevent="edit">
         <div class="rounded-md shadow-sm space-y-2">
           <div>
-            <label for="currentPassword" class="mt-3 text-black font-font-family p-2">Current Password</label>
+            <label for="currentPassword" class="text-black font-font-family p-2">Current Password</label>
             <input id="currentPassword" name="currentPassword" type="text" v-model="user.currentPassword"
                    autocomplete="currentPassword" required
-                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                   class="mb-4 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="Current Password">
           </div>
 
           <div>
-            <label for="newPassword" class="mt-3 text-black font-font-family p-2">New Password</label>
+            <label for="newPassword" class="text-black font-font-family p-2">New Password</label>
             <input id="newPassword" name="newPassword" type="text" v-model="user.newPassword"
                    autocomplete="newPassword" required
-                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                   class="mb-4 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="New Password">
           </div>
 
           <div>
-            <label for="newPasswordRepeat" class="mt-3 text-black font-font-family p-2">Repeat New Password</label>
+            <label for="newPasswordRepeat" class="text-black font-font-family p-2">Repeat New Password</label>
             <input id="newPasswordRepeat" name="newPasswordRepeat" type="text" v-model="user.newPasswordRepeat"
                    autocomplete="newPasswordRepeat" required
-                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                   class="mb-4 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="Repeat New Password">
           </div>
 
@@ -68,6 +68,5 @@
 </script>
 
 <style scoped>
-
 </style>
 
