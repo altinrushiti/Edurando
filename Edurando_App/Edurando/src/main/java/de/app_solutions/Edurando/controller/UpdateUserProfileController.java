@@ -1,11 +1,12 @@
 package de.app_solutions.Edurando.controller;
 
+import de.app_solutions.Edurando.model.UserProfile;
+import de.app_solutions.Edurando.repository.UserProfileRepository;
 import de.app_solutions.Edurando.service.UpdateUserProfileService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.nio.file.Path;
 
 @RestController
 @RequestMapping(path = "api/v1")

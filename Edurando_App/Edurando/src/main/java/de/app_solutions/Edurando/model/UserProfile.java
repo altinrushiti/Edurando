@@ -1,6 +1,7 @@
 package de.app_solutions.Edurando.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class UserProfile implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +37,11 @@ public class UserProfile implements UserDetails {
     private Boolean privacyAgreed;
 
     @ManyToMany
+    @JsonManagedReference
     private List<Subject> subjects;
 
     @ManyToMany
+    @JsonManagedReference
     private List<Topic> topics;
 
     @ManyToMany
