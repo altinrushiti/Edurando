@@ -109,19 +109,18 @@ export default defineComponent({
   data() {
     return {
       user: {
+        id: 1,
         firstName: '',
         lastName: '',
+        biography: '',
+        gender:'',
+        role: '',
         email: '',
-        password: '',
-        passwordRepeat: '',
         street: '',
         housenumber:'',
         city:'',
         state:'',
         mobilephone:'',
-        biography: '',
-        role: '',
-        termsAgreed: false,
         privacyAgreed: false
       }
     }
