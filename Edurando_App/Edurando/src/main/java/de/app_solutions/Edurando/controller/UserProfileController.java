@@ -24,8 +24,8 @@ public class UserProfileController {
         return userProfileService.getAllUsers();
     }
 
-    @PostMapping("/updatePersonalData")
-    public String updatePersonalData(EditPersonalDataRequest editPersonalDataRequest) {
+    @PutMapping("/updatePersonalData")
+    public String updatePersonalData(@RequestBody EditPersonalDataRequest editPersonalDataRequest) {
         return userProfileService.editPersonalData(editPersonalDataRequest);
     }
 

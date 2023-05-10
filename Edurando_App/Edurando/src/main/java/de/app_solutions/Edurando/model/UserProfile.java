@@ -1,5 +1,6 @@
 package de.app_solutions.Edurando.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -46,6 +47,7 @@ public class UserProfile implements UserDetails {
     private Role role;
 
     @ManyToOne
+    @JsonIgnore
     private Address address;
 
     private boolean locked;
