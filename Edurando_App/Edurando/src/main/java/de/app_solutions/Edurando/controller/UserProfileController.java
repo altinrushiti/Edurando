@@ -23,8 +23,9 @@ public class UserProfileController {
     public List<UserProfile> getUserProfiles() {
         return userProfileService.getAllUsers();
     }
-    @GetMapping("/profile")
-    public UserProfile getUserProfile(Long id) {
+
+    @GetMapping("/profile/{id}")
+    public UserProfile getUserProfile(@PathVariable Long id) {
         return userProfileService.getUserById(id);
     }
 
