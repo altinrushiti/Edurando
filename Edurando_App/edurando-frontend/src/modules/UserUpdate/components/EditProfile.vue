@@ -111,17 +111,15 @@ export default defineComponent({
       user: {
         firstName: '',
         lastName: '',
+        biography: '',
+        gender:'',
+        role: '',
         email: '',
-        password: '',
-        passwordRepeat: '',
         street: '',
         housenumber:'',
         city:'',
         state:'',
         mobilephone:'',
-        biography: '',
-        role: '',
-        termsAgreed: false,
         privacyAgreed: false
       }
     }

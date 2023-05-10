@@ -3,7 +3,7 @@ import RegistrationPage from "@/modules/Registration/page/RegistrationPage.vue";
 import Confirmation from "@/modules/Registration/page/Confirmation.vue";
 import Home from "@/view/Home.vue";
 import EditPage from "@/modules/UserUpdate/EditPage.vue";
-import EditProfil from "@/modules/UserUpdate/components/EditProfil.vue";
+import EditProfile from "@/modules/UserUpdate/components/EditProfile.vue";
 import EditPassword from "@/modules/UserUpdate/components/EditPassword.vue";
 
 const router = createRouter({
@@ -30,9 +30,9 @@ const router = createRouter({
             component: EditPage
         },
         {
-            path: '/editprofil',
-            name: 'editprofil',
-            component: EditProfil
+            path: '/editprofile',
+            name: 'editprofile',
+            component: EditProfile
         },
         {
             path: '/EditPassword',
