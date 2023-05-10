@@ -1,4 +1,4 @@
-image: adoptopenjdk:17
+image: adoptopenjdk
 
 stages:
   - build
