@@ -8,7 +8,7 @@
         <div class="rounded-md shadow-sm space-y-2">
           <div>
             <label for="currentPassword" class="text-black font-font-family p-2">Current Password</label>
-            <input id="currentPassword" name="currentPassword" type="password" v-model="user.currentPassword"
+            <input id="currentPassword" name="currentPassword" type="password" v-model="password.currentPassword"
                    autocomplete="currentPassword" required
                    class="mb-4 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="Current Password">
@@ -16,7 +16,7 @@
 
           <div>
             <label for="newPassword" class="text-black font-font-family p-2">New Password</label>
-            <input id="newPassword" name="newPassword" type="password" v-model="user.newPassword"
+            <input id="newPassword" name="newPassword" type="password" v-model="password.newPassword"
                    autocomplete="newPassword" required
                    class="mb-4 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="New Password">
@@ -24,7 +24,7 @@
 
           <div>
             <label for="newPasswordRepeat" class="text-black font-font-family p-2">Repeat New Password</label>
-            <input id="newPasswordRepeat" name="newPasswordRepeat" type="password" v-model="user.newPasswordRepeat"
+            <input id="newPasswordRepeat" name="newPasswordRepeat" type="password" v-model="password.newPasswordRepeat"
                    autocomplete="newPasswordRepeat" required
                    class="mb-4 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="Repeat New Password">
