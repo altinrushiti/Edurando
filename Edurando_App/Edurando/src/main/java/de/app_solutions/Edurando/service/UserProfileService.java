@@ -108,6 +108,10 @@ public class UserProfileService implements UserDetailsService {
         return userProfileRepository.findAll();
     }
 
+    public UserProfile getUserById(Long id) {
+        return userProfileRepository.findUserProfileById(id).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_BY_ID, id)));
+    }
+
     public String editPersonalData(EditPersonalDataRequest editPersonalDataRequest) {
         Address address;
         Optional<Address> addressN = addressRepository.findAddressByStreetAndHouseNumberAndCityAndPostCodeAndState(editPersonalDataRequest.getStreet(),

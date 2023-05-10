@@ -23,6 +23,10 @@ public class UserProfileController {
     public List<UserProfile> getUserProfiles() {
         return userProfileService.getAllUsers();
     }
+    @GetMapping("/profile")
+    public UserProfile getUserProfile(Long id) {
+        return userProfileService.getUserById(id);
+    }
 
     @PutMapping("/updatePersonalData")
     public String updatePersonalData(@RequestBody EditPersonalDataRequest editPersonalDataRequest) {
