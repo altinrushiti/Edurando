@@ -81,8 +81,7 @@ public class UserProfileService implements UserDetailsService {
         }
 
         if (bCryptPasswordEncoder.matches(pwRequest.getNewPassword(), currentUserPw)) {
-            Pair<Boolean, String> tuple = Pair.of(false, "Password could not be changed, \n" +
-                    "                    because the password you entered is the same as your previous password.");
+            Pair<Boolean, String> tuple = Pair.of(false, "Password could not be changed, because the password you entered is the same as your previous password.");
             System.err.println(tuple);
             return tuple;
         }
