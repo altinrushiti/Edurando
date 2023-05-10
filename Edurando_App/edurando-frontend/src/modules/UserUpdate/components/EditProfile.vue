@@ -32,8 +32,8 @@
             <label for="role" class="text-black font-font-family flex p-1 font-size=10px">Gender</label>
             <select
                 class="bg-white text-gray-900 rounded-none relative block w-full px-3 py-2 border border-gray-300 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                id="role" v-model="user.role">
-              <option value="" disabled>Select role</option>
+                id="role" v-model="user.gender">
+              <option value="" disabled>Select gender</option>
               <option value="Student">Man</option>
               <option value="Teacher">Women</option>
             </select>
@@ -82,8 +82,8 @@
           </div>
           <div>
             <label for="mobile" class="text-black font-font-family mb-2">Mobile</label>
-            <input id="mobile" name="mobile" type="tel" v-model="user.mobile"
-                   autocomplete="new-password"
+            <input id="mobile" name="mobile" type="tel" v-model="user.mobile" pattern="[0-9]{13}"
+                   autocomplete="new-password" required
                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="Mobile number">
           </div>
@@ -109,19 +109,19 @@ export default defineComponent({
   name: 'edit',
   data() {
     return {
-        user: {
-            firstName: '',
-            lastName: '',
-            biography: '',
-            gender:'',
-            role: '',
-            email: '',
-            street: '',
-            housenumber:'',
-            city:'',
-            state:'',
-            mobilephone:'',
-        },
+      user: {
+          firstName: '',
+          lastName: '',
+          gender:'',
+          role: '',
+          biography: '',
+          email: '',
+          street: '',
+          housenumber:'',
+          city:'',
+          state:'',
+          mobile:'',
+      }
     }
   },
     created() {

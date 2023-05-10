@@ -52,18 +52,18 @@
  export default defineComponent({
    data() {
     return {
-      user: {
-          id: 1,
-          currentPassword: '',
-          newPassword: '',
-          newPasswordRepeat: '',
-      }
+        password: {
+            id: 1,
+            currentPassword: '',
+            newPassword: '',
+            newPasswordRepeat: '',
+        }
     }
   },
   methods: {
     async editPassword() {
         try {
-            const response = await axios.put('/editPassword', this.user)
+            const response = await axios.put('/editPassword', this.password)
             response.statusText = response.data
             this.result = response.data
             this.$router.push({ path: '/' })
