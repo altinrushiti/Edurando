@@ -1,4 +1,4 @@
-image: gradle:alpine
+image: java:8
 
 stages:
   - build
@@ -8,7 +8,6 @@ stages:
 
 build-job:
   stage: build
-  image: openjdk:17
   script:
     - cd Edurando_App/Edurando
     - chmod a+x ./gradlew
@@ -16,7 +15,6 @@ build-job:
 
 unit-test-job:
   stage: test
-  image: openjdk:17
   script:
     - cd Edurando_App/Edurando
     - chmod a+x ./gradlew
@@ -24,7 +22,6 @@ unit-test-job:
 
 deploy-job:
   stage: deploy
-  image: openjdk:17
   script:
     - cd Edurando_App/Edurando
     - chmod a+x ./gradlew
