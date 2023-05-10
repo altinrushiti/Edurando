@@ -6,7 +6,7 @@
           User Bearbeiten
         </h2>
       </div>
-      <form class="mt-8 space-y-6" @submit.prevent="edit">
+      <form class="mt-8 space-y-6" @submit.prevent="onEdit">
         <div class="rounded-md shadow-sm space-y-2">
           <div>
             <label for="firstname" class="text-black font-font-family p-2">First Name</label>
@@ -52,14 +52,14 @@
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label for="street" class="text-black font-font-family p-1">Street</label>
               <input id="street" name="street" type="text" v-model="user.street"
-                     autocomplete="new-password" required
+                     autocomplete="new-password"
                      class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                      placeholder="Street">
             </div>
             <div class="w-full md:w-1/2 px-3">
               <label for="houseNumber" class="text-black font-font-family p-1">House Number</label>
               <input id="houseNumber" name="houseNumber" type="text" v-model="user.houseNumber"
-                     autocomplete="new-password" required
+                     autocomplete="new-password"
                      class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                      placeholder="House Number">
             </div>
@@ -68,14 +68,14 @@
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label for="city" class="text-black font-font-family p-1">City</label>
               <input id="city" name="city" type="text" v-model="user.city"
-                     autocomplete="new-password" required
+                     autocomplete="new-password"
                      class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                      placeholder="City">
             </div>
             <div class="w-full md:w-1/2 px-3">
               <label for="state" class="text-black font-font-family p-1">State</label>
               <input id="state" name="state" type="text" v-model="user.state"
-                     autocomplete="new-password" required
+                     autocomplete="new-password"
                      class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                      placeholder="State">
             </div>
@@ -83,7 +83,7 @@
           <div>
             <label for="mobile" class="text-black font-font-family mb-2">Mobile</label>
             <input id="mobile" name="mobile" type="tel" v-model="user.mobile"
-                   autocomplete="new-password" required
+                   autocomplete="new-password"
                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="Mobile number">
           </div>
@@ -103,32 +103,54 @@
 
 <script>
 import {defineComponent} from "vue";
+import axios from "axios";
 
 export default defineComponent({
-  name: 'Register',
+  name: 'edit',
   data() {
     return {
-      user: {
-        id: 1,
-        firstName: '',
-        lastName: '',
-        biography: '',
-        gender:'',
-        role: '',
-        email: '',
-        street: '',
-        housenumber:'',
-        city:'',
-        state:'',
-        mobilephone:'',
-        privacyAgreed: false
-      }
+        user: {
+            firstName: '',
+            lastName: '',
+            biography: '',
+            gender:'',
+            role: '',
+            email: '',
+            street: '',
+            housenumber:'',
+            city:'',
+            state:'',
+            mobilephone:'',
+        },
     }
   },
-  methods: {
-    register() {
-      console.log(this.user)
+    created() {
+    },mounted() {
+      this.getUser()
+        //console.log('Component mounted.')
+    },
+    methods: {
+        getUser() {
+            axios.get('/profile/1')
+                .then(response => {
+                    console.log(response)
+                    this.user = response.data
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        onEdit() {
+            axios.put('/updatePersonalData', this.user)
+                .then(response => {
+                    console.log(response)
+                    this.user = response.data
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+
+        }
     }
-  }
 })
 </script>
