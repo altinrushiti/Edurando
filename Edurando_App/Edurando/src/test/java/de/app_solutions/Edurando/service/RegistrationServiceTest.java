@@ -64,7 +64,7 @@ public class RegistrationServiceTest {
 
         when(emailValidator.testMail(Mockito.anyString())).thenReturn(Pair.of(false, "Email is not valid,Email is not unique,"));
         when(passwordValidator.passwordTest(Mockito.anyString(), Mockito.anyString()))
-                .thenReturn(Pair.of(false, "Passwords do not match,Password needs minimum length of 8,Password needs at least 1 upper and 1 lower case character,Password needs at least 1 digit,Password needs at least 1 special character,"));
+                .thenReturn(Pair.of(false, "Passwords do not match,Password needs minimum length of 8,Password needs at least 1 upper and 1 lower case character,Password needs at least 1 digit,Password needs at least 1 special character"));
 
         String expectedMsg = "Passwords do not match,Password needs minimum length of 8,Password needs at least 1 upper and 1 lower case character,Password needs at least 1 digit,Password needs at least 1 special character,Email is not valid,Email is not unique,Terms of Service not Agreed,Privacy Policy not Agreed";
 

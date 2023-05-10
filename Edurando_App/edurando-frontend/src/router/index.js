@@ -4,6 +4,7 @@ import Confirmation from "@/modules/Registration/page/Confirmation.vue";
 import Home from "@/view/Home.vue";
 import EditPage from "@/modules/UserUpdate/EditPage.vue";
 import EditProfil from "@/modules/UserUpdate/components/EditProfil.vue";
+import EditPassword from "@/modules/UserUpdate/components/EditPassword.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
             path: '/editprofil',
             name: 'editprofil',
             component: EditProfil
+        },
+        {
+            path: '/EditPassword',
+            name: 'EditPassword',
+            component: EditPassword
         },
     ]
 })
