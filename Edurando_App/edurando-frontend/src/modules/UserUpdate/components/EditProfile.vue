@@ -109,6 +109,7 @@ export default defineComponent({
   data() {
     return {
       user: {
+        id: 1,
         firstName: '',
         lastName: '',
         biography: '',
