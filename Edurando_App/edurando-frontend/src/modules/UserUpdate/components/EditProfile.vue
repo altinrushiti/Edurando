@@ -11,14 +11,13 @@
           <div>
             <label for="firstname" class="text-black font-font-family p-2">First Name</label>
             <input id="firstname" name="firstname" type="text" v-model="user.firstName"
-                   autocomplete="firstname" required
+                   autocomplete="firstname" required="false"
                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="Firstname">
           </div>
           <div>
             <label for="lastname" class="text-black font-font-family p-1">Last Name</label>
             <input id="lastname" name="lastname" type="text" v-model="user.lastName" autocomplete="lastname"
-                   required
                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="Lastname">
           </div>
@@ -52,40 +51,61 @@
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label for="street" class="text-black font-font-family p-1">Street</label>
               <input id="street" name="street" type="text" v-model="user.street"
-                     autocomplete="new-password" required
+                     autocomplete="new-password"
                      class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                      placeholder="Street">
             </div>
             <div class="w-full md:w-1/2 px-3">
               <label for="houseNumber" class="text-black font-font-family p-1">House Number</label>
               <input id="houseNumber" name="houseNumber" type="text" v-model="user.houseNumber"
-                     autocomplete="new-password" required
+                     autocomplete="new-password"
                      class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                      placeholder="House Number">
             </div>
           </div>
           <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label for="city" class="text-black font-font-family p-1">City</label>
-              <input id="city" name="city" type="text" v-model="user.city"
-                     autocomplete="new-password" required
+              <label for="postcode" class="text-black font-font-family p-1">Postcode</label>
+              <input id="postcode" name="postcode" type="text" v-model="user.postcode"
+                     autocomplete="new-password"
+                     class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                     placeholder="Postcode">
+            </div>
+            <div class="w-full md:w-1/2 px-3">
+              <label for="City" class="text-black font-font-family p-1">City</label>
+              <input id="City" name="City" type="text" v-model="user.city"
+                     autocomplete="new-password"
                      class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                      placeholder="City">
             </div>
-            <div class="w-full md:w-1/2 px-3">
-              <label for="state" class="text-black font-font-family p-1">State</label>
-              <input id="state" name="state" type="text" v-model="user.state"
-                     autocomplete="new-password" required
-                     class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                     placeholder="State">
-            </div>
+          </div>
+          <div>
+            <label for="State" class="text-black font-font-family mb-2">State</label>
+            <input id="State" name="State" type="tel" v-model="user.state"
+                   autocomplete="new-password"
+                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                   placeholder="State">
           </div>
           <div>
             <label for="mobile" class="text-black font-font-family mb-2">Mobile</label>
             <input id="mobile" name="mobile" type="tel" v-model="user.mobile"
-                   autocomplete="new-password" required
+                   autocomplete="new-password"
                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="Mobile number">
+          </div>
+
+        </div>
+        <div class="flex flex-col items-center mt-8">
+          <input
+              type="file"
+              @change="handleFileUpload"
+              class="mb-4"
+          />
+          <div v-if="imageUrl">
+            <img :src="imageUrl" alt="Uploaded Image" class="max-w-xs mb-4"/>
+            <button @click="removeImage" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">
+              Remove Image
+            </button>
           </div>
         </div>
         <div>
@@ -112,23 +132,40 @@ export default defineComponent({
         id: 1,
         firstName: '',
         lastName: '',
-        biography: '',
-        gender:'',
+        gender: '',
         role: '',
-        email: '',
+        biography: '',
+        mobile: '',
+        imageUrl: '',
         street: '',
-        housenumber:'',
-        city:'',
-        state:'',
-        mobilephone:'',
-        privacyAgreed: false
+        housenumber: '',
+        city: '',
+        state: '',
+        postcode: '',
+        email: '',
+
       }
     }
   },
   methods: {
     register() {
       console.log(this.user)
-    }
+    },
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    },
+    removeImage() {
+      this.imageUrl = null;
+    },
   }
 })
 </script>
