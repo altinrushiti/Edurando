@@ -9,19 +9,19 @@ build-job:
   image: openjdk:17
   script:
     - cd Edurando_App/Edurando
-    - chmod +x ./gradlew
+    - chmod a+x ./gradlew
     - ./gradlew build
 
 unit-test-job:
   stage: test
   script:
     - cd Edurando_App/Edurando
-    - chmod +x ./gradlew
+    - chmod a+x ./gradlew
     - ./gradlew test
 
 deploy-job:
   stage: deploy
   script:
     - cd Edurando_App/Edurando
-    - chmod +x ./gradlew
+    - chmod a+x ./gradlew
     - ./gradlew deploy
