@@ -60,7 +60,9 @@ public class RegistrationService {
                             request.getFirstName(),
                             request.getLastName(),
                             request.getEmail(),
-                            request.getPassword()
+                            request.getPassword(),
+                            true,
+                            true
                     )
             );
             String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", token);

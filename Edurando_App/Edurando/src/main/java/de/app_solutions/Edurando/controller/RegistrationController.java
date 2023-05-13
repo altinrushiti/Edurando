@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "api/v1")
 @Data
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")
 public class RegistrationController {
 
     private final RegistrationService registrationService;
