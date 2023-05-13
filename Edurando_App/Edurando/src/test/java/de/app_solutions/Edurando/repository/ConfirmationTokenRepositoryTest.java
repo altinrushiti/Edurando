@@ -29,7 +29,7 @@ class ConfirmationTokenRepositoryTest {
                 "Max",
                 "Mustermann",
                 email,
-                "password");
+                "password",true,true);
 
         userProfileRepository.save(userProfile);
 

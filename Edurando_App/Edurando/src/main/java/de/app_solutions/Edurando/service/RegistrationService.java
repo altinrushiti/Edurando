@@ -72,7 +72,6 @@ public class RegistrationService {
         } else {
             String message = sb.toString();
             result = Pair.of(false, message);
-
         }
         System.err.println(result);
         return result;

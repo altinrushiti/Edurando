@@ -52,7 +52,7 @@ public class RegistrationServiceTest {
         Pair<Boolean,String> result = registrationService.register(request);
 
         // Verify
-        assertEquals(Pair.of(true, "Registration was successful"), result);
+        assertEquals(Pair.of(true, "Registration was successful."), result);
         //Mockito.verify(emailSender).send(anyString(), anyString());
     }
 
@@ -81,7 +81,7 @@ public class RegistrationServiceTest {
     void testConfirmToken() {
         // Arrange
         String token = "test_token";
-        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann@example.com","password");
+        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann@example.com","password",true,true);
         ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(30), user);
         when(confirmationTokenService.getToken(token)).thenReturn(Optional.of(confirmationToken));
 
@@ -96,7 +96,7 @@ public class RegistrationServiceTest {
     void testConfirmTokenWithExpiredToken() {
         // Arrange
         String token = "test_token";
-        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann@example.com","password");
+        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann@example.com","password",true,true);
         ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now().minusMinutes(5), LocalDateTime.now(), user); // expires_at: now -> will throw exception
         when(confirmationTokenService.getToken(token)).thenReturn(Optional.of(confirmationToken));
 
@@ -109,7 +109,7 @@ public class RegistrationServiceTest {
     void testConfirmTokenWithAlreadyConfirmedToken() {
         // Arrange
         String token = "test_token";
-        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann@example.com","password");
+        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann@example.com","password",true,true);
         ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(30), user);
         confirmationToken.setConfirmedAt(LocalDateTime.now()); // setConfirmedAt: now -> will throw exception
         when(confirmationTokenService.getToken(token)).thenReturn(Optional.of(confirmationToken));

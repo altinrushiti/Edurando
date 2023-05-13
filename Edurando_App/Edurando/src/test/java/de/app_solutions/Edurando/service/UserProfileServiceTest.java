@@ -22,7 +22,7 @@ public class UserProfileServiceTest {
 
     @Test
     public void signUpUserTest() throws Exception {
-        String token1 = userProfileService.signUpUser(new UserProfile("Student", "Firstname", "Lastname", "email2@stud.th-luebeck.de", "Password_123"));
+        String token1 = userProfileService.signUpUser(new UserProfile("Student", "Firstname", "Lastname", "email2@stud.th-luebeck.de", "Password_123",true,true));
         String token2 = confirmationTokenRepository.findAll().get(confirmationTokenRepository.findAll().toArray().length - 1).getToken();
 
         assertEquals(token1, token2);
@@ -30,7 +30,7 @@ public class UserProfileServiceTest {
 
     @Test
     public void enableAppUser() throws Exception {
-        userProfileService.signUpUser(new UserProfile("Student", "Firstname", "Lastname", "email@stud.th-luebeck.de", "Password_123"));
+        userProfileService.signUpUser(new UserProfile("Student", "Firstname", "Lastname", "email@stud.th-luebeck.de", "Password_123",true,true));
         int enable = userProfileService.enableAppUser("email@stud.th-luebeck.de");
         boolean enabled = userProfileRepository.findUserProfileByUsername("email@stud.th-luebeck.de").get().isEnabled();
         assertEquals(enable == 1, enabled);
