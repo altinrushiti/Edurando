@@ -20,11 +20,11 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String street;
-    private String houseNumber;
-    private String city;
-    private Integer postCode;
-    private String state;
+    private String street = "";
+    private String houseNumber = "";
+    private String city = "";
+    private Integer postCode = -1;
+    private String state = "";
 
     public Address(String street, String houseNumber, String city, Integer postCode, String state, List<UserProfile> userProfile) {
         this.street = street;
