@@ -1,5 +1,6 @@
 package de.app_solutions.Edurando.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,5 +36,6 @@ public class Address {
     }
 
     @OneToMany
+    @JsonBackReference
     private List<UserProfile> userProfile;
 }
