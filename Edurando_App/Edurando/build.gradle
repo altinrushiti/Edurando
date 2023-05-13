@@ -6,7 +6,7 @@ plugins {
 
 group = 'de.app_solutions'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+// sourceCompatibility = '17'
 
 configurations {
 	compileOnly {
