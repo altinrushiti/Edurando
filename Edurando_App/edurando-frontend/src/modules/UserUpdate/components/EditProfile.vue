@@ -1,4 +1,5 @@
 <template>
+  <edit-page></edit-page>
   <div class="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
       <div>
@@ -103,9 +104,13 @@
 <script>
 import {defineComponent} from "vue";
 import axios from "axios";
+import EditPage from "../EditPage.vue";
 
 export default defineComponent({
-  name: 'edit',
+  name: 'editProfile',
+  components: {
+    'editPage': EditPage
+  },
   data() {
     return {
       user: {
