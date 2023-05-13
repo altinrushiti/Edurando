@@ -66,26 +66,48 @@
           </div>
           <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label for="city" class="text-black font-font-family p-1">City</label>
-              <input id="city" name="city" type="text" v-model="user.city"
+              <label for="city" class="text-black font-font-family p-1">Postcode</label>
+              <input id="city" name="city" type="text" v-model="user.postCode"
                      autocomplete="new-password"
                      class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                      placeholder="City">
             </div>
             <div class="w-full md:w-1/2 px-3">
-              <label for="state" class="text-black font-font-family p-1">State</label>
-              <input id="state" name="state" type="text" v-model="user.state"
+              <label for="state" class="text-black font-font-family p-1">City</label>
+              <input id="state" name="state" type="text" v-model="user.city"
                      autocomplete="new-password"
                      class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                      placeholder="State">
             </div>
           </div>
+
+          <div>
+            <label for="state" class="text-black font-font-family p-1">State</label>
+            <input id="state" name="state" type="text" v-model="user.state"
+                   autocomplete="new-password"
+                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                   placeholder="State">
+          </div>
+
           <div>
             <label for="mobile" class="text-black font-font-family mb-2">Mobile</label>
             <input id="mobile" name="mobile" type="tel" v-model="user.mobile" pattern="[0-9]{13}"
                    autocomplete="new-password"
                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="Mobile number">
+          </div>
+        </div>
+        <div class="flex flex-col items-center mt-">
+          <input
+              type="file"
+              @change="handleFileUpload"
+              class="mb-4"
+          />
+          <div v-if="this.user.profilePictureReference">
+            <img :src="this.user.profilePictureReference" alt="Uploaded Image" class="max-w-xs mb-4"/>
+            <button @click="removeImage" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">
+              Remove Image
+            </button>
           </div>
         </div>
         <div>
@@ -114,51 +136,66 @@ export default defineComponent({
   data() {
     return {
       user: {
-          id: 1,
-          firstName: '',
-          lastName: '',
-          gender: '',
-          role: '',
-          personalBiography: '',
-          mobile: '',
-          profilePictureReference: '',
-          street: '',
-          houseNumber: '',
-          city: '',
-          state: '',
-          postCode: -1,
+        id: 1,
+        firstName: '',
+        lastName: '',
+        gender: '',
+        role: '',
+        personalBiography: '',
+        mobile: '',
+        profilePictureReference: '',
+        street: '',
+        houseNumber: '',
+        city: '',
+        state: '',
+        postCode: '',
+
       }
     }
 
   },
-    created() {
-    },mounted() {
-      /*this.getUser()*/
-        //console.log('Component mounted.')
+  created() {
+  }, mounted() {
+    /*this.getUser()*/
+    //console.log('Component mounted.')
+  },
+  methods: {
+    /*getUser() {
+        axios.get('/profile/1')
+            .then(response => {
+                console.log(response)
+                this.user = response.data
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    },*/
+    onEdit() {
+      axios.put('/updatePersonalData', this.user)
+          .then(response => {
+            console.log(response)
+            this.user = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+
     },
-    methods: {
-        /*getUser() {
-            axios.get('/profile/1')
-                .then(response => {
-                    console.log(response)
-                    this.user = response.data
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        },*/
-        onEdit() {
-            axios.put('/updatePersonalData', this.user)
-                .then(response => {
-                    console.log(response)
-                    this.user = response.data
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
 
-        }
-    }
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+      };
 
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    },
+    removeImage() {
+      this.imageUrl = null;
+    },
+  }
 })
 </script>
