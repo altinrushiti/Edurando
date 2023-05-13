@@ -101,7 +101,7 @@
           <input
               type="file"
               @change="handleFileUpload"
-              class="mb-4"
+              class="mb-4 text-black"
           />
           <div v-if="this.user.profilePictureReference">
             <img :src="this.user.profilePictureReference" alt="Uploaded Image" class="max-w-xs mb-4"/>
@@ -129,73 +129,74 @@ import axios from "axios";
 import EditPage from "../EditPage.vue";
 
 export default defineComponent({
-  name: 'editProfile',
-  components: {
-    'editPage': EditPage
-  },
-  data() {
-    return {
-      user: {
-        id: 1,
-        firstName: '',
-        lastName: '',
-        gender: '',
-        role: '',
-        personalBiography: '',
-        mobile: '',
-        profilePictureReference: '',
-        street: '',
-        houseNumber: '',
-        city: '',
-        state: '',
-        postCode: '',
+        name: 'editProfile',
+        components: {
+            'editPage': EditPage
+        },
+        data() {
+            return {
+                user: {
+                    id: 1,
+                    firstName: '',
+                    lastName: '',
+                    gender: '',
+                    role: '',
+                    personalBiography: '',
+                    mobile: '',
+                    profilePictureReference: '',
+                    street: '',
+                    houseNumber: '',
+                    city: '',
+                    state: '',
+                    postCode: '',
 
-      }
-    }
+                }
+            }
 
-  },
-  created() {
-  }, mounted() {
-    /*this.getUser()*/
-    //console.log('Component mounted.')
-  },
-  methods: {
-    /*getUser() {
-        axios.get('/profile/1')
-            .then(response => {
-                console.log(response)
-                this.user = response.data
-            })
+        },
+        created() {
+        }, mounted() {
+            this.getUser()
+            console.log('Component mounted.')
+        },
+        methods: {
+            getUser() {
+              axios.get('/profile/1')
+                  .then(response => {
+                      console.log(response)
+                      this.user = response.data
+                  })
             .catch(error => {
                 console.log(error)
             })
-    },*/
-    onEdit() {
-      axios.put('/updatePersonalData', this.user)
-          .then(response => {
-            console.log(response)
-            this.user = response.data
-          })
-          .catch(error => {
-            console.log(error)
-          })
+            },
+            onEdit() {
+                axios.put('/updatePersonalData', this.user)
+                    .then(response => {
+                        console.log(response)
+                        this.user = response.data
+                    })
+                    .catch(error => {
+                            console.log(error)
+                        }
+                    )
+            },
+            handleFileUpload(event) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
 
-    },
-    handleFileUpload(event) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
+                reader.onload = () => {
+                    this.imageUrl = reader.result;
+                };
 
-      reader.onload = () => {
-        this.imageUrl = reader.result;
-      };
-
-      if (file) {
-        reader.readAsDataURL(file);
-      }
-    },
-    removeImage() {
-      this.imageUrl = null;
-    },
-  }
-})
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            },
+            removeImage() {
+                this.imageUrl = null;
+            },
+        }
+    }
+)
 </script>
