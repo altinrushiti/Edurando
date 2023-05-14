@@ -25,16 +25,16 @@ public class UserProfile implements UserDetails {
 
     private String firstName;
     private String lastName;
-    private String mobile;
-    private String profilePictureReference;
-    private String personalBiography;
-    private Float rating;
-    private String gender;
-    private String tutoringLocation;
+    private String mobile = "";
+    private String profilePictureReference = "Edurando_App/Edurando/src/main/resources/p_placeholder.jpg";
+    private String personalBiography = "";
+    private float rating;
+    private String gender = "";
+    private String tutoringLocation = "";
     private String username;
     private String password;
-    private Boolean termsAgreed;
-    private Boolean privacyAgreed;
+    private boolean termsAgreed;
+    private boolean privacyAgreed;
 
     @ManyToMany
     @JsonManagedReference
@@ -51,14 +51,14 @@ public class UserProfile implements UserDetails {
     private Role role;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonManagedReference
     private Address address;
 
     private boolean locked;
 
     private boolean enabled;
 
-    public UserProfile(String role, String firstName, String lastName,  String email, String password) {
+    public UserProfile(String role, String firstName, String lastName,  String email, String password, boolean termsAgreed, boolean privacyAgreed) {
         if (role.equals("Student")) this.role = Role.student;
         else this.role = Role.teacher;
         this.firstName = firstName;

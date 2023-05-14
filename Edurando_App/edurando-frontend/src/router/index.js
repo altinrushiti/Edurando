@@ -4,7 +4,8 @@ import Confirmation from "@/modules/Registration/page/Confirmation.vue";
 import Home from "@/view/Home.vue";
 import EditPage from "@/modules/UserUpdate/EditPage.vue";
 import EditProfile from "@/modules/UserUpdate/components/EditProfile.vue";
-import EditPassword from "@/modules/UserUpdate/components/EditPassword.vue";
+import ChangePassword from "@/modules/UserUpdate/components/ChangePassword.vue";
+import SubjectsTopic from "@/modules/UserUpdate/components/SubjectsTopic.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,14 +31,19 @@ const router = createRouter({
             component: EditPage
         },
         {
-            path: '/editprofile',
-            name: 'editprofile',
+            path: '/editProfile',
+            name: 'editProfile',
             component: EditProfile
         },
         {
-            path: '/EditPassword',
-            name: 'EditPassword',
-            component: EditPassword
+            path: '/changePassword',
+            name: 'changePassword',
+            component: ChangePassword
+        },
+        {
+            path: '/subjecttopics',
+            name: 'subjecttopics',
+            component: SubjectsTopic
         },
     ]
 })

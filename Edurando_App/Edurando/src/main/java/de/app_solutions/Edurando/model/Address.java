@@ -1,5 +1,6 @@
 package de.app_solutions.Edurando.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,11 +20,11 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String street;
-    private String houseNumber;
-    private String city;
-    private Integer postCode;
-    private String state;
+    private String street = "";
+    private String houseNumber = "";
+    private String city = "";
+    private Integer postCode = -1;
+    private String state = "";
 
     public Address(String street, String houseNumber, String city, Integer postCode, String state, List<UserProfile> userProfile) {
         this.street = street;
@@ -35,5 +36,6 @@ public class Address {
     }
 
     @OneToMany
+    @JsonBackReference
     private List<UserProfile> userProfile;
 }

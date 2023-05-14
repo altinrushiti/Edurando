@@ -60,12 +60,14 @@ public class RegistrationService {
                             request.getFirstName(),
                             request.getLastName(),
                             request.getEmail(),
-                            request.getPassword()
+                            request.getPassword(),
+                            true,
+                            true
                     )
             );
             String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", token);
             emailSender.send(request.getEmail(), buildEmail(request, link));
-            result = Pair.of(true, "Registration was successful");
+            result = Pair.of(true, "Registration was successful.");
 
         } else {
             String message = sb.toString();

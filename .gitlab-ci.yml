@@ -1,27 +1,48 @@
+image: adoptopenjdk
+
+services:
+  - postgres:13-alpine
+
+variables:
+  POSTGRES_DB: EdurandoDb
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: "Password"
+  POSTGRES_HOST_AUTH_METHOD: trust
+
 stages:
   - build
   - test
   - deploy
 
+before_script:
+  - GRADLE_USER_HOME="$(pwd)/.gradle"
+  - export GRADLE_USER_HOME
+  - apt-get install findutils
+
 
 build-job:
+  artifacts:
+    when: always
+    paths:
+      - builds
+    reports:
+      junit: builds/softwaretechnik-2/edurando/Edurando_App/Edurando/build/reports/tests/test/index.html
   stage: build
-  image: openjdk:17
   script:
     - cd Edurando_App/Edurando
-    - chmod +x ./gradlew
+    - chmod a+x ./gradlew
     - ./gradlew build
 
 unit-test-job:
   stage: test
   script:
     - cd Edurando_App/Edurando
-    - chmod +x ./gradlew
+    - chmod a+x ./gradlew
     - ./gradlew test
 
 deploy-job:
   stage: deploy
   script:
     - cd Edurando_App/Edurando
-    - chmod +x ./gradlew
+    - chmod a+x ./gradlew
     - ./gradlew deploy
