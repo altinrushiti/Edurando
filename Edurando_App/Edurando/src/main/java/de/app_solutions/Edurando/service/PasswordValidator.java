@@ -43,7 +43,6 @@ public class PasswordValidator {
             tuple = Pair.of(true, "Password is valid");
         }
         return tuple;
-
     }
 }
 

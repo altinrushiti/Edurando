@@ -23,8 +23,8 @@ import java.util.UUID;
 @Data
 public class UserProfileService implements UserDetailsService {
 
-    private final static String USER_NOT_FOUND = "user with email %s not found";
-    private final static String USER_NOT_FOUND_BY_ID = "user not found: %s";
+    private final static String USER_NOT_FOUND = "User with Email %s was not found.";
+    private final static String USER_NOT_FOUND_BY_ID = "User with id: %s was not found.";
     private final UserProfileRepository userProfileRepository;
     private final AddressRepository addressRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;

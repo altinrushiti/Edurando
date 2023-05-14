@@ -85,8 +85,5 @@ public class UserProfile implements UserDetails {
         return true;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
+
 }

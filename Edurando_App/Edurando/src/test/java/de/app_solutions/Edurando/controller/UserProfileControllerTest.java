@@ -57,7 +57,7 @@ public class UserProfileControllerTest {
 
     @Test
     public void getUserProfiles_returnsList() throws Exception {
-        UserProfile user1 = new UserProfile("Student", "Max", "Mustermann", "max.mustermann@stud.th-luebeck.de", "MaxMustermann_123");
+        UserProfile user1 = new UserProfile("Student", "Max", "Mustermann", "max.mustermann@stud.th-luebeck.de", "MaxMustermann_123",true,true);
         List<UserProfile> users = List.of(user1);
 
         when(userProfileRepository.findAll()).thenReturn(users);
