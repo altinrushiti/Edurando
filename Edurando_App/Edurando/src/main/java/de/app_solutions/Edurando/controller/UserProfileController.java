@@ -30,15 +30,20 @@ public class UserProfileController {
     }
 
     @PutMapping("/updatePersonalData")
-    public String updatePersonalData(@RequestBody EditPersonalDataRequest editPersonalDataRequest) {
-        return userProfileService.editPersonalData(editPersonalDataRequest);
-    }
+    public ResponseEntity<String> updatePersonalData(@RequestBody EditPersonalDataRequest editPersonalDataRequest) {
+        Pair<Boolean, String> result = userProfileService.editPersonalData(editPersonalDataRequest);
+
+        if (result.getFirst()) {
+            return ResponseEntity.ok().body(result.getSecond());
+        } else {
+            return ResponseEntity.badRequest().body(result.getSecond());
+        }    }
 
     @PutMapping("/editPassword")
-    public ResponseEntity<String> editPassword(@RequestBody EditPasswordRequest passwordRequest) {
+    public ResponseEntity<List<String>> editPassword(@RequestBody EditPasswordRequest passwordRequest) {
 
 
-        Pair<Boolean, String> result = userProfileService.editPassword(passwordRequest);
+        Pair<Boolean, List<String>> result = userProfileService.editPassword(passwordRequest);
 
         if (result.getFirst()) {
             return ResponseEntity.ok().body(result.getSecond());

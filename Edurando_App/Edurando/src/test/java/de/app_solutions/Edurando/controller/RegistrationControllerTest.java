@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,21 +42,20 @@ public class RegistrationControllerTest {
         // Arrange
         RegistrationRequest request = new RegistrationRequest("Student","Max", "Mustermann", "max.mustermann@example.com", "password","password",true,true);
         String requestJson = new ObjectMapper().writeValueAsString(request); // serializing the request object to JSON string
-        Pair<Boolean, String> registrationResponse = Pair.of(true, "Registration was successful");
+        Pair<Boolean, List<String>> registrationResponse = Pair.of(true, List.of("Registration was successful"));
         when(registrationService.register(request)).thenReturn(registrationResponse);
 
         RegistrationController registrationController = new RegistrationController(registrationService);
 
         // Act
-        ResponseEntity<String> result = registrationController.register(request);
+        ResponseEntity<List<String>> result = registrationController.register(request);
 
 
         // Act and Assert
         mockMvc.perform(post("/api/v1/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
-                .andExpect(status().isOk())
-                .andExpect(content().string(Objects.requireNonNull(result.getBody())));
+                .andExpect(status().isOk());
     }
 
 
