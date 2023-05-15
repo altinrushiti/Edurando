@@ -42,8 +42,8 @@ const router = createRouter({
             component: ChangePassword
         },
         {
-            path: '/subjecttopics',
-            name: 'subjecttopics',
+            path: '/SubjectsTopics',
+            name: 'SubjectsTopics',
             component: SubjectsTopic
         },
         {

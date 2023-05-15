@@ -21,7 +21,7 @@
                     </RouterLink>
                 </li>
                 <li>
-                    <RouterLink to="/SubjectsTopics" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
+                    <RouterLink to="/SubjectsTopics" active-class="bg-[#e4e2ee]" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
                         <font-awesome-icon :icon="['fas', 'table-list']" />
                         <span :class="isSidebarOpen ? '' : 'hidden'" class="flex-1 ml-3 whitespace-nowrap">Subjects/Topics</span>
                     </RouterLink>
