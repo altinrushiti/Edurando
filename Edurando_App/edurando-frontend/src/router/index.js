@@ -6,6 +6,7 @@ import EditPage from "@/modules/UserUpdate/EditPage.vue";
 import EditProfile from "@/modules/UserUpdate/components/EditProfile.vue";
 import ChangePassword from "@/modules/UserUpdate/components/ChangePassword.vue";
 import SubjectsTopic from "@/modules/UserUpdate/components/SubjectsTopic.vue";
+import Login from "@/modules/Login/components/Login.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
             path: '/subjecttopics',
             name: 'subjecttopics',
             component: SubjectsTopic
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
         },
     ]
 })
