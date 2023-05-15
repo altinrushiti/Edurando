@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -24,8 +25,8 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegistrationRequest request) {
-        Pair<Boolean, String> response = registrationService.register(request);
+    public ResponseEntity<List<String>> register(@RequestBody RegistrationRequest request) {
+        Pair<Boolean, List<String>> response = registrationService.register(request);
         if (response.getFirst()) return ResponseEntity.ok(response.getSecond());
         else return ResponseEntity.badRequest().body(response.getSecond());
     }

@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Tuple;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -23,35 +25,23 @@ public class RegistrationService {
     private final EmailSender emailSender;
     private final PasswordValidator passwordValidator;
 
-
-    public Pair<Boolean, String> register(RegistrationRequest request) {
+    public Pair<Boolean, List<String>> register(RegistrationRequest request) {
 
         //Password valid Test
-        Pair<Boolean, String> pwTest = passwordValidator.passwordTest(request.getPassword(), request.getPasswordRepeat());
-        Pair<Boolean, String> emailTest = emailValidator.testMail(request.getEmail());
-        StringBuilder sb = new StringBuilder();
-        Pair<Boolean, String> result;
+        Pair<Boolean, List<String>> pwTest = passwordValidator.passwordTest(request.getPassword(), request.getPasswordRepeat());
+        Pair<Boolean, List<String>> emailTest = emailValidator.testMail(request.getEmail());
+        List<String> l = new ArrayList<>(pwTest.getSecond());
+        l.addAll(emailTest.getSecond());
+        Pair<Boolean, List<String>> result;
 
         boolean valid = pwTest.getFirst() && emailTest.getFirst();
-        boolean pwValid = true;
 
-        if (!pwTest.getFirst()) {
-            sb.append(pwTest.getSecond());
-            pwValid = false;
-        }
-        if (!emailTest.getFirst()) {
-            if(!pwValid) {
-                sb.append(",");
-            }
-            sb.append(emailTest.getSecond());
-        }
-        //sb.append(pwTest.getSecond()).append(emailTest.getSecond());
         if (!request.getTermsAgreed()) {
-            sb.append("Terms of Service not Agreed,");
+            l.add("Terms of Service not agreed.");
             valid = false;
         }
         if (!request.getPrivacyAgreed()) {
-            sb.append("Privacy Policy not Agreed");
+            l.add("Privacy Policy not agreed.");
             valid = false;
         }
         if (valid) {
@@ -65,15 +55,13 @@ public class RegistrationService {
             );
             String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", token);
             emailSender.send(request.getEmail(), buildEmail(request, link));
-            result = Pair.of(true, "Registration was successful.");
+            result = Pair.of(true, List.of("Registration was successful."));
 
         } else {
-            String message = sb.toString();
-            result = Pair.of(false, message);
+            result = Pair.of(false, l);
         }
         System.err.println(result);
         return result;
-
     }
 
     @Transactional
