@@ -14,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.util.Pair;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -44,15 +45,15 @@ public class RegistrationServiceTest {
     void testRegisterSuccess() {
         // Mocking
         RegistrationRequest request = new RegistrationRequest("Student", "Max", "Mustermann", "max.mustermann@example.com", "password", "password",true,true);
-        when(emailValidator.testMail(anyString())).thenReturn(Pair.of(true,""));
-        when(passwordValidator.passwordTest(anyString(), anyString())).thenReturn(Pair.of(true, ""));
+        when(emailValidator.testMail(anyString())).thenReturn(Pair.of(true,List.of()));
+        when(passwordValidator.passwordTest(anyString(), anyString())).thenReturn(Pair.of(true, List.of()));
 
         when(userProfileService.signUpUser(Mockito.any(UserProfile.class))).thenReturn("token");
         // Test
-        Pair<Boolean,String> result = registrationService.register(request);
+        Pair<Boolean, List<String>> result = registrationService.register(request);
 
         // Verify
-        assertEquals(Pair.of(true, "Registration was successful."), result);
+        assertEquals(Pair.of(true, List.of("Registration was successful.")), result);
         //Mockito.verify(emailSender).send(anyString(), anyString());
     }
 
@@ -62,14 +63,14 @@ public class RegistrationServiceTest {
         RegistrationRequest request = new RegistrationRequest("Student", "Max", "Mustermann",
                 "max.mustermann@example.com", "password", "password", false, false);
 
-        when(emailValidator.testMail(Mockito.anyString())).thenReturn(Pair.of(false, "Email is not valid,Email is not unique,"));
+        when(emailValidator.testMail(Mockito.anyString())).thenReturn(Pair.of(false, List.of("Email is not valid.","Email is not unique.")));
         when(passwordValidator.passwordTest(Mockito.anyString(), Mockito.anyString()))
-                .thenReturn(Pair.of(false, "Passwords do not match,Password needs minimum length of 8,Password needs at least 1 upper and 1 lower case character,Password needs at least 1 digit,Password needs at least 1 special character"));
+                .thenReturn(Pair.of(false, List.of("Passwords do not match","Please choose a more secure password, at least 8 characters long, known only to you, and difficult for others to guess.")));
 
-        String expectedMsg = "Passwords do not match,Password needs minimum length of 8,Password needs at least 1 upper and 1 lower case character,Password needs at least 1 digit,Password needs at least 1 special character,Email is not valid,Email is not unique,Terms of Service not Agreed,Privacy Policy not Agreed";
+        List<String> expectedMsg = List.of("Passwords do not match","Please choose a more secure password, at least 8 characters long, known only to you, and difficult for others to guess.","Email is not valid.","Email is not unique.","Terms of Service not agreed.","Privacy Policy not agreed.");
 
         // Act
-        Pair<Boolean, String> result = registrationService.register(request);
+        Pair<Boolean, List<String>> result = registrationService.register(request);
 
         // Assert
         Assertions.assertFalse(result.getFirst());

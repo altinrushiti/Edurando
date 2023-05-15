@@ -35,10 +35,10 @@ public class UserProfileController {
     }
 
     @PutMapping("/editPassword")
-    public ResponseEntity<String> editPassword(@RequestBody EditPasswordRequest passwordRequest) {
+    public ResponseEntity<List<String>> editPassword(@RequestBody EditPasswordRequest passwordRequest) {
 
 
-        Pair<Boolean, String> result = userProfileService.editPassword(passwordRequest);
+        Pair<Boolean, List<String>> result = userProfileService.editPassword(passwordRequest);
 
         if (result.getFirst()) {
             return ResponseEntity.ok().body(result.getSecond());

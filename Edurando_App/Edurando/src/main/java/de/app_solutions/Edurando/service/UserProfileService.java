@@ -14,10 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Data
@@ -70,23 +67,25 @@ public class UserProfileService implements UserDetailsService {
         return userProfileRepository.enableAppUser(email);
     }
 
-    public Pair<Boolean, String> editPassword(EditPasswordRequest pwRequest) {
+    public Pair<Boolean, List<String>> editPassword(EditPasswordRequest pwRequest) {
         UserProfile user = userProfileRepository.findUserProfileById(pwRequest.getId()).orElseThrow(()-> new UsernameNotFoundException(String.format(USER_NOT_FOUND_BY_ID, pwRequest.getId())));
+        List<String> l = new ArrayList<String>();
         String currentUserPw = user.getPassword();
 
+        Pair<Boolean, List<String>> newPwTuple = pwRequest.passwordTest(pwRequest.getNewPassword(), pwRequest.getNewPasswordRepeat());
+
         if (!bCryptPasswordEncoder.matches(pwRequest.getCurrentPassword(), currentUserPw)) {
-            Pair<Boolean, String> tuple = Pair.of(false, "The current password entered does not match the current user password.");
+
+            Pair<Boolean, List<String>> tuple = Pair.of(false, List.of("The current password entered does not match the current user password."));
             System.err.println(tuple);
             return tuple;
         }
 
         if (bCryptPasswordEncoder.matches(pwRequest.getNewPassword(), currentUserPw)) {
-            Pair<Boolean, String> tuple = Pair.of(false, "Password could not be changed, because the password you entered is the same as your previous password.");
+            Pair<Boolean, List<String>> tuple = Pair.of(false, List.of("Password could not be changed, because the password you entered is the same as your previous password."));
             System.err.println(tuple);
             return tuple;
         }
-
-        Pair<Boolean, String> newPwTuple = pwRequest.passwordTest(pwRequest.getNewPassword(), pwRequest.getNewPasswordRepeat());
 
         if (!newPwTuple.getFirst()) {
             System.err.println(newPwTuple);
@@ -100,7 +99,7 @@ public class UserProfileService implements UserDetailsService {
         // Speichern Sie die aktualisierten Nutzerdaten in der Datenbank
         userProfileRepository.save(user);
 
-        return Pair.of(true, "Password changed successfully.");
+        return Pair.of(true, List.of("Password changed successfully."));
 }
 
     public List<UserProfile> getAllUsers() {
