@@ -1,7 +1,7 @@
 <template>
   <edit-page></edit-page>
   <div
-      class="mt-10 min-h-screen bg-gray-100 flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 font-font-family">
+      class="min-h-screen bg-gray-100 flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 font-font-family">
     <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Add Topic with Subject</h2>
     <div class="mt-8 space-y-6">
       <div v-if="showButton" class="flex items-center justify-center font-font-family">

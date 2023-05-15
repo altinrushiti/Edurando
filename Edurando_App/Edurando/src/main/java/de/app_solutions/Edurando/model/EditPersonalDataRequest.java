@@ -20,5 +20,5 @@ public class EditPersonalDataRequest {
     private final String houseNumber;
     private final String city;
     private final String state;
-    private final Integer postCode;
+    private final String postCode;
 }
