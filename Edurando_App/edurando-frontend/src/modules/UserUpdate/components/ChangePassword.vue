@@ -22,6 +22,12 @@
                                autocomplete="newPassword" required
                                class="mb-4 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="New Password">
+                        <p v-if="!(password.newPassword.length >= 8)
+    || !/[a-z]/.test(password.newPassword)
+    || !/[A-Z]/.test(password.newPassword)
+    || !/\d/.test(password.newPassword)
+    || /^[a-zA-Z0-9]*$/.test(password.newPassword)" class="text-red-500 text-xs">Please choose a more secure password, at least 8 characters long, known only to you, and difficult for others to guess."</p>
+
                     </div>
 
                     <div>
@@ -34,6 +40,7 @@
                                placeholder="Repeat New Password">
                     </div>
 
+                </div>
 
                     <div>
                         <button type="submit"
@@ -42,7 +49,6 @@
                         </button>
                     </div>
 
-                </div>
 
             </form>
 

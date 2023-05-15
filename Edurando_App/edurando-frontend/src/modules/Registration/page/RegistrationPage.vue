@@ -25,7 +25,7 @@
 
                     <div>
                         <label for="email-address" class="text-black font-font-family p-1">Email address</label>
-                        <input id="email-address" name="email" type="email" v-model="user.email" autocomplete="email"
+                        <input autocomplete="off" id="email-address" name="email" type="email" v-model="user.email"
                                required
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Email address">
@@ -33,24 +33,27 @@
                     <div>
                         <label for="password" class="text-black font-font-family p-1">Password</label>
                         <input id="password1" name="password1" type="password" v-model="user.password"
-                               autocomplete="new-password" required
+                               autocomplete="off" required
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Password">
                     </div>
+                    <p v-if="!(user.password.length >= 8)
+    || !/[a-z]/.test(user.password)
+    || !/[A-Z]/.test(user.password)
+    || !/\d/.test(user.password)
+    || /^[a-zA-Z0-9]*$/.test(user.password)" class="text-red-500 text-xs">Please choose a more secure password, at least 8 characters long, known only to you, and difficult for others to guess."</p>
                     <div>
                         <label for="password" class="text-black font-font-family p-1">Repeat your Password</label>
-                        <input id="password2" name="password2" type="password" v-model="user.passwordRepeat"
-                               autocomplete="new-password" required
+                        <input autocomplete="off" id="password2" name="password2" type="password" v-model="user.passwordRepeat"
+                               required
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Repeat Password">
                     </div>
-                    <p v-if="user.password !== user.passwordRepeat" class="text-red-500">Passwords do not match</p>
-                    <ul>
-                        <li v-for="e in error" class="text-red-500">{{e}}</li>
-                    </ul>
+                    <p v-if="user.password !== user.passwordRepeat" class="text-red-500 text-xs">Passwords do not match</p>
                     <div>
                         <label for="role" class="text-black font-font-family flex p-1 font-size=10px">Role</label>
-                        <select class="bg-white text-gray-900 rounded-none relative block w-full px-3 py-2 border border-gray-300 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" id="role" v-model="user.role">
+                        <select class="bg-white text-gray-900 rounded-none relative block w-full px-3 py-2 border border-gray-300 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                                id="role" v-model="user.role">
                             <option value="" disabled>Select role</option>
                             <option value="Student">Student</option>
                             <option value="Teacher">Teacher</option>
@@ -83,42 +86,41 @@
 <script>
 import {defineComponent} from "vue";
 import axios from 'axios';
-import { useRouter } from 'vue-router'
 
 export default defineComponent({
-      name: "Register",
-      data() {
+        name: "Register",
+        data() {
 
-        return {
-            result: "",
-            error: [],
-            user: {
-                role: '',
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                passwordRepeat: '',
-                termsAgreed: false,
-                privacyAgreed: false
+            return {
+                result: "",
+                error: [],
+                user: {
+                    role: '',
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    password: '',
+                    passwordRepeat: '',
+                    termsAgreed: false,
+                    privacyAgreed: false
+                }
             }
-        }
-      },
-      methods: {
-       async   registerUser() {
-           try {
-               const response = await axios.post('/register', this.user)
-               response.statusText = response.data
-               this.result = response.data
-               this.$router.push({ path: '/confirm' })
-               console.log(response)
-           } catch (error) {
-               this.result = error.request.response
-               this.error = this.result.split(',')
-               console.log(this.error)
-           }
-          },
-      },
+        },
+        methods: {
+            async registerUser() {
+                try {
+                    const response = await axios.post('/register', this.user)
+                    response.statusText = response.data
+                    this.result = response.data
+                    this.$router.push({path: '/confirm'})
+                    console.log(response)
+                } catch (error) {
+                    this.result = error.request.response
+                    this.error = this.result
+                    console.log(this.error)
+                }
+            },
+        },
     }
 )
 </script>
