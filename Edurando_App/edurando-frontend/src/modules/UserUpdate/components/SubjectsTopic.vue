@@ -23,6 +23,9 @@
                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                    placeholder="Enter Topic">
           </div>
+          <div v-show="saved" class="mt-3 font-font-family text-green-400">
+            <p> Die Daten wurden erfolgreich gespeichert! </p>
+          </div>
           <div class="flex justify-center mt-7 space-x-4">
             <div class="mt-6 mr-8 text-center flex justify-center text-white">
               <button @click="showButton = true">
@@ -30,7 +33,7 @@
               </button>
             </div>
             <div class="mt-6 ml-8 text-center flex justify-center text-white">
-              <button @click="showButton = true">
+              <button @click="addSubjectTopic">
                 <font-awesome-icon :icon="['fas', 'check']" class="text-4xl text-gray-900"/>
               </button>
             </div>
@@ -44,6 +47,7 @@
 <script>
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import EditPage from '@/modules/UserUpdate/EditPage.vue';
+import axios from "axios";
 
 export default {
   components: {
@@ -52,11 +56,28 @@ export default {
   },
   data() {
     return {
-      subject: '',
-      topic: '',
-      showButton: true
+      data: {
+        subject: '',
+        topic: '',
+      },
+      showButton: true,
+      saved: true
     }
   },
-  methods: {}
+  methods: {
+
+    async addSubjectTopic() {
+      try {
+        const response = await axios.put('/', this.data)
+        response.statusText = response.data
+        this.result = response.data
+        this.$router.push({path: '/'})
+        console.log(response)
+        this.saved = true
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 }
 </script>
