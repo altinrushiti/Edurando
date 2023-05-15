@@ -97,19 +97,6 @@
                    placeholder="Mobile number">
           </div>
         </div>
-        <div class="flex flex-col items-center mt-">
-          <input
-              type="file"
-              @change="handleFileUpload"
-              class="mb-4 text-black"
-          />
-          <div v-if="this.user.profilePictureReference">
-            <img :src="this.user.profilePictureReference" alt="Uploaded Image" class="max-w-xs mb-4"/>
-            <button @click="removeImage" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">
-              Remove Image
-            </button>
-          </div>
-        </div>
         <div>
           <button type="submit"
                   class=" text-center mx-auto w-1/2 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#483d8b] hover:bg-purple-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -122,9 +109,47 @@
 
 </template>
 
-
 <script>
 import {defineComponent} from "vue";
+import EditPage from "../EditPage.vue";
+
+export default defineComponent({
+    name: 'editProfile',
+    components: {
+        'editPage': EditPage
+    }
+})
+</script>
+<script setup>
+import { reactive} from "vue";
+import axios from "axios";
+
+const user = reactive({
+    id: 1,
+    firstName: '',
+    lastName: '',
+    gender: '',
+    role: '',
+    personalBiography: '',
+    mobile: '',
+    profilePictureReference: '',
+    street: '',
+    houseNumber: '',
+    city: '',
+    state: '',
+    postCode: ''
+})
+
+function onEdit() {
+    axios.put('/updatePersonalData', user)
+        .then((response) => {
+            console.log(response)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
+/*import {defineComponent} from "vue";
 import axios from "axios";
 import EditPage from "../EditPage.vue";
 
@@ -198,5 +223,5 @@ export default defineComponent({
             },
         }
     }
-)
+)*/
 </script>

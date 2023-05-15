@@ -47,7 +47,7 @@ public class UserProfile implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private Address address;
 
@@ -55,13 +55,14 @@ public class UserProfile implements UserDetails {
 
     private boolean enabled;
 
-    public UserProfile(String role, String firstName, String lastName,  String email, String password, boolean termsAgreed, boolean privacyAgreed) {
+    public UserProfile(String role, String firstName, String lastName,  String email, String password) {
         if (role.equals("Student")) this.role = Role.student;
         else this.role = Role.teacher;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = email;
         this.password = password;
+        this.address = new Address();
     }
 
     @Override

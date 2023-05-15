@@ -135,7 +135,7 @@ public class UserProfileService implements UserDetailsService {
                     editPersonalDataRequest.getState(),
                     users);
         } else {
-            address = addressN.get();
+            address = user.getAddress();
             if (!editPersonalDataRequest.getStreet().trim().equals(""))
                 address.setStreet(editPersonalDataRequest.getStreet());
             if (!editPersonalDataRequest.getHouseNumber().trim().equals(""))
