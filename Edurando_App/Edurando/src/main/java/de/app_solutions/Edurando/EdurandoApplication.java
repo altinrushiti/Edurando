@@ -17,5 +17,4 @@ public class EdurandoApplication {
 		SpringApplication.run(EdurandoApplication.class, args);
 	}
 
-
 }
