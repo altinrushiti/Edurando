@@ -16,12 +16,19 @@ public interface SubjectRepository extends JpaRepository<Subject,Long> {
 
     Optional<Subject> findByName(String name);
 
-    @Query("SELECT userProfiles from Subject where Subject.name = ?1")
+/*    @Query("SELECT userProfiles from Subject where Subject.name = ?1")
     Optional<List<UserProfile>>  findUserProfilesByName(String  name);
 
-    @Query("SELECT topics from Subject where Subject.name = ?1")
-    Optional<List<Topic>>  findTopicsByName(String  name);
 
+*/
+
+/*    @Query("SELECT userProfiles from Subject subject where subject.name = ?1")
+    Optional<List<UserProfile>>  findUserProfilesByName(String  name);
+    @Query("SELECT topics from Subject subject where subject.name = ?1")
+    Optional<List<Topic>>  findTopicsByName(String  name);*/
+
+/*    @Query(value = "SELECT DISTINCT s FROM subject s JOIN subject_user_profiles sup ON s.id = sup.subject_id JOIN user_profile up ON sup.user_profiles_id = up.id WHERE up.id = ?1", nativeQuery = true)
+    Optional<List<Subject>> findSubjectsByUserProfileId(Long id);*/
     @Override
     List<Subject> findAll();
 

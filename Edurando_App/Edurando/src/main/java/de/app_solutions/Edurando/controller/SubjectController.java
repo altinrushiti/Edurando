@@ -7,6 +7,7 @@ import de.app_solutions.Edurando.repository.SubjectRepository;
 import de.app_solutions.Edurando.service.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class SubjectController {
     }
 
     @PostMapping("/updateSubjectData")
-    public String updateSubjectData(@RequestBody EditSubjectRequest editSubjectRequest) {
+    public Pair<Boolean, List<String>> updateSubjectData(@RequestBody EditSubjectRequest editSubjectRequest) {
         System.out.println(editSubjectRequest);
         return subjectService.updateSubjectData(editSubjectRequest);
 

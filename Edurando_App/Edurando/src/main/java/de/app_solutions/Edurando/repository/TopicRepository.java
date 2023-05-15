@@ -16,7 +16,8 @@ public interface TopicRepository extends JpaRepository<Topic, Long> {
     Optional<Topic> findById(Long id);
     Optional<Topic> findByName(String name);
 
+    /*
     @Query("SELECT userProfiles from Topic where Topic.name = ?1")
     Optional<List<UserProfile>>  findUserProfilesByName(String  name);
-
+*/
 }

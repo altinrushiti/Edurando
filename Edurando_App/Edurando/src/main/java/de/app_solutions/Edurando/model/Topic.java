@@ -26,8 +26,8 @@ public class Topic {
     @JsonBackReference
     private List<UserProfile> userProfiles;
 
-    @ManyToOne
-    @JsonManagedReference
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference
     private Subject subject;
 
 }

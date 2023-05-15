@@ -22,7 +22,7 @@ public class Subject {
     private List<UserProfile> userProfiles;
 
     @OneToMany
-    @JsonBackReference
+    @JsonManagedReference
     private List<Topic> topics;
 
 
