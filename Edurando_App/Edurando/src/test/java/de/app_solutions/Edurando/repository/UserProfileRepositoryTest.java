@@ -27,7 +27,7 @@ class UserProfileRepositoryTest {
                 "Max",
                 "Mustermann",
                 email,
-                "password",true,true);
+                "password");
 
         userProfileRepository.save(userProfile);
         // When

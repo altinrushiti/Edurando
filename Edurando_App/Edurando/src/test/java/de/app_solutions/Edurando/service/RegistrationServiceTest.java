@@ -77,11 +77,11 @@ public class RegistrationServiceTest {
         Assertions.assertEquals(expectedMsg, result.getSecond());
     }
 
-    /*@Test
+    @Test
     void testConfirmToken() {
         // Arrange
         String token = "test_token";
-        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann@example.com","password",true,true);
+        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann@example.com","password");
         ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(30), user);
         when(confirmationTokenService.getToken(token)).thenReturn(Optional.of(confirmationToken));
 
@@ -96,7 +96,7 @@ public class RegistrationServiceTest {
     void testConfirmTokenWithExpiredToken() {
         // Arrange
         String token = "test_token";
-        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann@example.com","password",true,true);
+        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann@example.com","password");
         ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now().minusMinutes(5), LocalDateTime.now(), user); // expires_at: now -> will throw exception
         when(confirmationTokenService.getToken(token)).thenReturn(Optional.of(confirmationToken));
 
@@ -109,7 +109,7 @@ public class RegistrationServiceTest {
     void testConfirmTokenWithAlreadyConfirmedToken() {
         // Arrange
         String token = "test_token";
-        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann@example.com","password",true,true);
+        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann@example.com","password");
         ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(30), user);
         confirmationToken.setConfirmedAt(LocalDateTime.now()); // setConfirmedAt: now -> will throw exception
         when(confirmationTokenService.getToken(token)).thenReturn(Optional.of(confirmationToken));
@@ -117,7 +117,7 @@ public class RegistrationServiceTest {
         // Act & Assert
         IllegalStateException exception = assertThrows(IllegalStateException.class, () -> registrationService.confirmToken(token));
         assertEquals("email already confirmed", exception.getMessage());
-    } */
+    }
 
 
 }
