@@ -4,7 +4,7 @@ import { user } from "@/store/store";
 const store = user();
 const msg = ref("Welcome to my Vuex Store");
 const myUsers = computed(() => {
-    return store.users;
+    return store.user;
 });
 onMounted(() => {
     store.fetchUser();
