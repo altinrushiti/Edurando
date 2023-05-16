@@ -5,22 +5,22 @@
             <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
         </svg>
     </button>
-    <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-50 h-full mt-16 border]" aria-label="Sidebar">
-        <div class="h-full px-3 py-4 overflow-y-auto bg-purple-50">
+    <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-50 h-full mt-16" aria-label="Sidebar">
+        <div class="h-full px-3 py-4 overflow-y-auto" :class="isSidebarOpen ? 'bg-purple-50 border' : 'bg-transparent md:bg-purple-50 md:border'">
             <ul class="space-y-2 font-medium text-[#483d8b]">
-                <li>
+                <li :class="!isSidebarOpen && 'hidden md:block'">
                     <RouterLink to="/EditProfile" active-class="bg-[#e4e2ee]" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
                         <font-awesome-icon :icon="['fas', 'user']" />
                         <span :class="isSidebarOpen ? '' : 'hidden'" class="flex-1 ml-3 whitespace-nowrap">Personal Data</span>
                     </RouterLink>
                 </li>
-                <li>
+                <li :class="!isSidebarOpen && 'hidden md:block'">
                     <RouterLink to="/ChangePassword" active-class="bg-[#e4e2ee]" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
                         <font-awesome-icon :icon="['fas', 'key']" />
                         <span :class="isSidebarOpen ? '' : 'hidden'" class="flex-1 ml-3 whitespace-nowrap">Change Password</span>
                     </RouterLink>
                 </li>
-                <li>
+                <li :class="!isSidebarOpen && 'hidden md:block'">
                     <RouterLink to="/SubjectsTopics" active-class="bg-[#e4e2ee]" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
                         <font-awesome-icon :icon="['fas', 'table-list']" />
                         <span :class="isSidebarOpen ? '' : 'hidden'" class="flex-1 ml-3 whitespace-nowrap">Subjects/Topics</span>
