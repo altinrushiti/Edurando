@@ -1,17 +1,17 @@
 import { defineStore } from "pinia"
 import axios from "axios"
 
-export const users = defineStore("store", {
+export const user = defineStore("store", {
     state: () => ({
-        users: [],
+        user: null,
     }),
     getters: {
-        getUsers(state) {
+        getUser(state) {
             return state.users
         }
     },
     actions: {
-        async fetchUsers() {
+        async fetchUser() {
             try {
                 const data = await axios.get('https://jsonplaceholder.typicode.com/users')
                 this.users = data.data

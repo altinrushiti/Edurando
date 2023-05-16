@@ -20,10 +20,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "api/v1")
 @Data
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin
 public class LoginController {
 
     private final LoginService loginService;
+
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest request) {
         Pair<Boolean, String> response = loginService.login(request);

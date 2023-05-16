@@ -7,7 +7,7 @@ const myUsers = computed(() => {
     return store.users;
 });
 onMounted(() => {
-    store.fetchUsers();
+    store.fetchUser();
 });
 
 </script>
