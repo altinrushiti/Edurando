@@ -68,6 +68,7 @@ public class UserProfileService implements UserDetailsService {
     }
 
     public Pair<Boolean, List<String>> editPassword(EditPasswordRequest pwRequest) {
+
         UserProfile user = userProfileRepository.findUserProfileById(pwRequest.getId()).orElseThrow(()-> new UsernameNotFoundException(String.format(USER_NOT_FOUND_BY_ID, pwRequest.getId())));
         List<String> l = new ArrayList<String>();
         String currentUserPw = user.getPassword();
