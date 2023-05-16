@@ -55,7 +55,9 @@ public class RegistrationControllerTest {
         mockMvc.perform(post("/api/v1/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().json(new ObjectMapper().writeValueAsString(result.getBody())));
+
     }
 
 

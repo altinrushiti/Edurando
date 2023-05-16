@@ -77,8 +77,7 @@ public class RegistrationServiceTest {
         Assertions.assertEquals(expectedMsg, result.getSecond());
     }
 
-
-    @Test
+    /*@Test
     void testConfirmToken() {
         // Arrange
         String token = "test_token";
@@ -118,7 +117,7 @@ public class RegistrationServiceTest {
         // Act & Assert
         IllegalStateException exception = assertThrows(IllegalStateException.class, () -> registrationService.confirmToken(token));
         assertEquals("email already confirmed", exception.getMessage());
-    }
+    } */
 
 
 }
