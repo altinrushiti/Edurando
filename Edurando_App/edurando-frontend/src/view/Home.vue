@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import { users } from "@/store/store";
-const store = users();
+import { user } from "@/store/store";
+const store = user();
 const msg = ref("Welcome to my Vuex Store");
 const myUsers = computed(() => {
     return store.users;
