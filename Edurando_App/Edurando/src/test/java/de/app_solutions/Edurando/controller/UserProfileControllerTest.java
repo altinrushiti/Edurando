@@ -54,17 +54,22 @@ public class UserProfileControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
     }
-
     @Test
     public void getUserProfiles_returnsList() throws Exception {
-        UserProfile user1 = new UserProfile("Student", "Max", "Mustermann", "max.mustermann@stud.th-luebeck.de", "MaxMustermann_123",true,true);
+        UserProfile user1 = new UserProfile("Student", "Max", "Mustermann", "max.mustermann@stud.th-luebeck.de", "MaxMustermann_123");
+        user1.setId(1L);
+        user1.setProfilePictureReference("Edurando_App/Edurando/src/main/resources/p_placeholder.jpg");
+        user1.setRating(0);
+        // Set values for other properties if needed
+
         List<UserProfile> users = List.of(user1);
 
         when(userProfileRepository.findAll()).thenReturn(users);
 
         mockMvc.perform(get("/api/v1/profiles"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("[{\"id\":null,\"firstName\":\"Max\",\"lastName\":\"Mustermann\",\"mobile\":null,\"profilePictureReference\":null,\"personalBiography\":null,\"rating\":null,\"gender\":null,\"tutoringLocation\":null,\"username\":\"max.mustermann@stud.th-luebeck.de\",\"password\":\"MaxMustermann_123\",\"termsAgreed\":null,\"privacyAgreed\":null,\"subjects\":null,\"topics\":null,\"ratings\":null,\"role\":\"student\",\"locked\":false,\"enabled\":false,\"authorities\":[{\"authority\":\"student\"}],\"credentialsNonExpired\":true,\"accountNonExpired\":true,\"accountNonLocked\":true}]"));
-
+                .andExpect(content().json("[{\"id\":1,\"firstName\":\"Max\",\"lastName\":\"Mustermann\",\"mobile\":'',\"profilePictureReference\":\"Edurando_App/Edurando/src/main/resources/p_placeholder.jpg\",\"personalBiography\":'',\"rating\":0,\"gender\":'',\"tutoringLocation\":'',\"username\":\"max.mustermann@stud.th-luebeck.de\",\"password\":\"MaxMustermann_123\",\"termsAgreed\":false,\"privacyAgreed\":false,\"subjects\":null,\"topics\":null,\"ratings\":null,\"role\":\"student\",\"locked\":false,\"enabled\":false,\"authorities\":[{\"authority\":\"student\"}],\"credentialsNonExpired\":true,\"accountNonExpired\":true,\"accountNonLocked\":true}]"));
     }
+
+
 }
