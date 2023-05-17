@@ -43,6 +43,7 @@
 import {defineComponent} from "vue";
 import axios from "axios";
 import EditPage from "@/modules/UserUpdate/EditPage.vue";
+import {useUserStore} from "@/store/store";
 
 export default defineComponent({
     name: "changePassword",
@@ -60,11 +61,16 @@ export default defineComponent({
     methods: {
         async submit() {
             try {
-                const response = await axios.post('/login', this.loginRequest)
-                response.statusText = response.data
-                this.result = response.data
-                this.$router.push({path: '/'})
-                console.log(response)
+                const { email } = this.loginRequest;
+
+                // User Store verwenden
+                const userStore = useUserStore();
+
+                // Benutzerdaten abrufen und speichern
+                await userStore.fetchUser(email);
+
+                // Weiterleiten oder andere Aktionen ausführen
+                this.$router.push({ path: '/' });
             } catch (error) {
                 console.log(error)
             }
