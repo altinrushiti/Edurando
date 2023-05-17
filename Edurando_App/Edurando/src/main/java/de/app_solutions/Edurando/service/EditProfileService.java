@@ -7,18 +7,14 @@ import de.app_solutions.Edurando.repository.UserProfileRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.*;
-
+import java.util.List;
 @Service
 @Data
-public class UserProfileService implements UserDetailsService {
+public class EditProfileService {
 
     private final static String USER_NOT_FOUND = "User with Email %s was not found.";
     private final static String USER_NOT_FOUND_BY_ID = "User with id: %s was not found.";
@@ -31,55 +27,30 @@ public class UserProfileService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
     private EditPasswordRequest pwRequest;
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userProfileRepository.findUserProfileByUsername(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
-    }
+    public Pair<Boolean, List<String>> editPassword(EditPasswordRequest pwRequest) {
+        UserProfile user = userProfileRepository.findUserProfileById(pwRequest.getId())
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_BY_ID, pwRequest.getId())));
 
-    public String signUpUser(UserProfile user) {
-        boolean userExists = userProfileRepository.findUserProfileByUsername(user.getUsername()).isPresent();
+        String currentUserPw = user.getPassword();
+        Pair<Boolean, List<String>> newPwTuple = pwRequest.passwordTest(pwRequest.getNewPassword(), pwRequest.getNewPasswordRepeat());
 
-        if (userExists) {
-            throw new IllegalStateException("E-Mail already taken");
+        if (!bCryptPasswordEncoder.matches(pwRequest.getCurrentPassword(), currentUserPw)) {
+            return Pair.of(false, List.of("The current password entered does not match the user's current password."));
         }
 
-        String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+        if (bCryptPasswordEncoder.matches(pwRequest.getNewPassword(), currentUserPw)) {
+            return Pair.of(false, List.of("Password could not be changed because the new password is the same as the previous password."));
+        }
 
+        if (!newPwTuple.getFirst()) {
+            return newPwTuple;
+        }
+
+        String encodedPassword = bCryptPasswordEncoder.encode(pwRequest.getNewPassword());
         user.setPassword(encodedPassword);
-
         userProfileRepository.save(user);
 
-        String token = UUID.randomUUID().toString();
-
-        ConfirmationToken confirmationToken = new ConfirmationToken(
-                token,
-                LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(15),
-                user
-        );
-
-        confirmationTokenService.saveConfirmationToken(confirmationToken);
-
-        return token;
-    }
-
-    public int enableAppUser(String email) {
-        return userProfileRepository.enableAppUser(email);
-    }
-
-
-
-
-    public List<UserProfile> getAllUsers() {
-        return userProfileRepository.findAll();
-    }
-
-    public UserProfile getUserById(Long id) {
-        return userProfileRepository.findUserProfileById(id).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_BY_ID, id)));
-    }
-
-    public UserProfile getUserByEmail(String email) {
-        return userProfileRepository.findUserProfileByUsername(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
+        return Pair.of(true, List.of("Password changed successfully."));
     }
 
     public Pair<Boolean, String> editPersonalData(EditPersonalDataRequest editPersonalDataRequest) {
@@ -92,7 +63,7 @@ public class UserProfileService implements UserDetailsService {
         if (editPersonalDataRequest.getRole().isBlank()) sb.append("Role cannot be empty,");
         if ((editPersonalDataRequest.getStreet().isBlank() || editPersonalDataRequest.getHouseNumber().isBlank() || editPersonalDataRequest.getCity().isBlank() || editPersonalDataRequest.getState().isBlank() || editPersonalDataRequest.getPostCode().isBlank()) && !(editPersonalDataRequest.getStreet().isBlank() && editPersonalDataRequest.getHouseNumber().isBlank() && editPersonalDataRequest.getCity().isBlank() && editPersonalDataRequest.getState().isBlank() && editPersonalDataRequest.getPostCode().isBlank())) {
             sb.append("Please fill out all address fields or no address fields,");
-        } else if (!(editPersonalDataRequest.getFirstName().isBlank() || editPersonalDataRequest.getLastName().isBlank())) {
+        } else if (!(editPersonalDataRequest.getFirstName().trim().equals("") || editPersonalDataRequest.getLastName().trim().equals(""))) {
             user.setFirstName(editPersonalDataRequest.getFirstName());
             user.setLastName(editPersonalDataRequest.getLastName());
             user.setGender(editPersonalDataRequest.getGender());

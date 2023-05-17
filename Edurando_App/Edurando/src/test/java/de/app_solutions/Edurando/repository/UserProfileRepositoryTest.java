@@ -1,33 +1,46 @@
 package de.app_solutions.Edurando.repository;
 
-import de.app_solutions.Edurando.model.Role;
 import de.app_solutions.Edurando.model.UserProfile;
+import de.app_solutions.Edurando.service.UserProfileService;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import javax.transaction.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
 class UserProfileRepositoryTest {
 
+
     @Autowired
     private UserProfileRepository userProfileRepository;
 
 
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+
     @Test
     void findUserProfileByUsername() {
-        String email = "max.mustermann@example.com";
+        String email = "max.musterfraun@example.com";
         // given
         UserProfile userProfile = new UserProfile("Student",
                 "Max",
-                "Mustermann",
+                "Musterfrau",
                 email,
-                "password",true,true);
+                "password");
 
         userProfileRepository.save(userProfile);
         // When
@@ -39,5 +52,8 @@ class UserProfileRepositoryTest {
         assertEquals(userProfile1.get().getPassword(), userProfile.getPassword());
 
     }
+
+
+
 
 }

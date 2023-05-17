@@ -20,7 +20,7 @@ public class EmailValidatorTest {
     @Test
     public void mailNotUniqueTest() {
         List<UserProfile> users = new ArrayList<>();
-        users.add(new UserProfile("Student", "Bennet", "Gurklies","bennet.gurklies@stud.th-luebeck.de","password",true,true));
+        users.add(new UserProfile("Student", "Bennet", "Gurklies","bennet.gurklies@stud.th-luebeck.de","password"));
         when(userProfileRepository.findAll()).thenReturn(users);
         assertEquals(Pair.of(false,List.of("Email is not unique.")),
                 emailValidator.testMail("bennet.gurklies@stud.th-luebeck.de"));
@@ -34,7 +34,7 @@ public class EmailValidatorTest {
     @Test
     public void mailNotUniqueAndNotValidTest() {
         List<UserProfile> users = new ArrayList<>();
-        users.add(new UserProfile("Student", "Bennet", "Gurklies","max.musterfrau@example.com","password",true,true));
+        users.add(new UserProfile("Student", "Bennet", "Gurklies","max.musterfrau@example.com","password"));
         when(userProfileRepository.findAll()).thenReturn(users);
         assertEquals(Pair.of(false,List.of("Email is not valid.","Email is not unique.")),
                 emailValidator.testMail("max.musterfrau@example.com"));

@@ -40,24 +40,8 @@ public class SubjectService {
                 .orElseThrow(() -> new UsernameNotFoundException(name));
     }
 
+    public void saveSubjectAndTopic(EditSubjectRequest editSubjectRequest, UserProfile userProfile) {
 
-    public Pair<Boolean,List<String>> updateSubjectData(EditSubjectRequest editSubjectRequest) {
-
-        // call userprofile
-
-        UserProfile userProfile = userProfileRepository
-                .findUserProfileById(editSubjectRequest.getUserId()).orElseThrow(() -> new UsernameNotFoundException
-                        (String.format(USER_NOT_FOUND_BY_ID, editSubjectRequest.getUserId())));
-
-        // call the userprofiles,witch are saved in the subject class
-        // and in the topic class to update them
-/*
-        List<UserProfile> userProfiles = subjectRepository
-                .findUserProfilesByName(editSubjectRequest.getSubject()).orElseGet(ArrayList::new);
-
-
-        List<Topic> topics = subjectRepository
-                .findTopicsByName(editSubjectRequest.getSubject()).orElseGet(ArrayList::new);*/
 
         List<UserProfile> userProfiles = new ArrayList<>();
 
@@ -66,14 +50,6 @@ public class SubjectService {
         List<Topic> topics = new ArrayList<>();
 
         Subject newSubject = new Subject();
-
-        if (editSubjectRequest.getSubject().isEmpty() || editSubjectRequest.getTopic().isEmpty()) {
-
-            Pair<Boolean, List<String>> tuple = Pair.of(false, List.of("Please fill out all fields "));
-            System.err.println(tuple);
-            return tuple;
-        }
-
 
 
         String subjectName = ((editSubjectRequest.getSubject().charAt(0) + "").toUpperCase() + editSubjectRequest.getSubject().substring(1)).trim();
@@ -88,17 +64,6 @@ public class SubjectService {
         Topic newTopic = new Topic();
         newTopic.setName(topicName);
         newTopic.setUserProfiles(userProfiles);
-
-
-/*         subjects = userProfileRepository.findSubjectsByUserProfileId(editSubjectRequest.getUserId())
-                 .orElseGet(ArrayList::new);*/
-
-/*
-
-
-        String test_db = userProfileRepository.findSubjectsByUserProfileIdString(editSubjectRequest.getUserId());
-        System.out.println("--------------------------------------------" + test_db);
-*/
 
 
         //add userprofile to us_list
@@ -136,20 +101,83 @@ public class SubjectService {
 
         userProfile.setSubjects(subjects);
 
-        userProfiles.add(userProfile);
-
 
         topicRepository.saveAll(topics);
 
         subjectRepository.saveAll(subjects);
 
 
-        userProfileRepository.saveAll(userProfiles);
+        userProfileRepository.save(userProfile);
+    }
+
+    public Pair<Boolean, List<String>> updateSubjectData(EditSubjectRequest editSubjectRequest) {
+
+        // call userprofile
+
+        UserProfile userProfile = userProfileRepository
+                .findUserProfileById(editSubjectRequest.getUserId()).orElseThrow(() -> new UsernameNotFoundException
+                        (String.format(USER_NOT_FOUND_BY_ID, editSubjectRequest.getUserId())));
+
+        if (editSubjectRequest.getSubject().isEmpty() || editSubjectRequest.getTopic().isEmpty()) {
+
+            Pair<Boolean, List<String>> tuple = Pair.of(false, List.of("Please fill out all fields "));
+            System.err.println(tuple);
+            return tuple;
+        }
+
+        List<String> subjectsInUser = userProfileRepository.findSubjectsByUserProfileId(editSubjectRequest.getUserId());
+        List<String> topicsInUser = userProfileRepository.findTopicByUserProfileId(editSubjectRequest.getUserId());
+
+        boolean subIsExist = false;
+        boolean topIsExist = false;
+        if (subjectsInUser.isEmpty()) {
+            saveSubjectAndTopic(editSubjectRequest, userProfile);
+        } else {
+
+
+            for (String subjectInUser : subjectsInUser) {
+
+                if (subjectInUser.toLowerCase().contains(editSubjectRequest.getSubject().toLowerCase())) {
+
+                    System.out.println(subjectInUser);
+                    subIsExist = true;
+
+                }
+
+            }
+            for (String topicInUser : topicsInUser) {
+                if (topicInUser.toLowerCase().contains(editSubjectRequest.getTopic().toLowerCase())) {
+
+                    System.out.println(topicInUser);
+                    topIsExist = true;
+
+                }
+
+            }
+
+            if(subIsExist && topIsExist){
+                return Pair.of(false, List.of("Subject and topic are already exist"));
+
+            }
+            else {
+
+                saveSubjectAndTopic(editSubjectRequest, userProfile);
+
+            }
+        }
+
+
+
+
+
+
 
 
         return Pair.of(true, List.of("subject has been updated"));
 
+
     }
+
 
 
 }

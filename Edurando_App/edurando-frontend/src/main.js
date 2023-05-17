@@ -9,10 +9,12 @@ import router from './router'
 import App from './App.vue';
 import './assets/main.css';
 import "./axios"
+import piniaPluginPersistedState from "pinia-plugin-persistedstate"
 
 library.add(faFacebook, faTwitter, faInstagram, faTiktok, faArrowUp, faHome, faCircleInfo, faBars, faTimes, faArrowLeft, faUser, faKey, faTableList, faAnglesRight, faAnglesLeft,faCirclePlus,faCheck)
 
 const pinia = createPinia()
+pinia.use(piniaPluginPersistedState)
 const app = createApp(App);
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.use(router);
