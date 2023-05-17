@@ -1,92 +1,61 @@
-# Edurando
+# Readme
 
+Willkommen zum Projekt!
 
+## Inhaltsverzeichnis
 
-## Getting started
+- [Beschreibung](#beschreibung)
+- [Installation](#installation)
+- [Verwendung](#verwendung)
+- [Architektur](#architektur)
+- [Branching Modell](#branching-modell)
+- [Testkonzept](#testkonzept)
+- [Anforderungen](#anforderungen)
+- [Contributing](#contributing)
+- [Lizenz](#lizenz)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Beschreibung
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://git.mylab.th-luebeck.de/softwaretechnik-2/edurando.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://git.mylab.th-luebeck.de/softwaretechnik-2/edurando/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Dieses Projekt ist eine Anwendung, die mit Spring Boot, Postgresql, Tailwind, Vue.js und Quasar entwickelt wurde. Es handelt sich um eine webbasierte Anwendung, die verschiedene Funktionen bietet. Weitere Informationen finden Sie in der Dokumentation und im Quellcode.
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Um das Projekt lokal zu installieren, befolgen Sie bitte die folgenden Schritte:
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+1. Stellen Sie sicher, dass Sie NPM installiert haben.
+2. Klone das Repository auf Ihren lokalen Computer.
+3. Navigieren Sie in das Projektverzeichnis.
+4. Führen Sie den Befehl `npm install` aus, um alle Abhängigkeiten zu installieren.
+5. Stellen Sie sicher, dass Sie eine lokale PostgreSQL-Datenbank haben und die Verbindungsinformationen in der Konfigurationsdatei angeben.
+6. Führen Sie den Befehl `gradle build` aus, um das Projekt zu erstellen und alle Abhängigkeiten herunterzuladen.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+## Verwendung
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Nach erfolgreicher Installation können Sie die Anwendung starten, indem Sie den Befehl `gradle bootRun` ausführen. Öffnen Sie dann Ihren Webbrowser und greifen Sie auf die Anwendung über die angegebene URL zu.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+## Architektur
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+Die Architektur des Projekts besteht aus folgenden Komponenten:
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+- Spring Boot: Das Backend-Framework für die Entwicklung der Anwendung.
+- Postgresql: Die relationale Datenbank, die für die Speicherung der Daten verwendet wird.
+- Tailwind: Das CSS-Framework zur Gestaltung des Frontends.
+- Vue.js: Das JavaScript-Framework zur Entwicklung des Frontends.
+- Quasar: Das UI-Framework für die Erstellung von responsiven Benutzeroberflächen.
 
-## License
-For open source projects, say how it is licensed.
+## Branching Modell
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+In diesem Projekt verwenden wir das Gitflow-Branching-Modell. Es besteht aus den folgenden Hauptzweigen:
+
+- **master**: Der Hauptzweig, der die stabile Produktionsversion enthält.
+- **develop**: Der Entwicklungszweig, von dem aus Feature-Branches abgezweigt werden.
+- **feature/{name}**: Feature-Branches für die Entwicklung neuer Funktionen.
+- **hotfix/{name}**: Hotfix-Branches für die Behebung von kritischen Fehlern in der Produktionsversion.
+
+## Testkonzept
+
+Das Testkonzept für dieses Projekt umfasst die folgenden Punkte:
+
+1. Code-Coverage: Es wird angestrebt, eine Testabdeckung von mindestens 70% sowohl im Backend als auch im Frontend zu erreichen.
+2. Backend-Tests: Das Backend wird mit Postman-Tests und JUnit-Tests getestet, um die Funktionalität und Zuverlässigkeit sicherzustellen.
+3. Frontend-Tests: Das Frontend wird mit Vite-Tests getestet,
