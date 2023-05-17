@@ -1,18 +1,20 @@
 # Readme
 
-Willkommen zum Projekt!
+# Edurando - Nachhilfe-Software für Studierende
+
+Edurando ist eine Software zum Anbieten von Nachhilfe für Studierende an Fachhochschulen bzw. Universitäten. Die Anwendung wird von einer Datenbank gestützt und bietet Studierenden Nachhilfe für alle möglichen Themengebiete. Dabei geht es darum, Studierende beim Lernen von Themen zu unterstützen bzw. Themen beizubringen.
+
 
 ## Inhaltsverzeichnis
 
 - [Beschreibung](#beschreibung)
 - [Installation](#installation)
 - [Verwendung](#verwendung)
+- [Definition of Done](#Definition)
 - [Architektur](#architektur)
 - [Branching Modell](#branching-modell)
 - [Testkonzept](#testkonzept)
-- [Anforderungen](#anforderungen)
-- [Contributing](#contributing)
-- [Lizenz](#lizenz)
+
 
 ## Beschreibung
 
@@ -32,6 +34,19 @@ Um das Projekt lokal zu installieren, befolgen Sie bitte die folgenden Schritte:
 ## Verwendung
 
 Nach erfolgreicher Installation können Sie die Anwendung starten, indem Sie den Befehl `gradle bootRun` ausführen. Öffnen Sie dann Ihren Webbrowser und greifen Sie auf die Anwendung über die angegebene URL zu.
+
+## Definiton of Done
+1. Die Anforderungen sind vollständig implemen&ert und funk&onstüch&g
+2. Alle Unit Tests sind geschrieben und laufen grün
+3. Funk&onale und nicht-funk&onale Anforderungen werden erfüllt
+4. Die Akzeptanzkriterien der User Story sind erfüllt
+5. Der Code ist im Repository erfolgreich eingecheckt
+6. Es sind keine kri&schen Bugs offen
+7. Der Code wurde von einem oder mehreren Teammitgliedern geprüR und genehmigt.
+8. Der Code wurde in einem stabileren Build oder Branch integriert.
+9. Der Code wurde von einem Con&nuous Integra&on (CI)-System automa&sch gebaut
+und getestet.
+
 
 ## Architektur
 
