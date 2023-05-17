@@ -78,5 +78,37 @@ public class UserProfileService implements UserDetailsService {
         return userProfileRepository.findUserProfileById(id).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_BY_ID, id)));
     }
 
+    public UserProfile getUserByEmail(String email) {
+        return userProfileRepository.findUserProfileByUsername(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
+    }
 
+    public Pair<Boolean, String> editPersonalData(EditPersonalDataRequest editPersonalDataRequest) {
+
+        UserProfile user = userProfileRepository.findUserProfileById(editPersonalDataRequest.getId()).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_BY_ID, editPersonalDataRequest.getId())));
+        Address address = user.getAddress();
+        StringBuilder sb = new StringBuilder();
+        if (editPersonalDataRequest.getFirstName().isBlank()) sb.append("First name cannot be empty,");
+        if (editPersonalDataRequest.getLastName().isBlank()) sb.append("Last name cannot be empty,");
+        if (editPersonalDataRequest.getRole().isBlank()) sb.append("Role cannot be empty,");
+        if ((editPersonalDataRequest.getStreet().isBlank() || editPersonalDataRequest.getHouseNumber().isBlank() || editPersonalDataRequest.getCity().isBlank() || editPersonalDataRequest.getState().isBlank() || editPersonalDataRequest.getPostCode().isBlank()) && !(editPersonalDataRequest.getStreet().isBlank() && editPersonalDataRequest.getHouseNumber().isBlank() && editPersonalDataRequest.getCity().isBlank() && editPersonalDataRequest.getState().isBlank() && editPersonalDataRequest.getPostCode().isBlank())) {
+            sb.append("Please fill out all address fields or no address fields,");
+        } else if (!(editPersonalDataRequest.getFirstName().isBlank() || editPersonalDataRequest.getLastName().isBlank())) {
+            user.setFirstName(editPersonalDataRequest.getFirstName());
+            user.setLastName(editPersonalDataRequest.getLastName());
+            user.setGender(editPersonalDataRequest.getGender());
+            user.setRole(editPersonalDataRequest.getRole().equals("Student") ? Role.student : Role.teacher);
+            user.setPersonalBiography(editPersonalDataRequest.getPersonalBiography());
+            user.setMobile(editPersonalDataRequest.getMobile());
+            user.setProfilePictureReference(editPersonalDataRequest.getProfilePictureReference());
+            address.setStreet(editPersonalDataRequest.getStreet());
+            address.setHouseNumber(editPersonalDataRequest.getHouseNumber());
+            address.setCity(editPersonalDataRequest.getCity());
+            address.setState(editPersonalDataRequest.getState());
+            address.setPostCode(editPersonalDataRequest.getPostCode().isBlank() ? -1 : Integer.parseInt(editPersonalDataRequest.getPostCode()));
+            user.setAddress(address);
+            userProfileRepository.save(user);
+            return Pair.of(true, "The processing was successful");
+        }
+        return Pair.of(false, sb.toString());
+    }
 }

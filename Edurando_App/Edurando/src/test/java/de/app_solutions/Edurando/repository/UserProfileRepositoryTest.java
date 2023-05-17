@@ -1,12 +1,9 @@
 package de.app_solutions.Edurando.repository;
 
-import de.app_solutions.Edurando.model.Role;
 import de.app_solutions.Edurando.model.UserProfile;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import javax.transaction.Transactional;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,11 +18,11 @@ class UserProfileRepositoryTest {
 
     @Test
     void findUserProfileByUsername() {
-        String email = "max.mustermann@example.com";
+        String email = "max.musterfraun@example.com";
         // given
         UserProfile userProfile = new UserProfile("Student",
                 "Max",
-                "Mustermann",
+                "Musterfrau",
                 email,
                 "password");
 

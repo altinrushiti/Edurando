@@ -23,7 +23,6 @@ public class UserProfileController {
         return userProfileService.getAllUsers();
     }
 
-    @CrossOrigin
     @GetMapping("/profile/{id}")
     public UserProfile getUserProfile(@PathVariable Long id) {
         return userProfileService.getUserById(id);
@@ -32,7 +31,9 @@ public class UserProfileController {
 
 
 
-
-
+    @GetMapping("/profileByEmail/{email}")
+    public UserProfile getUserProfile(@PathVariable String email) {
+        return userProfileService.getUserByEmail(email);
+    }
 
 }

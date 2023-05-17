@@ -1,24 +1,32 @@
-import { defineStore } from "pinia"
-import axios from "axios"
+import { defineStore } from 'pinia';
+import axios from 'axios';
 
-export const user = defineStore("store", {
+export const useUserStore = defineStore('user', {
     state: () => ({
         user: null,
     }),
+    persist: true,
     getters: {
-        getUser(state) {
-            return state.users
-        }
+        getUser() {
+            return this.user;
+        },
     },
     actions: {
-        async fetchUser() {
+        async fetchUser(email) {
             try {
-                const data = await axios.get('https://jsonplaceholder.typicode.com/users')
-                this.users = data.data
+                const response = await axios.get(`http://localhost:9001/api/v1/profileByEmail/${email}`);
+                const user = response.data;
+
+                this.user = user;
+
+                // Benutzer im Local Storage speichern
+                localStorage.setItem('user', JSON.stringify(user));
+
+                // Weitere Aktionen ausführen
+                // ...
+            } catch (error) {
+                console.error(error);
             }
-            catch (error) {
-                console.log(error)
-            }
-        }
-    }
-})
+        },
+    },
+});
