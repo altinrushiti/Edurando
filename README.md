@@ -1,4 +1,4 @@
-# Readme
+# README
 
 # Edurando - Nachhilfe-Software für Studierende
 
@@ -36,15 +36,15 @@ Um das Projekt lokal zu installieren, befolgen Sie bitte die folgenden Schritte:
 Nach erfolgreicher Installation können Sie die Anwendung starten, indem Sie den Befehl `gradle bootRun` ausführen. Öffnen Sie dann Ihren Webbrowser und greifen Sie auf die Anwendung über die angegebene URL zu.
 
 ## Definiton of Done
-1. Die Anforderungen sind vollständig implemen&ert und funk&onstüch&g
+1. Die Anforderungen sind vollständig implementiert und funktionstüchtig
 2. Alle Unit Tests sind geschrieben und laufen grün
-3. Funk&onale und nicht-funk&onale Anforderungen werden erfüllt
+3. Funktionale und nicht-funktionale Anforderungen werden erfüllt
 4. Die Akzeptanzkriterien der User Story sind erfüllt
 5. Der Code ist im Repository erfolgreich eingecheckt
-6. Es sind keine kri&schen Bugs offen
+6. Es sind keine kritischen Bugs offen
 7. Der Code wurde von einem oder mehreren Teammitgliedern geprüR und genehmigt.
 8. Der Code wurde in einem stabileren Build oder Branch integriert.
-9. Der Code wurde von einem Con&nuous Integra&on (CI)-System automa&sch gebaut
+9. Der Code wurde von einem Continuous Integration (CI)-System automatisch gebaut
 und getestet.
 
 
