@@ -1,11 +1,15 @@
 package de.app_solutions.Edurando.service;
 
+import de.app_solutions.Edurando.TestApplicationConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.util.Pair;
+import org.springframework.test.context.ContextConfiguration;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 @SpringBootTest
+@ContextConfiguration(classes = TestApplicationConfig.class)
 public class PasswordValidatorTest {
 
     private final PasswordValidator passwordValidator = new PasswordValidator();

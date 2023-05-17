@@ -1,5 +1,6 @@
 package de.app_solutions.Edurando.service;
 
+import de.app_solutions.Edurando.TestApplicationConfig;
 import de.app_solutions.Edurando.model.*;
 import de.app_solutions.Edurando.repository.ConfirmationTokenRepository;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -36,6 +38,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@ContextConfiguration(classes = TestApplicationConfig.class)
 public class UserProfileServiceTest {
     @Autowired
     private UserProfileService userProfileService;

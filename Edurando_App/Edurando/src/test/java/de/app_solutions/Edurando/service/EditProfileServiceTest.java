@@ -1,5 +1,6 @@
 package de.app_solutions.Edurando.service;
 
+import de.app_solutions.Edurando.TestApplicationConfig;
 import de.app_solutions.Edurando.model.EditPasswordRequest;
 import de.app_solutions.Edurando.model.EditPersonalDataRequest;
 import de.app_solutions.Edurando.model.Role;
@@ -18,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import static org.mockito.ArgumentMatchers.eq;
 
@@ -28,6 +30,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@ContextConfiguration(classes = TestApplicationConfig.class)
 public class EditProfileServiceTest {
     @Autowired
     private EditProfileService editProfileService;

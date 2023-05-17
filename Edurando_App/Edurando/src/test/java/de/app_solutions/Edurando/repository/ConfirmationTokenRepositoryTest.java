@@ -1,10 +1,12 @@
 package de.app_solutions.Edurando.repository;
 
+import de.app_solutions.Edurando.TestApplicationConfig;
 import de.app_solutions.Edurando.model.ConfirmationToken;
 import de.app_solutions.Edurando.model.UserProfile;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -13,6 +15,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@ContextConfiguration(classes = TestApplicationConfig.class)
 class ConfirmationTokenRepositoryTest {
 
 

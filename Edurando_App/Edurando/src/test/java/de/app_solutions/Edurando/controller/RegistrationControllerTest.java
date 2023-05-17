@@ -1,5 +1,6 @@
 package de.app_solutions.Edurando.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.app_solutions.Edurando.TestApplicationConfig;
 import de.app_solutions.Edurando.model.RegistrationRequest;
 import de.app_solutions.Edurando.service.RegistrationService;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.util.Pair;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ContextConfiguration(classes = TestApplicationConfig.class)
 public class RegistrationControllerTest {
 
     @Autowired

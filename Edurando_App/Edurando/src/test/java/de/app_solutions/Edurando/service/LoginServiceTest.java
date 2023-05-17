@@ -1,6 +1,7 @@
 package de.app_solutions.Edurando.service;
 
 
+import de.app_solutions.Edurando.TestApplicationConfig;
 import de.app_solutions.Edurando.model.LoginRequest;
 import de.app_solutions.Edurando.model.RegistrationRequest;
 import de.app_solutions.Edurando.model.UserProfile;
@@ -12,12 +13,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.util.Pair;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@ContextConfiguration(classes = TestApplicationConfig.class)
 public class LoginServiceTest {
 
     /*

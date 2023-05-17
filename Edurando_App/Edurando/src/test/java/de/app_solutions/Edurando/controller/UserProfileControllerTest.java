@@ -2,6 +2,7 @@ package de.app_solutions.Edurando.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import de.app_solutions.Edurando.TestApplicationConfig;
 import de.app_solutions.Edurando.model.RegistrationRequest;
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,6 +28,7 @@ import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ContextConfiguration(classes = TestApplicationConfig.class)
 public class UserProfileControllerTest {
 
     @Autowired

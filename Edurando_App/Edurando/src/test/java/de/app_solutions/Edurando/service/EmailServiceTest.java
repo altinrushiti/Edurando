@@ -1,10 +1,14 @@
 package de.app_solutions.Edurando.service;
 
+import de.app_solutions.Edurando.TestApplicationConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
+@ContextConfiguration(classes = TestApplicationConfig.class)
 public class EmailServiceTest {
 
     @Test
