@@ -110,7 +110,7 @@ public class SubjectService {
         userProfileRepository.save(userProfile);
     }
 
-    public Pair<Boolean, List<String>> updateSubjectData(EditSubjectRequest editSubjectRequest) {
+    public Pair<Boolean, List<String>> addSubjectData(EditSubjectRequest editSubjectRequest) {
 
         // call userprofile
 
@@ -120,7 +120,7 @@ public class SubjectService {
 
         if (editSubjectRequest.getSubject().isEmpty() || editSubjectRequest.getTopic().isEmpty()) {
 
-            Pair<Boolean, List<String>> tuple = Pair.of(false, List.of("Please fill out all fields "));
+            Pair<Boolean, List<String>> tuple = Pair.of(false, List.of("Please fill out all fields"));
             System.err.println(tuple);
             return tuple;
         }

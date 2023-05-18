@@ -6,14 +6,15 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class EditSubjectRequest {
 
 
-    private final Long userId;
-    private final String subject;
-    private final String topic;
+    private  Long userId;
+    private  String subject;
+    private  String topic;
 
 
 

@@ -34,7 +34,7 @@ public class SubjectController {
     @PostMapping("/updateSubjectData")
     public Pair<Boolean, List<String>> updateSubjectData(@RequestBody EditSubjectRequest editSubjectRequest) {
         System.out.println(editSubjectRequest);
-        return subjectService.updateSubjectData(editSubjectRequest);
+        return subjectService.addSubjectData(editSubjectRequest);
 
     }
 
