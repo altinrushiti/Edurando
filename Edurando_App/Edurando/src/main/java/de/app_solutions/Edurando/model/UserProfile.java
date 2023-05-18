@@ -17,6 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class UserProfile implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,9 +37,11 @@ public class UserProfile implements UserDetails {
     private boolean privacyAgreed;
 
     @ManyToMany
+    @JsonManagedReference
     private List<Subject> subjects;
 
     @ManyToMany
+    @JsonManagedReference
     private List<Topic> topics;
 
     @ManyToMany
