@@ -1,20 +1,17 @@
 package de.app_solutions.Edurando.service;
 
-import de.app_solutions.Edurando.TestApplicationConfig;
+import de.app_solutions.Edurando.EdurandoApplication;
+import de.app_solutions.Edurando.testcontainers.PostgresContainer;
 import de.app_solutions.Edurando.model.ConfirmationToken;
 import de.app_solutions.Edurando.repository.ConfirmationTokenRepository;
+import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -22,9 +19,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.testcontainers.containers.PostgreSQLContainer;
+
+
+
 @SpringBootTest
-@ContextConfiguration(classes = TestApplicationConfig.class)
-public class ConfirmationTokenServiceTest {
+public class ConfirmationTokenServiceTest extends PostgresContainer {
+
+    @DynamicPropertySource
+    static void properties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", container::getJdbcUrl);
+        registry.add("spring.datasource.password", container::getPassword);
+        registry.add("spring.datasource.username", container::getUsername);
+    }
 
     @MockBean
     private ConfirmationTokenRepository confirmationTokenRepository;

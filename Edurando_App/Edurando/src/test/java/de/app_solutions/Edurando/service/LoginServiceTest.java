@@ -1,27 +1,20 @@
 package de.app_solutions.Edurando.service;
 
 
-import de.app_solutions.Edurando.TestApplicationConfig;
-import de.app_solutions.Edurando.model.LoginRequest;
-import de.app_solutions.Edurando.model.RegistrationRequest;
-import de.app_solutions.Edurando.model.UserProfile;
-import de.app_solutions.Edurando.repository.UserProfileRepository;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import de.app_solutions.Edurando.testcontainers.PostgresContainer;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.util.Pair;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 
 @SpringBootTest
-@ContextConfiguration(classes = TestApplicationConfig.class)
-public class LoginServiceTest {
+public class LoginServiceTest extends PostgresContainer {
+    @DynamicPropertySource
+    static void properties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", container::getJdbcUrl);
+        registry.add("spring.datasource.password", container::getPassword);
+        registry.add("spring.datasource.username", container::getUsername);
+    }
 
     /*
 

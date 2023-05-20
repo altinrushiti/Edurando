@@ -1,12 +1,14 @@
 package de.app_solutions.Edurando.service;
 
-import de.app_solutions.Edurando.TestApplicationConfig;
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
+import de.app_solutions.Edurando.testcontainers.PostgresContainer;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.util.Pair;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +17,15 @@ import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-@ContextConfiguration(classes = TestApplicationConfig.class)
-public class EmailValidatorTest {
+public class EmailValidatorTest extends PostgresContainer {
+
+    @DynamicPropertySource
+    static void properties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", container::getJdbcUrl);
+        registry.add("spring.datasource.password", container::getPassword);
+        registry.add("spring.datasource.username", container::getUsername);
+    }
+
     UserProfileRepository userProfileRepository = mock(UserProfileRepository.class);
     EmailValidator emailValidator = new EmailValidator(userProfileRepository);
 

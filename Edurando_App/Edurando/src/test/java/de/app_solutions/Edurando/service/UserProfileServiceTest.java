@@ -1,45 +1,39 @@
 package de.app_solutions.Edurando.service;
 
-import de.app_solutions.Edurando.TestApplicationConfig;
 import de.app_solutions.Edurando.model.*;
 import de.app_solutions.Edurando.repository.ConfirmationTokenRepository;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
+import de.app_solutions.Edurando.testcontainers.PostgresContainer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.util.Pair;
-import org.junit.jupiter.api.Test;
+
 import static org.mockito.ArgumentMatchers.eq;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.List;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
-import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-@ContextConfiguration(classes = TestApplicationConfig.class)
-public class UserProfileServiceTest {
+public class UserProfileServiceTest extends PostgresContainer {
+
+    @DynamicPropertySource
+    static void properties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", container::getJdbcUrl);
+        registry.add("spring.datasource.password", container::getPassword);
+        registry.add("spring.datasource.username", container::getUsername);
+    }
+
     @Autowired
     private UserProfileService userProfileService;
 

@@ -4,6 +4,7 @@ import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.SubjectRepository;
 import de.app_solutions.Edurando.repository.TopicRepository;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
+import de.app_solutions.Edurando.testcontainers.PostgresContainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -11,6 +12,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.util.Pair;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +22,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class SubjectServiceTest {
+public class SubjectServiceTest extends PostgresContainer {
+
+    @DynamicPropertySource
+    static void properties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", container::getJdbcUrl);
+        registry.add("spring.datasource.password", container::getPassword);
+        registry.add("spring.datasource.username", container::getUsername);
+    }
 
     @InjectMocks
     private SubjectService subjectService;

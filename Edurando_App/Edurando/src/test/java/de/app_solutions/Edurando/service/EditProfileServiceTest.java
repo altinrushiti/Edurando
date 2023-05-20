@@ -1,11 +1,11 @@
 package de.app_solutions.Edurando.service;
 
-import de.app_solutions.Edurando.TestApplicationConfig;
 import de.app_solutions.Edurando.model.EditPasswordRequest;
 import de.app_solutions.Edurando.model.EditPersonalDataRequest;
 import de.app_solutions.Edurando.model.Role;
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
+import de.app_solutions.Edurando.testcontainers.PostgresContainer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,6 +20,8 @@ import static org.mockito.Mockito.when;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 
 import static org.mockito.ArgumentMatchers.eq;
 
@@ -30,8 +32,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-@ContextConfiguration(classes = TestApplicationConfig.class)
-public class EditProfileServiceTest {
+public class EditProfileServiceTest extends PostgresContainer {
+
+    @DynamicPropertySource
+    static void properties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", container::getJdbcUrl);
+        registry.add("spring.datasource.password", container::getPassword);
+        registry.add("spring.datasource.username", container::getUsername);
+    }
+
     @Autowired
     private EditProfileService editProfileService;
 

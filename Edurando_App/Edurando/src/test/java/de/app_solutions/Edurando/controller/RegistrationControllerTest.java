@@ -1,9 +1,11 @@
 package de.app_solutions.Edurando.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.app_solutions.Edurando.TestApplicationConfig;
 import de.app_solutions.Edurando.model.RegistrationRequest;
 import de.app_solutions.Edurando.service.RegistrationService;
+import de.app_solutions.Edurando.testcontainers.PostgresContainer;
+import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,13 +13,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.util.Pair;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.util.List;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -28,8 +30,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ContextConfiguration(classes = TestApplicationConfig.class)
-public class RegistrationControllerTest {
+public class RegistrationControllerTest extends PostgresContainer {
+
+    @DynamicPropertySource
+    static void properties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", container::getJdbcUrl);
+        registry.add("spring.datasource.password", container::getPassword);
+        registry.add("spring.datasource.username", container::getUsername);
+    }
 
     @Autowired
     private MockMvc mockMvc;
