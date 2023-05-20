@@ -23,7 +23,6 @@ const restoreUser = () => {
         <h1 class="text-4xl font-font-family text-slate-900">Welcome to Edurando</h1>
         <h1 class="text-4xl font-font-family text-slate-900">{{ user.getUser }}</h1>
     </div>
-
 </template>
 
 <style scoped>

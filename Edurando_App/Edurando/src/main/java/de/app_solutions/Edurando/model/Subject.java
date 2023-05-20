@@ -1,7 +1,10 @@
 package de.app_solutions.Edurando.model;
 
 import javax.persistence.*;
-import lombok.Data;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import java.util.List;
 
@@ -15,8 +18,12 @@ public class Subject {
     private String name;
 
     @ManyToMany
-    private List<UserProfile> userProfile;
+    @JsonBackReference
+    private List<UserProfile> userProfiles;
 
     @OneToMany
+    @JsonBackReference
     private List<Topic> topics;
+
+
 }
