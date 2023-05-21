@@ -4,7 +4,7 @@ services:
   - postgres:13-alpine
 
 variables:
-  POSTGRES_DB: EdurandoDb
+  POSTGRES_DB: postgres
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: "Password"
   POSTGRES_HOST_AUTH_METHOD: trust
@@ -26,7 +26,7 @@ build-job:
     paths:
       - builds
     reports:
-      junit: builds/softwaretechnik-2/edurando/Edurando_App/Edurando/build/reports/tests/test/index.html
+      junit: Edurando/Edurando_App/Edurando/build/reports/tests/test/index.html
   stage: build
   script:
     - cd Edurando_App/Edurando
