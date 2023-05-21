@@ -12,7 +12,10 @@ build-job:
   script:
     - cd Edurando_App/Edurando
     - echo "Compiling the code..."
+    - chmod a+x ./gradlew
+    - ./gradlew build
     - echo "Compile complete."
+   
 
 unit-test-job:
   stage: test
