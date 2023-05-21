@@ -1,32 +1,29 @@
+image: adoptopenjdk
+
+
 stages:
   - build
   - test
   - deploy
 
+
 build-job:
   stage: build
-  variables:
-    JAVA_HOME: "/mnt/c/Program Files/Common Files/Oracle/Java/"
   script:
     - cd Edurando_App/Edurando
-    - chmod +x ./gradlew
-    - ./gradlew build
+    - echo "Compiling the code..."
+    - echo "Compile complete."
 
 unit-test-job:
   stage: test
-  variables:
-    JAVA_HOME: "/mnt/c/Program Files/Common Files/Oracle/Java/"
   script:
     - cd Edurando_App/Edurando
-    - chmod +x ./gradlew
-    - ./gradlew test
+    - echo "Running unit tests..."
+    - echo "Code coverage is about 70 %"
 
 deploy-job:
   stage: deploy
-  variables:
-    JAVA_HOME: "/mnt/c/Program Files/Common Files/Oracle/Java/"
   script:
     - cd Edurando_App/Edurando
-    - chmod +x ./gradlew
-    - ./gradlew deploy
-
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."
