@@ -1,24 +1,24 @@
 package de.app_solutions.Edurando.service;
 
 import de.app_solutions.Edurando.testcontainers.PostgresContainer;
+import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.util.Pair;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.testcontainers.containers.PostgreSQLContainer;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.util.List;
 @SpringBootTest
-public class PasswordValidatorTest extends PostgresContainer {
+@RunWith(SpringRunner.class)
+public class PasswordValidatorTest  {
 
-    @DynamicPropertySource
-    static void properties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", container::getJdbcUrl);
-        registry.add("spring.datasource.password", container::getPassword);
-        registry.add("spring.datasource.username", container::getUsername);
-    }
+    @ClassRule
+    public static PostgreSQLContainer<PostgresContainer> postgreSQLContainer = PostgresContainer.getInstance();
+
 
     private final PasswordValidator passwordValidator = new PasswordValidator();
 

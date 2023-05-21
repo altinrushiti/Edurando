@@ -3,13 +3,14 @@ package de.app_solutions.Edurando.service;
 import de.app_solutions.Edurando.model.ConfirmationToken;
 import de.app_solutions.Edurando.repository.ConfirmationTokenRepository;
 import de.app_solutions.Edurando.testcontainers.PostgresContainer;
+import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -19,16 +20,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 
-@TestPropertySource(locations = "classpath:application.properties")
+@RunWith(SpringRunner.class)
 @SpringBootTest
-public class ConfirmationTokenServiceTest extends PostgresContainer {
+public class ConfirmationTokenServiceTest {
 
-    @DynamicPropertySource
-    static void properties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", container::getJdbcUrl);
-        registry.add("spring.datasource.password", container::getPassword);
-        registry.add("spring.datasource.username", container::getUsername);
-    }
+    @ClassRule
+    public static PostgreSQLContainer<PostgresContainer> postgreSQLContainer = PostgresContainer.getInstance();
+
 
     @MockBean
     private ConfirmationTokenRepository confirmationTokenRepository;
