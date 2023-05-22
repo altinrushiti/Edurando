@@ -34,8 +34,8 @@
                 class="bg-white text-gray-900 rounded-none relative block w-full px-3 py-2 border border-gray-300 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                 id="role" v-model="user.gender">
               <option value="" disabled>Select gender</option>
-              <option value="Student">Man</option>
-              <option value="Teacher">Women</option>
+              <option value="Man">Man</option>
+              <option value="Woman">Women</option>
             </select>
           </div>
           <div>
@@ -44,8 +44,8 @@
                 class="bg-white text-gray-900 rounded-none relative block w-full px-3 py-2 border border-gray-300 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                 id="role" v-model="user.role">
               <option value="" disabled>Select role</option>
-              <option value="Student">Student</option>
-              <option value="Teacher">Teacher</option>
+              <option value="student">student</option>
+              <option value="teacher">teacher</option>
             </select>
           </div>
           <div class="flex flex-wrap -mx-3 mb-6">
@@ -123,21 +123,24 @@ export default defineComponent({
 <script setup>
 import { reactive} from "vue";
 import axios from "axios";
+import {useUserStore} from "@/store/store";
+
+const userStore = useUserStore();
 
 const user = reactive({
-    id: 1,
-    firstName: '',
-    lastName: '',
-    gender: '',
-    role: '',
-    personalBiography: '',
-    mobile: '',
+    id: userStore.getUser.id,
+    firstName: userStore.getUser.firstName,
+    lastName: userStore.getUser.lastName,
+    gender: userStore.getUser.gender,
+    role: userStore.getUser.role,
+    personalBiography: userStore.getUser.personalBiography,
+    mobile: userStore.getUser.mobile,
     profilePictureReference: '',
-    street: '',
-    houseNumber: '',
-    city: '',
-    state: '',
-    postCode: ''
+    street: userStore.getUser.street,
+    houseNumber: userStore.getUser.houseNumber,
+    city: userStore.getUser.city,
+    state: userStore.getUser.state,
+    postCode: userStore.getUser.postCode
 })
 
 function onEdit() {
@@ -149,7 +152,10 @@ function onEdit() {
             console.log(error)
         })
 }
-/*import {defineComponent} from "vue";
+
+function getUser() {
+    this.user = userStore.getUser
+}/*import {defineComponent} from "vue";
 import axios from "axios";
 import EditPage from "../EditPage.vue";
 
