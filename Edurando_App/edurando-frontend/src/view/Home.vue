@@ -18,7 +18,6 @@ const userStore = useUserStore();
             </q-img>
         </q-card>
     </div>
-
 </template>
 
 <style scoped>

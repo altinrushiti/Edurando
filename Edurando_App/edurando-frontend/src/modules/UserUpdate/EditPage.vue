@@ -9,7 +9,7 @@
         <div class="h-full px-3 py-4 overflow-y-auto" :class="isSidebarOpen ? 'bg-purple-50 border' : 'bg-transparent md:bg-purple-50 md:border'">
             <ul class="space-y-2 font-medium text-[#483d8b]">
                 <li :class="!isSidebarOpen && 'hidden md:block'">
-                    <RouterLink to="/EditProfile" active-class="bg-[#e4e2ee]" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
+                    <RouterLink to="/editProfile" active-class="bg-[#e4e2ee]" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
                         <font-awesome-icon :icon="['fas', 'user']" />
                         <span :class="isSidebarOpen ? '' : 'hidden'" class="flex-1 ml-3 whitespace-nowrap">Personal Data</span>
                     </RouterLink>

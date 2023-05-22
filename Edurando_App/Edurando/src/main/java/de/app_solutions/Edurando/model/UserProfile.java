@@ -17,7 +17,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class UserProfile implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,11 +36,9 @@ public class UserProfile implements UserDetails {
     private boolean privacyAgreed;
 
     @ManyToMany
-    @JsonManagedReference
     private List<Subject> subjects;
 
     @ManyToMany
-    @JsonManagedReference
     private List<Topic> topics;
 
     @ManyToMany
@@ -66,6 +63,17 @@ public class UserProfile implements UserDetails {
         this.username = email;
         this.password = password;
         this.address = new Address();
+    }
+
+    public UserProfile(String role, String firstName, String lastName,  String email, String password, boolean enabled) {
+        if (role.equals("Student")) this.role = Role.student;
+        else this.role = Role.teacher;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = email;
+        this.password = password;
+        this.address = new Address();
+        this.enabled = enabled;
     }
 
     @Override
