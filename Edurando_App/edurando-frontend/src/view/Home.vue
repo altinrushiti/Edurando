@@ -11,7 +11,6 @@ const userStore = useUserStore();
         <h1 class="text-4xl font-font-family text-slate-900">Welcome to Edurando</h1>
         <h1 class="text-4xl font-font-family text-slate-900">{{ userStore.getUser }}</h1>
     </div>
-
 </template>
 
 <style scoped>

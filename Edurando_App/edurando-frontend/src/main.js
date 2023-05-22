@@ -9,6 +9,13 @@ import router from './router'
 import App from './App.vue';
 import './assets/main.css';
 import "./axios"
+import { Quasar } from 'quasar'
+// Import icon libraries
+import '@quasar/extras/roboto-font-latin-ext/roboto-font-latin-ext.css'
+import '@quasar/extras/material-icons/material-icons.css'
+import '@quasar/extras/fontawesome-v6/fontawesome-v6.css'
+// Import Quasar css
+import 'quasar/src/css/index.sass'
 import piniaPluginPersistedState from "pinia-plugin-persistedstate"
 
 library.add(faFacebook, faTwitter, faInstagram, faTiktok, faArrowUp, faHome, faCircleInfo, faBars, faTimes, faArrowLeft, faUser, faKey, faTableList, faAnglesRight, faAnglesLeft,faCirclePlus,faCheck)
@@ -18,5 +25,8 @@ pinia.use(piniaPluginPersistedState)
 const app = createApp(App);
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.use(router);
-app.use(pinia)
+app.use(pinia);
+app.use(Quasar, {
+    plugins: {}, // import Quasar plugins and add here
+});
 app.mount('#app');
