@@ -19,11 +19,8 @@ import java.util.Optional;
 public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {
     Optional<UserProfile> findUserProfileByUsername(String email);
 
-    @Query("SELECT userProfile from UserProfile userProfile where userProfile.id = ?1")
     Optional<UserProfile> findUserProfileById(Long id);
 
-
-    //UserProfile findById(long aLong);
     @Transactional
     @Modifying
     @Query("UPDATE UserProfile a " +
@@ -43,4 +40,5 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
     @Query(value = "SELECT DISTINCT t.* FROM topic t JOIN topic_user_profiles tup ON t.id = tup.topic_id JOIN user_profile up ON tup.user_profiles_id = up.id WHERE up.id = ?1", nativeQuery = true)
     List<String> findTopicByUserProfileId(Long id);
 
+    List<UserProfile> findTop9ByOrderByRatingDesc();
 }

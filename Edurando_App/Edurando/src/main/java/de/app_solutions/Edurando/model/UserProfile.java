@@ -68,6 +68,17 @@ public class UserProfile implements UserDetails {
         this.address = new Address();
     }
 
+    public UserProfile(String role, String firstName, String lastName,  String email, String password, boolean enabled) {
+        if (role.equals("Student")) this.role = Role.student;
+        else this.role = Role.teacher;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = email;
+        this.password = password;
+        this.address = new Address();
+        this.enabled = enabled;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.name());
