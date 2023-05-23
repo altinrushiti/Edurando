@@ -15,7 +15,7 @@ import '@quasar/extras/roboto-font-latin-ext/roboto-font-latin-ext.css'
 import '@quasar/extras/material-icons/material-icons.css'
 import '@quasar/extras/fontawesome-v6/fontawesome-v6.css'
 // Import Quasar css
-import 'quasar/src/css/index.sass'
+//import 'quasar/src/css/index.sass'
 import piniaPluginPersistedState from "pinia-plugin-persistedstate"
 
 import { Quasar } from 'quasar'
