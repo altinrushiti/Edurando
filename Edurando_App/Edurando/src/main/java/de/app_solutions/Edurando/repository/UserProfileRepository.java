@@ -35,5 +35,5 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
     @Query(value = "SELECT DISTINCT t.* FROM topic t JOIN topic_user_profiles tup ON t.id = tup.topic_id JOIN user_profile up ON tup.user_profiles_id = up.id WHERE up.id = ?1", nativeQuery = true)
     List<String> findTopicByUserProfileId(Long id);
 
-    List<UserProfile> findTop9ByOrderByRatingDesc();
+    List<UserProfile> findTop10ByOrderByRatingDesc();
 }

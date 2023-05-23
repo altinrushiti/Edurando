@@ -5,8 +5,12 @@ import lombok.Data;
 
 import java.util.List;
 
-@Data
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +23,8 @@ public class Subject {
 
     @OneToMany
     private List<Topic> topics;
+
+    public Subject(String name) {
+        this.name = name;
+    }
 }

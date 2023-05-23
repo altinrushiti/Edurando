@@ -10,13 +10,17 @@ const userStore = useUserStore();
     <div class="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <h1 class="text-4xl font-font-family text-slate-900">Welcome to Edurando</h1>
         <h1 class="text-4xl font-font-family text-slate-900">{{ userStore.getUser }}</h1>
-        <q-card class="w-full max-w-[250px]">
-            <q-img src="https://cdn.quasar.dev/img/parallax2.jpg">
-                <div class="text-h5 absolute-bottom text-right">
-                    Title
+<!--        <q-card class="my-card" flat bordered>
+            <q-card-section>
+                <div class="text-h6 q-mb-xs">Our Changing Planet</div>
+                <div class="row no-wrap items-center">
+                    <q-rating size="18px" v-model="stars" :max="5" color="primary" />
+                    <span class="text-caption text-grey q-ml-sm">4.2 (551)</span>
                 </div>
-            </q-img>
-        </q-card>
+            </q-card-section>
+
+            <img :src="userStore.getUser.profilePictureReference" alt="Gibt es nicht"/>
+        </q-card>-->
     </div>
 </template>
 
