@@ -7,7 +7,7 @@ stages:
   - deploy
 
 variables:
-  DATABASE_HOST: 18b6f1b24061
+  DATABASE_HOST: localhost
   DATABASE_PORT: 5432
   DATABASE_NAME: postgres
   DATABASE_USERNAME: postgres
