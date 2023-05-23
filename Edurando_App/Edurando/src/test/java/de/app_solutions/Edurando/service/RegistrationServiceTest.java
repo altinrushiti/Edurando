@@ -3,8 +3,10 @@ package de.app_solutions.Edurando.service;
 import de.app_solutions.Edurando.model.ConfirmationToken;
 import de.app_solutions.Edurando.model.RegistrationRequest;
 import de.app_solutions.Edurando.model.UserProfile;
+import org.junit.ClassRule;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -12,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.util.Pair;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,7 +25,9 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class RegistrationServiceTest {
+
 
     @MockBean
     private UserProfileService userProfileService;
