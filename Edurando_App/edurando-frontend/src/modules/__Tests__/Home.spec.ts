@@ -6,7 +6,7 @@ import {mount} from "@vue/test-utils";
 describe("Home", () => {
     it("renders a message", () => {
         const wrapper = mount(Home)
-        expect(wrapper.html()).toContain("Welcome to Edurando");
+        expect(wrapper.html()).toMatchSnapshot();
     });
 })
 
