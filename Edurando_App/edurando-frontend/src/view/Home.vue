@@ -1,5 +1,6 @@
 <script setup>
 
+
 import { useUserStore } from '@/store/store';
 import {ref} from "vue"; // importieren Sie den User Store
 
@@ -37,32 +38,54 @@ const restoreUser = () => {
 
     <div class="image-list">
       <div class="Album">
-        <img class="w-[400px] h-[600px]" src="@/assets/images/TopTeacher/Krish.png" alt="Krish" />
+        <img class="w-[400px] h-[600px] image-item" src="@/assets/images/TopTeacher/Krish.png" alt="Krish" />
+        <ul class="image-points">
+          <li>Hallo, Ich bin Krish Kalra und studiere Informatik.</li>
+          <li>Ich studiere an der TH in Lübeck.</li>
+          <li>Ich unterrichte programmieren in Java und Python</li>
+        </ul>
       </div>
-
       <div class="Album">
-        <img class="w-[400px] h-[600px]" src="@/assets/images/TopTeacher/Bennet.png" alt="Bennet" />
+        <img class="w-[400px] h-[600px] image-item" src="@/assets/images/TopTeacher/Bennet.png" alt="Bennet" />
+        <ul class="image-points">
+          <li>Ich bin Bennet Groklie und studiere Informatik.</li>
+          <li>Ich studiere an der TH in Lübeck.</li>
+          <li>Ich unterrichte programmieren in Java und Python</li>
+        </ul>
       </div>
-
       <div class="Album">
-        <img class="w-[400px] h-[600px]" src="@/assets/images/TopTeacher/Ahmed.png" alt="Ahmed" />
+        <img class="w-[400px] h-[600px] image-item" src="@/assets/images/TopTeacher/Ahmed.png" alt="Ahmed" />
+        <ul class="image-points">
+          <li>Ich bin Ahmed Radwan und studiere Informatik.</li>
+          <li>Ich studiere an der TH in Lübeck.</li>
+          <li>Ich unterrichte programmieren in Java und Mathe</li>
+        </ul>
       </div>
-
       <div class="Album">
-        <img class="w-[400px] h-[600px]" src="@/assets/images/TopTeacher/Jamin.png" alt="Jamin" />
+        <img class="w-[400px] h-[600px] image-item" src="@/assets/images/TopTeacher/Jamin.png" alt="Jamin" />
+        <ul class="image-points">
+          <li>Ich bin Jamin Karbasi und bin 21 Jahre alt.</li>
+          <li>Ich studiere Wirtschaftsingeneurswesen an der TH</li>
+          <li>in Lübeck. Ich unterrichte technische Mechanik</li>
+        </ul>
       </div>
-
       <div class="Album">
-        <img class="w-[400px] h-[600px]" src="@/assets/images/TopTeacher/Marco.png" alt="Marco" />
+        <img class="w-[400px] h-[600px] image-item" src="@/assets/images/TopTeacher/Marco.png" alt="Krish" />
+        <ul class="image-points">
+          <li>Ich bin Marco Phan und studiere Pflege.</li>
+          <li>Ich studiere an der HAW in Hamburg.</li>
+          <li>Ich unterrichte Anatomy</li>
+        </ul>
       </div>
-
       <div class="Album">
-        <img class="w-[400px] h-[600px]" src="@/assets/images/TopTeacher/Kombi.png" alt="Kombi" />
+        <img class="w-[400px] h-[600px] image-item" src="@/assets/images/TopTeacher/Kombi.png" alt="Krish" />
+        <ul class="image-points">
+          <li>Wir sind die drei Maschinen.</li>
+          <li>Wir studieren an der TH in Lübeck.</li>
+          <li>Und unterrichten programmieren Mathematik</li>
+        </ul>
       </div>
-
     </div>
-
-
   </div>
 
 
@@ -73,19 +96,39 @@ const restoreUser = () => {
 
 </template>
 
-<style scoped>
 
-.image-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Drei Spalten */
-  gap: 20px; /* Abstand zwischen den Bildern */
-  padding: 0.2%;
-  margin-left: 3%;
-  margin-top: 60px;
-}
+  <style scoped>
+    .image-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      padding: 0.2%;
+      margin-left: 3%;
+      margin-top: 60px;
+    }
 
-.Album {
-  margin-right: 3%; /* Optional: Anpassung des Abstands zwischen den Bildern */
-}
+    .Album {
+      width: 33.33%;
+      padding-right: 1%;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+    }
 
-</style>
+    .image-points {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    .image-points li {
+      margin-bottom: 5px;
+      color: black;
+      font-size: 18px;
+    }
+
+    .image-item {
+      border: 7px solid;
+      border-color: #483d8b;
+    }
+
+  </style>
