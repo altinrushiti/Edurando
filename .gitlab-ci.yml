@@ -21,12 +21,6 @@ before_script:
 
 
 build-job:
-  artifacts:
-    when: always
-    paths:
-      - builds
-    reports:
-      junit: builds/softwaretechnik-2/edurando/Edurando_App/Edurando/build/reports/tests/test/index.html
   stage: build
   script:
     - cd Edurando_App/Edurando
