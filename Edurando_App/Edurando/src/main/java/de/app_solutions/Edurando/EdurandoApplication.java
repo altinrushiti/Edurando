@@ -20,6 +20,7 @@ public class EdurandoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EdurandoApplication.class, args);
 	}
+
 /*
     @Bean
     CommandLineRunner commandLineRunner(UserProfileService userProfileService) {
