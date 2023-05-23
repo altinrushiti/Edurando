@@ -45,3 +45,22 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.register('deploy') {
+	group = 'deployment'
+	description = 'Deploys the application'
+
+	dependsOn 'build'
+
+	doLast {
+		// Perform deployment actions here
+
+		println 'Deploying the application...'
+		// Example deployment actions:
+		// - Copy the built application to a deployment directory
+		// - Restart the application server
+		// - Notify stakeholders about the deployment
+
+		println 'Deployment completed!'
+	}
+}
