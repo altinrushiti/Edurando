@@ -22,7 +22,6 @@ const userStore = useUserStore();
             <img :src="userStore.getUser.profilePictureReference" alt="Gibt es nicht"/>
         </q-card>-->
     </div>
-
 </template>
 
 <style scoped>

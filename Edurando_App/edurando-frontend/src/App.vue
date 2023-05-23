@@ -1,6 +1,6 @@
 <script setup>
 
-import NavBar from "./modules/NavBar/components/NavBar.vue";
+import NavBar from "@/modules/NavBar/components/NavBar.vue";
 import Footer from "@/modules/Footer/Footer.vue"
 import '@fortawesome/fontawesome-free/css/all.css'
 
