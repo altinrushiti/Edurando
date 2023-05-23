@@ -26,7 +26,7 @@ public class UserProfile implements UserDetails {
     private String firstName;
     private String lastName;
     private String mobile = "";
-    private String profilePictureReference = "Edurando_App/Edurando/src/main/resources/p_placeholder.jpg";
+    private String profilePictureReference = "../assets/p_placeholder.png";
     private String personalBiography = "";
     private float rating;
     private String gender = "";
@@ -77,6 +77,19 @@ public class UserProfile implements UserDetails {
         this.password = password;
         this.address = new Address();
         this.enabled = enabled;
+    }
+
+    public UserProfile(String role, String firstName, String lastName,  String email, String password, boolean enabled, float rating, String personalBiography) {
+        if (role.equals("Student")) this.role = Role.student;
+        else this.role = Role.teacher;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = email;
+        this.password = password;
+        this.address = new Address();
+        this.enabled = enabled;
+        this.rating = rating;
+        this.personalBiography = personalBiography;
     }
 
     @Override

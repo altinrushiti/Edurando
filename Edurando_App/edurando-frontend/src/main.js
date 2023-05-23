@@ -27,8 +27,8 @@ import '@quasar/extras/material-symbols-sharp/material-symbols-sharp.css'
 // import @quasar/extras/animate/fadeIn.css
 // import @quasar/extras/animate/fadeOut.css
 
-/*// Import Quasar css
-import 'quasar/src/css/index.sass'*/
+// Import Quasar css
+/*import 'quasar/src/css/index.sass'*/
 
 library.add(faFacebook, faTwitter, faInstagram, faTiktok, faArrowUp, faHome, faCircleInfo, faBars, faTimes, faArrowLeft, faUser, faKey, faTableList, faAnglesRight, faAnglesLeft,faCirclePlus,faCheck)
 

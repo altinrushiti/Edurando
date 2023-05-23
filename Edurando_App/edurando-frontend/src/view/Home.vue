@@ -8,7 +8,9 @@ const userStore = useUserStore();
 
 <template>
     <div class="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <q-card class="my-card" flat bordered>
+        <h1 class="text-4xl font-font-family text-slate-900">Welcome to Edurando</h1>
+        <h1 class="text-4xl font-font-family text-slate-900">{{ userStore.getUser }}</h1>
+<!--        <q-card class="my-card" flat bordered>
             <q-card-section>
                 <div class="text-h6 q-mb-xs">Our Changing Planet</div>
                 <div class="row no-wrap items-center">
@@ -17,8 +19,8 @@ const userStore = useUserStore();
                 </div>
             </q-card-section>
 
-            <img src="https://cdn.quasar.dev/img/mountains.jpg">
-        </q-card>
+            <img :src="userStore.getUser.profilePictureReference" alt="Gibt es nicht"/>
+        </q-card>-->
     </div>
 
 </template>

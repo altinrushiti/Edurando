@@ -30,4 +30,7 @@ public class Topic {
     @JsonManagedReference
     private Subject subject;
 
+    public Topic(String name) {
+        this.name = name;
+    }
 }

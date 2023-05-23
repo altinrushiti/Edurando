@@ -66,11 +66,11 @@
           </div>
           <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label for="city" class="text-black font-font-family p-1">Postcode</label>
-              <input id="city" name="city" type="text" v-model="user.postCode"
+              <label for="postcode" class="text-black font-font-family p-1">Postcode</label>
+              <input id="postcode" name="postcode" type="tel" v-model="user.postCode" pattern="[0-9]{5}"
                      autocomplete="new-password"
                      class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                     placeholder="City">
+                     placeholder="Postcode">
             </div>
             <div class="w-full md:w-1/2 px-3">
               <label for="state" class="text-black font-font-family p-1">City</label>
@@ -136,16 +136,19 @@ const user = reactive({
     personalBiography: userStore.getUser.personalBiography,
     mobile: userStore.getUser.mobile,
     profilePictureReference: '',
-    street: userStore.getUser.street,
-    houseNumber: userStore.getUser.houseNumber,
-    city: userStore.getUser.city,
-    state: userStore.getUser.state,
-    postCode: userStore.getUser.postCode
+    street: userStore.getUser.address.street,
+    houseNumber: userStore.getUser.address.houseNumber,
+    city: userStore.getUser.address.city,
+    state: userStore.getUser.address.state,
+    postCode: userStore.getUser.address.postCode !== -1 ? userStore.getUser.address.postCode : ''
 })
 
 function onEdit() {
     axios.put('/updatePersonalData', user)
         .then((response) => {
+
+            // Benutzerdaten abrufen und speichern
+            /*await userStore.fetchUserById(user.id);*/
             console.log(response)
         })
         .catch((error) => {
