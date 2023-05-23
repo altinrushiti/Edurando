@@ -13,7 +13,7 @@ build-job:
     - cd Edurando_App/Edurando
     - echo "Compiling the code..."
     - chmod a+x ./gradlew
-    - ./gradlew build
+    - ./gradlew build --stacktrace
     - echo "Compile complete."
    
 
