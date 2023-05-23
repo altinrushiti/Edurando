@@ -5,14 +5,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import de.app_solutions.Edurando.model.RegistrationRequest;
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
+import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
 
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -26,6 +30,7 @@ import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
 public class UserProfileControllerTest {
 
     @Autowired

@@ -5,7 +5,9 @@ import de.app_solutions.Edurando.model.EditPersonalDataRequest;
 import de.app_solutions.Edurando.model.Role;
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
+import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.util.Pair;
@@ -18,6 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import static org.mockito.ArgumentMatchers.eq;
 
@@ -28,7 +32,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class EditProfileServiceTest {
+
+
+
     @Autowired
     private EditProfileService editProfileService;
 
@@ -41,8 +49,6 @@ public class EditProfileServiceTest {
 
     @Test
     public void editPasswordTest() {
-
-
 
         // Arrange
         UserProfile user1 = new UserProfile();

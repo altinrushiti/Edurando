@@ -1,7 +1,8 @@
 package de.app_solutions.Edurando.model;
 
 import javax.persistence.*;
-import lombok.Data;
+
+import lombok.*;
 
 import java.util.List;
 
