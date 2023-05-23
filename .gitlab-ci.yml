@@ -6,6 +6,12 @@ stages:
   - test
   - deploy
 
+variables:
+  DATABASE_HOST: 18b6f1b24061
+  DATABASE_PORT: 5432
+  DATABASE_NAME: Edurando-TestDb
+  DATABASE_USERNAME: postgres
+  DATABASE_PASSWORD: Password
 
 build-job:
   stage: build
@@ -13,7 +19,7 @@ build-job:
     - cd Edurando_App/Edurando
     - echo "Compiling the code..."
     - chmod a+x ./gradlew
-    - ./gradlew build --stacktrace
+    - ./gradlew build 
     - echo "Compile complete."
    
 
@@ -22,6 +28,7 @@ unit-test-job:
   script:
     - cd Edurando_App/Edurando
     - echo "Running unit tests..."
+    - ./gradlew test
     - echo "Code coverage is about 70 %"
 
 deploy-job:
@@ -29,4 +36,5 @@ deploy-job:
   script:
     - cd Edurando_App/Edurando
     - echo "Deploying application..."
+    - ./gradlew deploy
     - echo "Application successfully deployed."
