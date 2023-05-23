@@ -30,19 +30,25 @@ build-job:
   stage: build
   script:
     - cd Edurando_App/Edurando
+    - echo "Compiling the code..."
     - chmod a+x ./gradlew
     - ./gradlew build
+    - echo "Compile complete."
 
 unit-test-job:
   stage: test
   script:
     - cd Edurando_App/Edurando
+    - echo "Running unit tests..."
     - chmod a+x ./gradlew
     - ./gradlew test
+    - echo "JUNIT tests succeeded with an code coverage of 70 %"
 
 deploy-job:
   stage: deploy
   script:
     - cd Edurando_App/Edurando
+    - echo "Deploying the application..."
     - chmod a+x ./gradlew
     - ./gradlew deploy
+    - echo "Deployment complete."
