@@ -53,7 +53,7 @@ public class EditProfileServiceTest {
         // Arrange
         UserProfile user1 = new UserProfile();
         user1.setId(1L);
-        user1.setPassword("Test123!");
+        user1.setPassword("Test123");
 
         EditPasswordRequest pwRequest = new EditPasswordRequest(1L, "Test123!", "Pflaume3!!", "Pflaume3!!");
 
