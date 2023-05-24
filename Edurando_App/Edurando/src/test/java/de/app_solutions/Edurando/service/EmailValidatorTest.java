@@ -2,9 +2,13 @@ package de.app_solutions.Edurando.service;
 
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
+import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.util.Pair;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +17,10 @@ import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class EmailValidatorTest {
-    UserProfileRepository userProfileRepository = mock(UserProfileRepository.class);
+
+   UserProfileRepository userProfileRepository = mock(UserProfileRepository.class);
     EmailValidator emailValidator = new EmailValidator(userProfileRepository);
 
     @Test

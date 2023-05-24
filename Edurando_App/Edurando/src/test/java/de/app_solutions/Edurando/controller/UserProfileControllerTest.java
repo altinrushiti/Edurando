@@ -5,14 +5,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import de.app_solutions.Edurando.model.RegistrationRequest;
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
+import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
 
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -26,6 +30,7 @@ import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
 public class UserProfileControllerTest {
 
     @Autowired
@@ -58,7 +63,7 @@ public class UserProfileControllerTest {
     public void getUserProfiles_returnsList() throws Exception {
         UserProfile user1 = new UserProfile("Student", "Max", "Mustermann", "max.mustermann@stud.th-luebeck.de", "MaxMustermann_123");
         user1.setId(1L);
-        user1.setProfilePictureReference("Edurando_App/Edurando/src/main/resources/p_placeholder.jpg");
+        user1.setProfilePictureReference("Edurando_App/Edurando/src/main/resources/p_placeholder.png");
         user1.setRating(0);
         // Set values for other properties if needed
 
@@ -68,7 +73,7 @@ public class UserProfileControllerTest {
 
         mockMvc.perform(get("/api/v1/profiles"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("[{\"id\":1,\"firstName\":\"Max\",\"lastName\":\"Mustermann\",\"mobile\":'',\"profilePictureReference\":\"Edurando_App/Edurando/src/main/resources/p_placeholder.jpg\",\"personalBiography\":'',\"rating\":0,\"gender\":'',\"tutoringLocation\":'',\"username\":\"max.mustermann@stud.th-luebeck.de\",\"password\":\"MaxMustermann_123\",\"termsAgreed\":false,\"privacyAgreed\":false,\"subjects\":null,\"topics\":null,\"ratings\":null,\"role\":\"student\",\"locked\":false,\"enabled\":false,\"authorities\":[{\"authority\":\"student\"}],\"credentialsNonExpired\":true,\"accountNonExpired\":true,\"accountNonLocked\":true}]"));
+                .andExpect(content().json("[{\"id\":1,\"firstName\":\"Max\",\"lastName\":\"Mustermann\",\"mobile\":'',\"profilePictureReference\":\"Edurando_App/Edurando/src/main/resources/p_placeholder.png\",\"personalBiography\":'',\"rating\":0,\"gender\":'',\"tutoringLocation\":'',\"username\":\"max.mustermann@stud.th-luebeck.de\",\"password\":\"MaxMustermann_123\",\"termsAgreed\":false,\"privacyAgreed\":false,\"subjects\":null,\"topics\":null,\"ratings\":null,\"role\":\"student\",\"locked\":false,\"enabled\":false,\"authorities\":[{\"authority\":\"student\"}],\"credentialsNonExpired\":true,\"accountNonExpired\":true,\"accountNonLocked\":true}]"));
     }
 
 

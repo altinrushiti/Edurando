@@ -28,7 +28,10 @@ public class UserProfileController {
         return userProfileService.getUserById(id);
     }
 
-
+    @GetMapping("/top-users")
+    public List<UserProfile> getTopUsers() {
+        return userProfileService.showTopUsers();
+    }
 
 
     @GetMapping("/profileByEmail/{email}")

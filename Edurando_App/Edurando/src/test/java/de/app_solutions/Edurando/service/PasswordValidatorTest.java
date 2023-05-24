@@ -1,11 +1,17 @@
 package de.app_solutions.Edurando.service;
 
+import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.util.Pair;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.testcontainers.containers.PostgreSQLContainer;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class PasswordValidatorTest {
 
     private final PasswordValidator passwordValidator = new PasswordValidator();

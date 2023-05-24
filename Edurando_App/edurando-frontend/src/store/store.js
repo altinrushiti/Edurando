@@ -28,5 +28,21 @@ export const useUserStore = defineStore('user', {
                 console.error(error);
             }
         },
+        async fetchUserById(id) {
+            try {
+                const response = await axios.get(`http://localhost:9001/api/v1/profile/${id}`);
+                const user = response.data;
+
+                this.user = user;
+
+                // Benutzer im Local Storage speichern
+                localStorage.setItem('user', JSON.stringify(user));
+
+                // Weitere Aktionen ausführen
+                // ...
+            } catch (error) {
+                console.error(error);
+            }
+        },
     },
 });

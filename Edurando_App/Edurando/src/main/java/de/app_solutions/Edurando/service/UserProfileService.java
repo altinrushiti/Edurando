@@ -111,4 +111,8 @@ public class UserProfileService implements UserDetailsService {
         }
         return Pair.of(false, sb.toString());
     }
+
+    public List<UserProfile> showTopUsers() {
+        return userProfileRepository.findTop10ByOrderByRatingDesc();
+    }
 }

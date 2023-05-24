@@ -19,4 +19,8 @@ public class Topic {
 
     @ManyToOne
     private Subject subject;
+
+    public Topic(String name) {
+        this.name = name;
+    }
 }
