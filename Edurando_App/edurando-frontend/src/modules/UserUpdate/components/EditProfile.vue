@@ -24,7 +24,7 @@
           </div>
           <div>
             <label for="biography" class="text-black font-font-family p-1">Biography</label>
-            <textarea id="biography" name="biography" v-model="user.biography" rows="5"
+            <textarea id="biography" name="biography" v-model="user.personalBiography" rows="5"
                       class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                       placeholder="Write your biography here"></textarea>
           </div>
@@ -124,6 +124,7 @@ export default defineComponent({
 import { reactive} from "vue";
 import axios from "axios";
 import {useUserStore} from "@/store/store";
+import router from "@/router";
 
 const userStore = useUserStore();
 
@@ -150,6 +151,7 @@ function onEdit() {
             // Benutzerdaten abrufen und speichern
             /*await userStore.fetchUserById(user.id);*/
             console.log(response)
+            router.push({ path: '/' });
         })
         .catch((error) => {
             console.log(error)
