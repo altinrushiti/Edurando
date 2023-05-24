@@ -20,7 +20,7 @@ public class Subject {
     private String name;
 
     @ManyToMany
-    private List<UserProfile> userProfile;
+    private List<UserProfile> userProfiles;
 
     @OneToMany
     private List<Topic> topics;
