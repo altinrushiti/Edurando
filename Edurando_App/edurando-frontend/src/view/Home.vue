@@ -5,7 +5,7 @@ import { reactive, onMounted } from "vue";
 
 import axios from "axios";
 const userStore = useUserStore();
-const rating = ref(5);
+const rating = ref(4);
 
 const responseData = ref(null);
 
