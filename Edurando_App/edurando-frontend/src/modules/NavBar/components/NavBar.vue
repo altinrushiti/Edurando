@@ -53,7 +53,7 @@
 import { ref } from "vue";
 const showMenu = ref(false)
 function toggleMenu() {
-    showMenu.value = !showMenu.value;
+  showMenu.value = !showMenu.value;
 }
 </script>
 
