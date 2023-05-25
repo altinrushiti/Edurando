@@ -1,7 +1,6 @@
 <!--<li class="flex items-center">
           <input type="text" placeholder="Search" class="p-2 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 text-center" style="color: black;">
         </li> -->
-
 <template>
   <header class="text-white font-font-family">
     <nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center bg-[#483d8b] p-2">
