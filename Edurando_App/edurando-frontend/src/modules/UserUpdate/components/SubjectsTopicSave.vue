@@ -8,13 +8,13 @@
                 <form class="flex flex-col items-center w-full">
                     <div class="w-1/2">
                         <label for="subject" class="text-black font-font-family p-2">Subject</label>
-                        <input id="subject" name="subject" type="text" v-model="data.subject" autocomplete="subject"
+                        <input id="subject" name="subject" type="text" v-model="data.request.subject" autocomplete="subject"
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Enter Subject">
                     </div>
                     <div class="mt-5 w-1/2">
                         <label for="topic" class="text-black font-font-family p-1">Topic</label>
-                        <input id="topic" name="topic" type="text" v-model="data.topic"
+                        <input id="topic" name="topic" type="text" v-model="data.request.topic"
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Enter Topic">
                     </div>
@@ -28,7 +28,7 @@
                             </button>
                         </div>
                         <div class="mt-6 ml-8 text-center flex justify-center text-white">
-                            <button @click="addSubjectTopic">
+                            <button @click="addSubjectTopic" class="w-full">
                                 <font-awesome-icon :icon="['fas', 'check']" class="text-4xl text-gray-900"/>
                             </button>
                         </div>
@@ -39,7 +39,7 @@
     </div>
 </template>
 
-<script>
+<!--<script>
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import EditPage from '@/modules/UserUpdate/EditPage.vue';
 import axios from "axios";
@@ -56,7 +56,7 @@ export default {
                 topic: '',
             },
             showButton: true,
-            saved: true
+            saved: false
         }
 
 
@@ -84,5 +84,49 @@ export default {
         }
     }
 }
+</script>-->
+
+<script setup>
+
+import {reactive, ref} from "vue";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import EditPage from "@/modules/UserUpdate/EditPage.vue";
+import {useRouter} from "vue-router";
+import {useUserStore} from "@/store/store";
+import axios from "axios";
+const user = useUserStore()
+
+const data = reactive({
+    request: {
+        id: user.getUser.id,
+        subject: '',
+        topic: '',
+    },
+});
+const saved = ref(false);
+const router = useRouter()
+let result = ref('')
+
+async function goBack() {
+    try {
+        await router.push('/SubjectsTopics')
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function addSubjectTopic(event) {
+    event.preventDefault()
+    try {
+        const response = await axios.put('/updateSubjectData', data.request)
+        result = response.data
+        console.log(result)
+        saved.value = true
+        await user.fetchUserById(data.request.id)
+    } catch (error) {
+        console.log(error.response.data)
+    }
+}
+
 </script>
 

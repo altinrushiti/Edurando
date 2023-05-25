@@ -1,13 +1,19 @@
 package de.app_solutions.Edurando.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Topic {
     @Id
@@ -16,13 +22,13 @@ public class Topic {
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JsonBackReference
     private List<UserProfile> userProfiles;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private Subject subject;
 
-    public Topic(String name) {
-        this.name = name;
-    }
+
 }

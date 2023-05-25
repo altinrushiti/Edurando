@@ -12,7 +12,7 @@ import lombok.*;
 public class EditSubjectRequest {
 
 
-    private  Long userId;
+    private  Long id;
     private  String subject;
     private  String topic;
 

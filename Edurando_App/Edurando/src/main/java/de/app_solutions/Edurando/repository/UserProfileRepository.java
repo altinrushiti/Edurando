@@ -28,12 +28,12 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
         @Query("SELECT u.subjects FROM UserProfile u WHERE u.id = ?1")
         Optional<List<Subject>> findSubjectsByUserProfileId( Long id);
     */
-    @Query(value = "SELECT DISTINCT s.* FROM subject s JOIN subject_user_profiles sup ON s.id = sup.subject_id JOIN user_profile up ON sup.user_profiles_id = up.id WHERE up.id = ?1", nativeQuery = true)
+    @Query(value = "SELECT s.* FROM subject s JOIN subject_user_profiles sup ON s.id = sup.subject_id JOIN user_profile up ON sup.user_profiles_id = up.id WHERE up.id = ?1", nativeQuery = true)
     List<String> findSubjectsByUserProfileId(Long id);
 
     /*    @Query(value = "SELECT DISTINCT s.* FROM subject s JOIN subject_user_profiles sup ON s.id = sup.subject_id JOIN user_profile up ON sup.user_profiles_id = up.id WHERE up.id = ?1", nativeQuery = true)
         String findSubjectsByUserProfileIdString(Long id);*/
-    @Query(value = "SELECT DISTINCT t.* FROM topic t JOIN topic_user_profiles tup ON t.id = tup.topic_id JOIN user_profile up ON tup.user_profiles_id = up.id WHERE up.id = ?1", nativeQuery = true)
+    @Query(value = "SELECT t.* FROM topic t JOIN topic_user_profiles tup ON t.id = tup.topic_id JOIN user_profile up ON tup.user_profiles_id = up.id WHERE up.id = ?1", nativeQuery = true)
     List<String> findTopicByUserProfileId(Long id);
 
     List<UserProfile> findTop10ByOrderByRatingDesc();

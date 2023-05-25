@@ -67,7 +67,7 @@ public class EditProfileService {
             user.setFirstName(editPersonalDataRequest.getFirstName());
             user.setLastName(editPersonalDataRequest.getLastName());
             user.setGender(editPersonalDataRequest.getGender());
-            user.setRole(editPersonalDataRequest.getRole().equals("Student") ? Role.student : Role.teacher);
+            user.setRole(editPersonalDataRequest.getRole().equalsIgnoreCase("Student") ? Role.student : Role.teacher);
             user.setPersonalBiography(editPersonalDataRequest.getPersonalBiography());
             user.setMobile(editPersonalDataRequest.getMobile());
             user.setProfilePictureReference(editPersonalDataRequest.getProfilePictureReference());

@@ -12,10 +12,10 @@
                 <h1 class="mt-8 text-center text-3xl font-extrabold text-gray-900">Your Subjects with Topics</h1>
             </div>
             <div class="flex flex-col items-center text-center">
-                <div v-for="person in people" :key="person.id" class="items-start max-w-xs p-4 mb-4 border-b-2" @click="toggleTopics(person)">
-                    <div class="font-bold text-black">{{ person.subject }}</div>
-                    <ul v-if="person.showTopics" class="mt-2 text-black">
-                        <li v-for="topic in person.topics" :key="topic.id">{{ topic }}</li>
+                <div v-for="subject in Object.keys(subjects)" class="items-start max-w-xs p-4 mb-4 border-b-2 hover:cursor-pointer" @click="toggleTopics(showTopics)">
+                    <div class="font-bold text-black">{{ subject }}</div>
+                    <ul v-if="showTopics" class="mt-2 text-black">
+                        <li v-for="topic in subjects[subject]">{{topic.name}}</li>
                     </ul>
                 </div>
             </div>
@@ -23,7 +23,7 @@
     </div>
 </template>
 
-<script>
+<!--<script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import EditPage from '@/modules/UserUpdate/EditPage.vue';
 
@@ -62,5 +62,71 @@ export default {
         }
     }
 };
+</script>-->
+
+<script setup>
+import { ref, reactive } from 'vue';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import EditPage from '@/modules/UserUpdate/EditPage.vue';
+import {useRouter} from "vue-router";
+import {useUserStore} from "@/store/store";
+
+const data = reactive({
+    user: {
+        subject: '',
+        topic: '',
+    },
+});
+
+const showTopics = ref(false)
+const showButton = ref(true);
+const saved = ref(true);
+const router = useRouter()
+const user = useUserStore()
+
+const subjects = reactive(transformData(user.getUser.topics))
+
+
+function goSave() {
+    try {
+        router.push('/SubjectsTopicSave')
+        // Füge hier die gewünschte Routing-Logik ein
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function toggleTopics(show) {
+    this.showTopics = !show;
+}
+
+// Exportiere die benötigten Daten
+const components = {
+    FontAwesomeIcon,
+    'editPage': EditPage
+};
+
+function transformData(data) {
+    const transformedData = {};
+
+    for (const item of data) {
+        const subjectName = item.subject.name;
+
+        if (!transformedData[subjectName]) {
+            transformedData[subjectName] = [];
+        }
+
+        transformedData[subjectName].push({
+            id: item.id,
+            name: item.name
+        });
+    }
+
+    return transformedData;
+}
+
+// Du kannst hier weitere Exporte hinzufügen, falls benötigt
+
 </script>
+
 
