@@ -36,6 +36,5 @@ public class Address {
     }
 
     @OneToMany
-    @JsonBackReference
     private List<UserProfile> userProfile;
 }

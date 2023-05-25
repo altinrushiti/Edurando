@@ -39,5 +39,6 @@ public class EditProfileController {
             return ResponseEntity.ok().body(result.getSecond());
         } else {
             return ResponseEntity.badRequest().body(result.getSecond());
-        }    }
+        }
+    }
 }

@@ -9,6 +9,8 @@ const rating =ref(5)
 
 const responseData = ref(null);
 
+const user = useUserStore()
+
 onMounted(async () => {
     try {
         const response = await axios.get("/top-users");
@@ -52,6 +54,7 @@ onMounted(async () => {
         </a>
       </div>
     </div>
+        <h1>{{ user.getUser.topics }}</h1>
     </div>
 </template>
 

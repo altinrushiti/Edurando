@@ -1,12 +1,8 @@
 package de.app_solutions.Edurando.controller;
 
-import de.app_solutions.Edurando.model.EditPasswordRequest;
-import de.app_solutions.Edurando.model.EditPersonalDataRequest;
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.service.UserProfileService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.util.Pair;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
