@@ -124,6 +124,7 @@ async function addSubjectTopic(event) {
         saved.value = true
         await user.fetchUserById(data.request.id)
     } catch (error) {
+        result = error.response.data
         console.log(error.response.data)
     }
 }

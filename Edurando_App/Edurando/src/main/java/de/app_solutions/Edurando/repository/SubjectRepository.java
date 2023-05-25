@@ -28,8 +28,7 @@ public interface SubjectRepository extends JpaRepository<Subject,Long> {
     /*    @Query(value = "SELECT DISTINCT s FROM subject s JOIN subject_user_profiles sup ON s.id = sup.subject_id
     JOIN user_profile up ON sup.user_profiles_id = up.id WHERE up.id = ?1", nativeQuery = true)
         Optional<List<Subject>> findSubjectsByUserProfileId(Long id);*/
-    @Query("SELECT subject from Subject subject where subject.name = ?1")
-    List<Subject>findAllByName(String subject);
+    List<Subject> findAllByName(String subject);
 
    /* @Query("SELECT subject from Subject subject where subject.name = ?1")
     Optional<Subject> findSubjectsByName(String  name);
