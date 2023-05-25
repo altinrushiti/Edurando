@@ -42,7 +42,7 @@ public class SubjectServiceTest {
     public void addSubjectDataTest() {
         String email = "max.musterfraun@example.com";
         // given
-        UserProfile userProfile = new UserProfile("Student",
+        UserProfile userProfile = new UserProfile("Teacher",
                 "Max",
                 "Musterfrau",
                 email,
@@ -70,7 +70,7 @@ public class SubjectServiceTest {
     public void addSubjectData_FieldIsEmptyTest() {
         String email = "max.musterfraun@example.com";
         // given
-        UserProfile userProfile = new UserProfile("Student",
+        UserProfile userProfile = new UserProfile("Teacher",
                 "Max",
                 "Musterfrau",
                 email,
@@ -99,7 +99,7 @@ public class SubjectServiceTest {
     public void SubjectDataIsExistTest() {
         String email = "max.musterfraun@example.com";
         // given
-        UserProfile userProfile = new UserProfile("Student",
+        UserProfile userProfile = new UserProfile("Teacher",
                 "Max",
                 "Musterfrau",
                 email,
