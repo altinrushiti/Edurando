@@ -54,7 +54,6 @@ onMounted(async () => {
         </a>
       </div>
     </div>
-        <h1>{{ user.getUser.topics }}</h1>
     </div>
 </template>
 
