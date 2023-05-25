@@ -16,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.util.Pair;
 import org.junit.jupiter.api.Test;
+
 import static org.mockito.ArgumentMatchers.eq;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -64,11 +65,11 @@ public class UserProfileServiceTest {
 
 
     @MockBean
-    private  AddressRepository addressRepository;
+    private AddressRepository addressRepository;
 
 
     @MockBean
-    private  ConfirmationTokenService confirmationTokenService;
+    private ConfirmationTokenService confirmationTokenService;
 
     @MockBean
     private PasswordEncoder passwordEncoder;
@@ -100,6 +101,24 @@ public class UserProfileServiceTest {
         assertEquals(1, enable);
         assertTrue(enabled);
 
+    }
+
+
+    @Test
+    public void testSearchQuery() {
+
+        UserProfile user = new UserProfile("Student", "Max", "Mustermann", "max.mustermann@stud.th-luebeck.de", "Password_123");
+        userProfileService.signUpUser(user);
+
+
+        String searchTerm = "Max";
+        List<UserProfile> u = userProfileService.getAllUsers();
+        List<UserProfile> filteredProfiles = userProfileRepository.search(searchTerm);
+        System.out.println(u);
+        System.out.println(filteredProfiles);
+    // Überprüfen, ob die Liste nicht leer ist
+        assertNotNull(filteredProfiles);
+        assertFalse(filteredProfiles.isEmpty());
     }
 
 
