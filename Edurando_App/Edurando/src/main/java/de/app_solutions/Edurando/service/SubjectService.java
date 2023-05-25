@@ -81,7 +81,7 @@ public class SubjectService {
         topicRepository.save(t);
         t.setName(topicName);
         t.setUserProfiles(userProfiles);
-        t.setSubject(subjectRepository.findByName(subjectName).get());
+        t.setSubject(subjectRepository.findAllByName(subjectName).get(0));
         topics.add(t);
 
         userProfiles.get(0).setTopics(topics);
@@ -97,6 +97,9 @@ public class SubjectService {
                 .findUserProfileById(editSubjectRequest.getId()).orElseThrow(() -> new UsernameNotFoundException
                         (String.format(USER_NOT_FOUND_BY_ID, editSubjectRequest.getId())));
 
+        if (userProfile.getRole().name().equalsIgnoreCase("Student")) {
+            return Pair.of(false, "Your role must be teacher so that you can add a subject and a topic");
+        }
         if (editSubjectRequest.getSubject().isEmpty() || editSubjectRequest.getTopic().isEmpty()) {
 
             return Pair.of(false, "Please fill out all fields");

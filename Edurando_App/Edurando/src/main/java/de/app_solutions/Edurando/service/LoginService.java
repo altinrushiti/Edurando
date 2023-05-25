@@ -27,7 +27,6 @@ public class LoginService {
         if (!userExist) {
             return Pair.of(false, "Password or username is not correct.");
         } else {
-            boolean rs = true;
             UserProfile user = userProfileRepository.findUserProfileByUsername(loginRequest.getEmail()).get();
             if (!user.isEnabled()) {
                 return Pair.of(false, "You are not verified.");
@@ -35,7 +34,7 @@ public class LoginService {
             if (user.isLocked()) {
                 return Pair.of(false, "Your account is locked.");
             }
-            if (!(bCryptPasswordEncoder.matches(loginRequest.getPassword(), user.getPassword()) && loginRequest.getEmail().equals(user.getUsername()))) {
+            if (!(bCryptPasswordEncoder.matches(loginRequest.getPassword(), user.getPassword()) && loginRequest.getEmail().equalsIgnoreCase(user.getUsername()))) {
                 return Pair.of(false, "Password or username is not correct.");
             }
             return Pair.of(true, "Successful!");

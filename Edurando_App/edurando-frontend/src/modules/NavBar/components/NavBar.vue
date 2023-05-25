@@ -6,16 +6,16 @@
          <h1 class="text-3xl font-medium text-align text-align: center">Edurando</h1>
       </div>
         <ul class="flex justify-around gap-2 ml-3 mr-2 text-2xl">
-            <li class="hidden md:block">
+            <li class="hidden md:block" @mouseover="showHome = true" @mouseleave="showHome = false">
                 <RouterLink to="/">
-                    <font-awesome-icon class="mr-2" icon="fa-solid fa-house"/>
-                    <span>Home</span>
+                    <font-awesome-icon class="p-0" icon="fa-solid fa-house"/>
+                    <span v-if="showHome">Home</span>
                 </RouterLink>
             </li>
-            <li class="hidden md:block">
+            <li class="hidden md:block" @mouseover="showAbout = true" @mouseleave="showAbout = false">
                 <RouterLink to="/about">
-                    <font-awesome-icon class="mr-2" icon="fa-solid fa-circle-info"/>
-                    <span>About</span>
+                    <font-awesome-icon class="" icon="fa-solid fa-circle-info"/>
+                    <span v-if="showAbout">About</span>
                 </RouterLink>
             </li>
             <li class="flex-col md:hidden flex">
@@ -43,6 +43,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 const showMenu = ref(false)
+const showHome = ref(false)
+const showAbout = ref(false)
+
 function toggleMenu() {
     showMenu.value = !showMenu.value;
 }
