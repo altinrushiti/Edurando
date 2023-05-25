@@ -13,7 +13,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +20,11 @@ public class Subject {
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JsonBackReference
     private List<UserProfile> userProfiles;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JsonBackReference
     private List<Topic> topics;
 

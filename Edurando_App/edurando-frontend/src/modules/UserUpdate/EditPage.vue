@@ -20,7 +20,7 @@
                         <span :class="isSidebarOpen ? '' : 'hidden'" class="flex-1 ml-3 whitespace-nowrap">Change Password</span>
                     </RouterLink>
                 </li>
-                <li :class="!isSidebarOpen && 'hidden md:block'">
+                <li v-if="role === 'teacher'" :class="!isSidebarOpen && 'hidden md:block'">
                     <RouterLink to="/SubjectsTopics" active-class="bg-[#e4e2ee]" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
                         <font-awesome-icon :icon="['fas', 'table-list']" />
                         <span :class="isSidebarOpen ? '' : 'hidden'" class="flex-1 ml-3 whitespace-nowrap">Subjects/Topics</span>
@@ -40,17 +40,15 @@
     </aside>
 </template>
 
-<script >
-export default {
-    data() {
-        return {
-            isSidebarOpen: false,
-        };
-    },
-    methods: {
-        toggleSidebar() {
-            this.isSidebarOpen = !this.isSidebarOpen;
-        },
-    },
-};
+<script setup>
+import { ref } from 'vue';
+import {useUserStore} from "@/store/store";
+
+const isSidebarOpen = ref(false);
+const user = useUserStore()
+const role = user.getUser.role
+
+function toggleSidebar() {
+    isSidebarOpen.value = !isSidebarOpen.value;
+}
 </script>

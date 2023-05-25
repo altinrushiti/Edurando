@@ -44,8 +44,8 @@
                 class="bg-white text-gray-900 rounded-none relative block w-full px-3 py-2 border border-gray-300 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                 id="role" v-model="user.role">
               <option value="" disabled>Select role</option>
-              <option value="student">student</option>
-              <option value="teacher">teacher</option>
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
             </select>
           </div>
           <div class="flex flex-wrap -mx-3 mb-6">
@@ -144,18 +144,15 @@ const user = reactive({
     postCode: userStore.getUser.address.postCode !== -1 ? userStore.getUser.address.postCode : ''
 })
 
-function onEdit() {
-    axios.put('/updatePersonalData', user)
-        .then((response) => {
-
-            // Benutzerdaten abrufen und speichern
-            /*await userStore.fetchUserById(user.id);*/
-            console.log(response)
-            router.push({ path: '/' });
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+async function onEdit() {
+    try {
+        const response = await axios.put('/updatePersonalData', user)
+        console.log(response)
+        await userStore.fetchUserById(user.id)
+        await router.push({path: '/'})
+    } catch (error) {
+        console.log(error.response.data)
+    }
 }
 
 function getUser() {
