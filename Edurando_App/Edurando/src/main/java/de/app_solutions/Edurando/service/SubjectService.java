@@ -7,17 +7,13 @@ import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.SubjectRepository;
 import de.app_solutions.Edurando.repository.TopicRepository;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
-import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SubjectService {
@@ -41,92 +37,76 @@ public class SubjectService {
     }
 
     public void saveSubjectAndTopic(EditSubjectRequest editSubjectRequest, UserProfile userProfile) {
+        String subjectName = ((String.valueOf(editSubjectRequest.getSubject().charAt(0))).toUpperCase() + editSubjectRequest.getSubject().substring(1)).trim();
+        String topicName = ((String.valueOf(editSubjectRequest.getTopic().charAt(0))).toUpperCase() + editSubjectRequest.getTopic().substring(1)).trim();
 
 
-        List<UserProfile> userProfiles = new ArrayList<>();
+        List<UserProfile> userProfiles = List.of(userProfile);
 
-        List<Subject> subjects = new ArrayList<>();
+        List<Subject> subjects = userProfile.getSubjects();
+        List<Topic> topics = userProfile.getTopics();
 
-        List<Topic> topics = new ArrayList<>();
+        Subject s = new Subject();
+        subjectRepository.save(s);
+        s.setName(subjectName);
+        s.setUserProfiles(userProfiles);
+        s.setTopics(new ArrayList<>()); // Neue leere Liste für jedes Subject erstellen
+        subjects.add(s);
 
-        Subject newSubject = new Subject();
+        Topic t = new Topic();
+        topicRepository.save(t);
+        t.setName(topicName);
+        t.setUserProfiles(userProfiles);
+        t.setSubject(s); // Jedes Topic einer spezifischen Subject-Instanz zuordnen
+        topics.add(t);
 
-
-        String subjectName = ((editSubjectRequest.getSubject().charAt(0) + "").toUpperCase() + editSubjectRequest.getSubject().substring(1)).trim();
-        String topicName = ((editSubjectRequest.getTopic().charAt(0) + "").toUpperCase() + editSubjectRequest.getTopic().substring(1)).trim();
-
-        // create Subject & add Attributes to the new object
-        newSubject.setName(subjectName);
-        newSubject.setUserProfiles(userProfiles);
-
-
-        // create Topic & add Attributes to the new Object
-        Topic newTopic = new Topic();
-        newTopic.setName(topicName);
-        newTopic.setUserProfiles(userProfiles);
-
-
-        //add userprofile to us_list
-        userProfiles.add(userProfile);
+        s.getTopics().add(t); // Das Topic zur Liste der Topics des Subjects hinzufügen
 
 
-        // add List of UserProfile to the newSubject
-        newSubject.setUserProfiles(userProfiles);
+        userProfiles.get(0).setSubjects(subjects);
+        userProfiles.get(0).setTopics(topics);
 
+        userProfileRepository.saveAllAndFlush(userProfiles);
 
-        // add topic to the list  and then to the subject
-        topics.add(newTopic);
-        newSubject.setTopics(topics);
-
-
-        // we ve to  update the last topic
-        // because it has the topic witch not has the right subject .
-        // we remove the new topic to update it
-
-        topics.remove(newTopic);
-
-
-        // add the right subject
-        newTopic.setSubject(newSubject);
-
-        // add topic again  to the list
-        topics.add(newTopic);
-        newSubject.setTopics(topics);
-
-
-        subjects.add(newSubject);
-
-        userProfile.setTopics(topics);
-
-
-        userProfile.setSubjects(subjects);
-
-
-        topicRepository.saveAll(topics);
-
-        subjectRepository.saveAll(subjects);
-
-
-        userProfileRepository.save(userProfile);
     }
 
-    public Pair<Boolean, List<String>> addSubjectData(EditSubjectRequest editSubjectRequest) {
+    public void saveTopic(EditSubjectRequest editSubjectRequest, UserProfile userProfile) {
+        String subjectName = ((String.valueOf(editSubjectRequest.getSubject().charAt(0))).toUpperCase() + editSubjectRequest.getSubject().substring(1)).trim();
+        String topicName = ((String.valueOf(editSubjectRequest.getTopic().charAt(0))).toUpperCase() + editSubjectRequest.getTopic().substring(1)).trim();
+
+        List<UserProfile> userProfiles = List.of(userProfile);
+        List<Topic> topics = userProfile.getTopics();
+
+        Topic t = new Topic();
+        topicRepository.save(t);
+        t.setName(topicName);
+        t.setUserProfiles(userProfiles);
+        t.setSubject(subjectRepository.findAllByName(subjectName).get(0));
+        topics.add(t);
+
+        userProfiles.get(0).setTopics(topics);
+
+        userProfileRepository.saveAll(userProfiles);
+    }
+
+    public Pair<Boolean, String> addSubjectData(EditSubjectRequest editSubjectRequest) {
 
         // call userprofile
 
         UserProfile userProfile = userProfileRepository
-                .findUserProfileById(editSubjectRequest.getUserId()).orElseThrow(() -> new UsernameNotFoundException
-                        (String.format(USER_NOT_FOUND_BY_ID, editSubjectRequest.getUserId())));
+                .findUserProfileById(editSubjectRequest.getId()).orElseThrow(() -> new UsernameNotFoundException
+                        (String.format(USER_NOT_FOUND_BY_ID, editSubjectRequest.getId())));
 
+        if (userProfile.getRole().name().equalsIgnoreCase("Student")) {
+            return Pair.of(false, "Your role must be teacher so that you can add a subject and a topic");
+        }
         if (editSubjectRequest.getSubject().isEmpty() || editSubjectRequest.getTopic().isEmpty()) {
 
-            Pair<Boolean, List<String>> tuple = Pair.of(false, List.of("Please fill out all fields"));
-            System.err.println(tuple);
-            return tuple;
+            return Pair.of(false, "Please fill out all fields");
         }
 
-        List<String> subjectsInUser = userProfileRepository.findSubjectsByUserProfileId(editSubjectRequest.getUserId());
-        List<String> topicsInUser = userProfileRepository.findTopicByUserProfileId(editSubjectRequest.getUserId());
+        List<String> subjectsInUser = userProfileRepository.findSubjectsByUserProfileId(editSubjectRequest.getId());
+        List<String> topicsInUser = userProfileRepository.findTopicByUserProfileId(editSubjectRequest.getId());
 
         boolean subIsExist = false;
         boolean topIsExist = false;
@@ -156,28 +136,16 @@ public class SubjectService {
             }
 
             if(subIsExist && topIsExist){
-                return Pair.of(false, List.of("Subject and topic are already exist"));
+                return Pair.of(false, "Subject and topic are already exist");
 
             }
-            else {
-
+            else if (subIsExist){
+                saveTopic(editSubjectRequest, userProfile);
+            } else {
                 saveSubjectAndTopic(editSubjectRequest, userProfile);
-
             }
         }
 
-
-
-
-
-
-
-
-        return Pair.of(true, List.of("subject has been updated"));
-
-
+        return Pair.of(true, "subject has been updated");
     }
-
-
-
 }

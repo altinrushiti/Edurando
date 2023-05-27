@@ -3,6 +3,7 @@ package de.app_solutions.Edurando.service;
 import de.app_solutions.Edurando.model.*;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,28 +20,25 @@ public class LoginService {
     //private final JwtTokenProvider jwtTokenProvider;
     private final static String USER_NOT_FOUND = "User with Email %s was not found.";
 
-    public Pair<Boolean, List<String>> login(LoginRequest loginRequest) {
+    public Pair<Boolean, String> login(LoginRequest loginRequest) {
 
-        UserProfile user = userProfileRepository.findUserProfileByUsername(loginRequest.getEmail()).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, loginRequest.getEmail())));
-        boolean rs = true;
+        boolean userExist = userProfileRepository.findUserProfileByUsername(loginRequest.getEmail()).isPresent();
         List<String> l = new ArrayList<>();
-        if (!user.isEnabled()) {
-            rs = false;
-            l.add("User isn't verified.");
-        }
-        if (user.isLocked()) {
-            rs = false;
-            l.add("User's account is locked.");
-        }
-        if (!(bCryptPasswordEncoder.matches(loginRequest.getPassword(), user.getPassword()) || loginRequest.getEmail().equals(user.getUsername()))) {
-            rs = false;
-            l.add("Password or username is not correct.");
+        if (!userExist) {
+            return Pair.of(false, "Password or username is not correct.");
+        } else {
+            UserProfile user = userProfileRepository.findUserProfileByUsername(loginRequest.getEmail()).get();
+            if (!user.isEnabled()) {
+                return Pair.of(false, "You are not verified.");
+            }
+            if (user.isLocked()) {
+                return Pair.of(false, "Your account is locked.");
+            }
+            if (!(bCryptPasswordEncoder.matches(loginRequest.getPassword(), user.getPassword()) && loginRequest.getEmail().equalsIgnoreCase(user.getUsername()))) {
+                return Pair.of(false, "Password or username is not correct.");
+            }
+            return Pair.of(true, "Successful!");
         }
 
-        if (rs) {
-            return Pair.of(rs,List.of(String.valueOf(user.getId())));
-        } else {
-            return Pair.of(rs,l);
-        }
     }
 }

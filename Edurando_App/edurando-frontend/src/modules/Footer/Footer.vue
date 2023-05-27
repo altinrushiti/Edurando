@@ -23,8 +23,8 @@
                 <div>
                     <h3 class="text-base leading-6 font-medium text-[#231e44] py-4">Contact Us</h3>
                     <ul class=" text-base leading-6 text-[#7b73ac] max-w-7xl flex-col  mx-auto">
-                        <li>info.edurando@gmail.com</li>
-                        <li>+49 40 87654321</li>
+                        <li><a href="mailto:info.edurando@gmail.com">info.edurando@gmail.com</a></li>
+                        <li><a href="tel:+49 40 87654321">+49 40 87654321</a></li>
                         <li><router-link to="/ContactForm">Contact Form</router-link></li>
                     </ul>
                 </div>

@@ -46,6 +46,3 @@ deploy-job:
     - chmod a+x ./gradlew
     - ./gradlew deploy
     - echo "Deployment complete."
-  environment:
-    name: production
-    url: https://edurando-webapp.com

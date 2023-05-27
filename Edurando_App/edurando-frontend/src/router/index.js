@@ -8,6 +8,8 @@ import ChangePassword from "@/modules/UserUpdate/components/ChangePassword.vue";
 import SubjectsTopic from "@/modules/UserUpdate/components/SubjectsTopic.vue";
 import Login from "@/modules/Login/components/Login.vue";
 import SubjectsTopicSave from "@/modules/UserUpdate/components/SubjectsTopicSave.vue";
+import {useUserStore} from "@/store/store";
+import NotFound from "@/view/NotFound.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,7 +17,15 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: Home,
+            component: Home
+        },
+        {
+            path: '/page-not-found',
+            component: NotFound
+        },
+        {
+            path: '/:catchAll(.*)',
+            redirect: '/page-not-found'
         },
         {
             path: '/register',
@@ -25,27 +35,31 @@ const router = createRouter({
         {
             path: '/confirm',
             name: 'confirm',
-            component: Confirmation
-        },
-        {
-            path: '/edit',
-            name: 'edit',
-            component: EditPage
+            component: Confirmation,
         },
         {
             path: '/editProfile',
             name: 'editProfile',
-            component: EditProfile
+            component: EditProfile,
+            meta: {
+                needsAuth: true
+            }
         },
         {
             path: '/changePassword',
             name: 'changePassword',
-            component: ChangePassword
+            component: ChangePassword,
+            meta: {
+                needsAuth: true
+            }
         },
         {
             path: '/SubjectsTopics',
             name: 'SubjectsTopics',
-            component: SubjectsTopic
+            component: SubjectsTopic,
+            meta: {
+                needsAuth: true
+            }
         },
         {
             path: '/login',
@@ -55,9 +69,24 @@ const router = createRouter({
         {
             path: '/SubjectsTopicSave',
             name: 'SubjectsTopicSave',
-            component: SubjectsTopicSave
+            component: SubjectsTopicSave,
+            meta: {
+                needsAuth: true
+            }
         },
     ]
+})
+
+
+router.beforeEach(async (to, from, next) => {
+    const isLogged = await useUserStore().getUser !== null
+    if (to.meta.needsAuth && !isLogged) {
+        next('/login');
+
+    } else {
+        next();
+    }
+
 })
 
 export default router

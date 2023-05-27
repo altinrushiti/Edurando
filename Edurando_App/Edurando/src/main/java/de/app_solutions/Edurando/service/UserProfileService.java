@@ -115,4 +115,5 @@ public class UserProfileService implements UserDetailsService {
     public List<UserProfile> showTopUsers() {
         return userProfileRepository.findTop10ByOrderByRatingDesc();
     }
+
 }

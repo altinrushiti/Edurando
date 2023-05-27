@@ -35,10 +35,12 @@ public class UserProfile implements UserDetails {
     private boolean termsAgreed;
     private boolean privacyAgreed;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private List<Subject> subjects;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private List<Topic> topics;
 
     @ManyToMany
@@ -48,7 +50,6 @@ public class UserProfile implements UserDetails {
     private Role role;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JsonManagedReference
     private Address address;
 
     private boolean locked;

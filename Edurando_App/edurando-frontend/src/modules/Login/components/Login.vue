@@ -25,12 +25,18 @@
 
         </div>
 
-          <div>
-              <button type="submit"
-                      class="mt-7 text-center mx-auto w-1/2 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#483d8b] hover:bg-purple-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                  Login
-              </button>
-          </div>
+        <p v-if="this.response.length !== 0" class="text-red-500 text-xs">{{this.response}}</p>
+
+        <div>
+          <button type="submit"
+                  class="mt-7 text-center mx-auto w-1/2 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#483d8b] hover:bg-purple-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Login
+          </button>
+          <button @click="signUp" type="button"
+                  class="mt-4 text-center mx-auto w-1/2 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-purple-500 bg-transparent hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+            Sign Up
+          </button>
+        </div>
 
       </form>
 
@@ -55,12 +61,14 @@ export default defineComponent({
             loginRequest: {
                 email: '',
                 password: ''
-            }
+            },
+            response: ''
         }
     },
     methods: {
         async submit() {
             try {
+                const response = await axios.post('/login', this.loginRequest)
                 const { email } = this.loginRequest;
 
                 // User Store verwenden
@@ -72,9 +80,18 @@ export default defineComponent({
                 // Weiterleiten oder andere Aktionen ausführen
                 this.$router.push({ path: '/' });
             } catch (error) {
-                console.log(error)
+                this.loginRequest.password = ''
+                this.response = error.response.data
+                console.log(this.response)
             }
+        },
+      async signUp() {
+        try {
+          this.$router.push({path: '/register'})
+        } catch (error) {
+          console.log(error)
         }
+      }
     }
 })
 
