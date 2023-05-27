@@ -1,6 +1,3 @@
-<!--<li class="flex items-center">
-          <input type="text" placeholder="Search" class="p-2 rounded-md border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 text-center" style="color: black;">
-        </li> -->
 <template>
   <header class="text-white font-font-family">
     <nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center bg-[#483d8b] p-2">
@@ -8,22 +5,27 @@
         <img class="w-[100px] h-[60px]" src="@/assets/logo/logo_image.png" alt="Logo" />
         <h1 class="text-3xl font-medium text-align text-align: center">Edurando</h1>
       </div>
-      <ul class="flex justify-end items-center gap-2 ml-3 mr-2 text-2xl">
-        <li class="hidden md:block">
+      <div class="box">
+        <input type="checkbox" id="check">
+        <div class="search-box">
+          <input type="text" placeholder="type here">
+          <label for="check" class="icon">
+            <i class="fas fa-search"></i>
+          </label>
+        </div>
+      </div>
+      <ul class="flex justify-around gap-2 ml-3 mr-2 text-2xl">
+        <li class="hidden md:block" @mouseover="showHome = true" @mouseleave="showHome = false">
           <RouterLink to="/">
-            <font-awesome-icon class="mr-2 fixed" icon="fa-solid fa-house"/>
-            <span class="ml-8">Home</span>
+            <font-awesome-icon class="p-0" icon="fa-solid fa-house"/>
+            <span v-if="showHome">Home</span>
           </RouterLink>
         </li>
-        <li class="hidden md:block">
+        <li class="hidden md:block" @mouseover="showAbout = true" @mouseleave="showAbout = false">
           <RouterLink to="/about">
-            <font-awesome-icon class="mr-2 fixed" icon="fa-solid fa-circle-info"/>
-            <span class="ml-7">About</span>
+            <font-awesome-icon class="" icon="fa-solid fa-circle-info"/>
+            <span v-if="showAbout">About</span>
           </RouterLink>
-        </li>
-        <li class="flex items-center search-box fixed-left">
-          <input type="text" placeholder="Search">
-          <button> <i class="fas fa-search"></i></button>
         </li>
         <li class="flex-col md:hidden flex">
           <button @click="toggleMenu">
@@ -47,48 +49,74 @@
   </header>
 </template>
 
-
 <script setup lang="ts">
 import { ref } from "vue";
 const showMenu = ref(false)
+const showHome = ref(false)
+const showAbout = ref(false)
+
 function toggleMenu() {
   showMenu.value = !showMenu.value;
 }
 </script>
 
 <style scoped>
-.search-box {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  border-color: #1D1D1D;
-  padding: 1%;
-  border-radius: 32%;
-  box-shadow: rgba(100, 100, 111, 0.2);
+.box {
+  max-width: 400px;
+  width: 100%;
+  margin-right: 11%;
+
 }
 
+.box .search-box{
+  position: relative;
+  height: 50px;
+  max-width: 50px;
+  margin: auto;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 25px;
+  transition: all 0.2s ease;
+}
+
+#check:checked ~ .search-box {
+  max-width: 380px;
+
+}
 .search-box input {
-  border: 0;
-  background-color: transparent;
-  font-size: 16px;
-  width: 0;
-  transition: 0.1s;
+  height: 100%;
+  width: 100%;
+  border-radius: 25px;
+  background: #fff;
+  color: #1D1D1D;
+  outline: none;
+  border: none;
+  padding-left: 20px;
+  font-size: 18px;
 }
 
-.search-box:hover input {
-  width: 200px;
+.search-box .icon {
+  position: absolute;
 
-}
-
-.search-box button {
-  padding-left: 10px;
-  border: 0;
-  background-color: #483d8b;
-  color: white;
+  right: 0;
+  top: 0;
+  width: 50px;
+  background: #483d8b;
+  height: 100%;
+  color: #fff;
+  border-radius: 25px;
+  text-align: center;
+  line-height: 50px;
   font-size: 20px;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
+#check:checked ~ .search-box .icon{
+  background: #483d8b;
+  color: #fff;
+  width: 60px;
+  border-radius: 0 25px 25px 0;
+}
+#check {
+  display: none;
+}
 
 </style>
