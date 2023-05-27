@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import RegistrationPage from "@/modules/Registration/page/RegistrationPage.vue";
 import Confirmation from "@/modules/Registration/page/Confirmation.vue";
 import Home from "@/view/Home.vue";
-import EditPage from "@/modules/UserUpdate/EditPage.vue";
 import EditProfile from "@/modules/UserUpdate/components/EditProfile.vue";
 import ChangePassword from "@/modules/UserUpdate/components/ChangePassword.vue";
 import SubjectsTopic from "@/modules/UserUpdate/components/SubjectsTopic.vue";
@@ -10,6 +9,7 @@ import Login from "@/modules/Login/components/Login.vue";
 import SubjectsTopicSave from "@/modules/UserUpdate/components/SubjectsTopicSave.vue";
 import {useUserStore} from "@/store/store";
 import NotFound from "@/view/NotFound.vue";
+import Chat from "@/modules/Chat/Page/Chat.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -74,6 +74,15 @@ const router = createRouter({
                 needsAuth: true
             }
         },
+        {
+            path: '/chat',
+            name: 'chat',
+            component: Chat,
+            meta: {
+                needsAuth: true
+            }
+        },
+
     ]
 })
 
