@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mt-10">
         <div class="max-w-md w-full space-y-8">
             <div>
                 <h2 class="mt-4 text-center text-3xl font-extrabold text-gray-900">
@@ -37,19 +37,18 @@
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Password">
                     </div>
-                    <p v-if="!(user.password.length >= 8)
-    || !/[a-z]/.test(user.password)
-    || !/[A-Z]/.test(user.password)
-    || !/\d/.test(user.password)
-    || /^[a-zA-Z0-9]*$/.test(user.password)" class="text-red-500 text-xs">Please choose a more secure password, at least 8 characters long, known only to you, and difficult for others to guess."</p>
+                    <p v-if="showPasswordError(user.password)" class="text-red-500 text-xs">Please choose a more secure password, at
+                        least 8 characters long, known only to you, and difficult for others to guess."</p>
                     <div>
                         <label for="password" class="text-black font-font-family p-1">Repeat your Password</label>
-                        <input autocomplete="off" id="password2" name="password2" type="password" v-model="user.passwordRepeat"
+                        <input autocomplete="off" id="password2" name="password2" type="password"
+                               v-model="user.passwordRepeat"
                                required
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Repeat Password">
                     </div>
-                    <p v-if="user.password !== user.passwordRepeat" class="text-red-500 text-xs">Passwords do not match</p>
+                    <p v-if="showPasswordRepeatError(user.password, user.passwordRepeat)" class="text-red-500 text-xs">Passwords do not
+                        match</p>
                     <div>
                         <label for="role" class="text-black font-font-family flex p-1 font-size=10px">Role</label>
                         <select class="bg-white text-gray-900 rounded-none relative block w-full px-3 py-2 border border-gray-300 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
@@ -83,46 +82,41 @@
     </div>
 </template>
 
-<script>
-import {defineComponent} from "vue";
+<script setup>
+import {reactive, ref} from "vue";
 import axios from 'axios';
+import {useRouter} from "vue-router";
+import {showPasswordError, showPasswordRepeatError} from '@/functions/functions'
 
-export default defineComponent({
-        name: "Register",
-        data() {
+const result = ref("")
+const error = ref([])
+const router = useRouter()
+const user = reactive({
+    role: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    passwordRepeat: '',
+    termsAgreed: false,
+    privacyAgreed: false
+})
 
-            return {
-                result: "",
-                error: [],
-                user: {
-                    role: '',
-                    firstName: '',
-                    lastName: '',
-                    email: '',
-                    password: '',
-                    passwordRepeat: '',
-                    termsAgreed: false,
-                    privacyAgreed: false
-                }
-            }
-        },
-        methods: {
-            async registerUser() {
-                try {
-                    const response = await axios.post('/register', this.user)
-                    response.statusText = response.data
-                    this.result = response.data
-                    this.$router.push({path: '/confirm'})
-                    console.log(response)
-                } catch (error) {
-                    this.result = error.request.response
-                    this.error = this.result
-                    console.log(this.error)
-                }
-            },
-        },
+async function registerUser() {
+    try {
+        const response = await axios.post('/register', user)
+        response.statusText = response.data
+        result.value = response.data
+        await router.push('/confirm')
+        console.log(result.value)
+    } catch (error) {
+        this.result = error.request.response
+        this.error = this.result
+        console.log(this.error)
     }
-)
+}
+
 </script>
+
 <style>
 </style>
