@@ -22,11 +22,8 @@
                                autocomplete="newPassword" required
                                class="mb-4 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="New Password">
-                        <p v-if="!(password.newPassword.length >= 8)
-    || !/[a-z]/.test(password.newPassword)
-    || !/[A-Z]/.test(password.newPassword)
-    || !/\d/.test(password.newPassword)
-    || /^[a-zA-Z0-9]*$/.test(password.newPassword)" class="text-red-500 text-xs">Please choose a more secure password, at least 8 characters long, known only to you, and difficult for others to guess."</p>
+                        <p v-if="showPasswordError(password.newPassword)"
+                            class="text-red-500 text-xs">Please choose a more secure password, at least 8 characters long, known only to you, and difficult for others to guess."</p>
 
                     </div>
 
@@ -39,61 +36,47 @@
                                class="mb-4 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Repeat New Password">
                     </div>
-
                 </div>
-
                     <div>
                         <button type="submit"
                                 class="mt-7 text-center mx-auto w-1/2 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#483d8b] hover:bg-purple-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                             Save Changes
                         </button>
                     </div>
-
-
             </form>
-
         </div>
 
     </div>
 </template>
 
-<script>
-import {defineComponent} from "vue";
-import axios from "axios";
-import EditPage from "@/modules/UserUpdate/EditPage.vue";
+<script setup>
+import {reactive, ref, watch} from 'vue';
+import axios from 'axios';
+import EditPage from '@/modules/UserUpdate/EditPage.vue';
+import {useRouter} from "vue-router";
+import {showPasswordError} from '@/functions/functions'
 
-export default defineComponent({
-    name: "changePassword",
-    components: {
-        'editPage': EditPage
-    },
-    data() {
-        return {
-            password: {
-                id: 1,
-                currentPassword: '',
-                newPassword: '',
-                newPasswordRepeat: '',
-            }
-        }
-    },
-    methods: {
-        async editPassword() {
-            try {
-                const response = await axios.put('/editPassword', this.password)
-                response.statusText = response.data
-                this.result = response.data
-                this.$router.push({path: '/'})
-                console.log(response)
-            } catch (error) {
-                console.log(error)
-            }
-        }
+const result = ref('')
+const router = useRouter()
+const password = reactive({
+    id: 1,
+    currentPassword: '',
+    newPassword: '',
+    newPasswordRepeat: '',
+});
+
+async function editPassword() {
+    try {
+        const response = await axios.put('/editPassword', password);
+        result.value = response.data;
+        await router.push('/');
+    } catch (error) {
+        result.value = error.response.data
+        console.log(result.value)
     }
-})
+}
 
 </script>
 
 <style scoped>
 </style>
-

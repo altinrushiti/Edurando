@@ -110,22 +110,12 @@
 
 </template>
 
-<script>
-import {defineComponent} from "vue";
-import EditPage from "../EditPage.vue";
-
-export default defineComponent({
-    name: 'editProfile',
-    components: {
-        'editPage': EditPage
-    }
-})
-</script>
 <script setup>
 import {reactive} from "vue";
 import axios from "axios";
 import {useUserStore} from "@/store/store";
 import router from "@/router";
+import EditPage from "@/modules/UserUpdate/EditPage.vue";
 
 const userStore = useUserStore();
 
