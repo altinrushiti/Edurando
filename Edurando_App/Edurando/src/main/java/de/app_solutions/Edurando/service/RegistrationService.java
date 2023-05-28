@@ -25,23 +25,24 @@ public class RegistrationService {
     private final EmailSender emailSender;
     private final PasswordValidator passwordValidator;
 
-    public Pair<Boolean, List<String>> register(RegistrationRequest request) {
+    public Pair<Boolean, String> register(RegistrationRequest request) {
 
         //Password valid Test
-        Pair<Boolean, List<String>> pwTest = passwordValidator.passwordTest(request.getPassword(), request.getPasswordRepeat());
-        Pair<Boolean, List<String>> emailTest = emailValidator.testMail(request.getEmail());
-        List<String> l = new ArrayList<>(pwTest.getSecond());
-        l.addAll(emailTest.getSecond());
-        Pair<Boolean, List<String>> result;
+        Pair<Boolean, String> pwTest = passwordValidator.passwordTest(request.getPassword(), request.getPasswordRepeat());
+        Pair<Boolean, String> emailTest = emailValidator.testMail(request.getEmail());
+        StringBuilder sb = new StringBuilder();
+        sb.append( pwTest.getSecond());
+        sb.append(emailTest.getSecond());
+        Pair<Boolean, String> result;
 
         boolean valid = pwTest.getFirst() && emailTest.getFirst();
 
         if (!request.getTermsAgreed()) {
-            l.add("Terms of Service not agreed.");
+            sb.append("Terms of Service not agreed.");
             valid = false;
         }
         if (!request.getPrivacyAgreed()) {
-            l.add("Privacy Policy not agreed.");
+            sb.append("Privacy Policy not agreed.");
             valid = false;
         }
         if (valid) {
@@ -55,10 +56,10 @@ public class RegistrationService {
             );
             String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", token);
             emailSender.send(request.getEmail(), buildEmail(request, link));
-            result = Pair.of(true, List.of("Registration was successful."));
+            result = Pair.of(true, "Registration was successful.");
 
         } else {
-            result = Pair.of(false, l);
+            result = Pair.of(false, sb.toString());
         }
         System.err.println(result);
         return result;

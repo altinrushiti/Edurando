@@ -51,15 +51,15 @@ public class RegistrationServiceTest {
     void testRegisterSuccess() {
         // Mocking
         RegistrationRequest request = new RegistrationRequest("Student", "Max", "Mustermann", "max.mustermann@example.com", "password", "password",true,true);
-        when(emailValidator.testMail(anyString())).thenReturn(Pair.of(true,List.of()));
-        when(passwordValidator.passwordTest(anyString(), anyString())).thenReturn(Pair.of(true, List.of()));
+        when(emailValidator.testMail(anyString())).thenReturn(Pair.of(true,""));
+        when(passwordValidator.passwordTest(anyString(), anyString())).thenReturn(Pair.of(true, ""));
 
         when(userProfileService.signUpUser(Mockito.any(UserProfile.class))).thenReturn("token");
         // Test
-        Pair<Boolean, List<String>> result = registrationService.register(request);
+        Pair<Boolean, String> result = registrationService.register(request);
 
         // Verify
-        assertEquals(Pair.of(true, List.of("Registration was successful.")), result);
+        assertEquals(Pair.of(true, "Registration was successful."), result);
         //Mockito.verify(emailSender).send(anyString(), anyString());
     }
 
@@ -69,14 +69,14 @@ public class RegistrationServiceTest {
         RegistrationRequest request = new RegistrationRequest("Student", "Max", "Mustermann",
                 "max.mustermann@example.com", "password", "password", false, false);
 
-        when(emailValidator.testMail(Mockito.anyString())).thenReturn(Pair.of(false, List.of("Email is not valid.","Email is not unique.")));
+        when(emailValidator.testMail(Mockito.anyString())).thenReturn(Pair.of(false, "Email is not valid.Email is not unique."));
         when(passwordValidator.passwordTest(Mockito.anyString(), Mockito.anyString()))
-                .thenReturn(Pair.of(false, List.of("Passwords do not match","Please choose a more secure password, at least 8 characters long, known only to you, and difficult for others to guess.")));
+                .thenReturn(Pair.of(false, "Passwords do not match,Please choose a more secure password, at least 8 characters long, known only to you, and difficult for others to guess."));
 
-        List<String> expectedMsg = List.of("Passwords do not match","Please choose a more secure password, at least 8 characters long, known only to you, and difficult for others to guess.","Email is not valid.","Email is not unique.","Terms of Service not agreed.","Privacy Policy not agreed.");
+        String expectedMsg = "Passwords do not match,Please choose a more secure password, at least 8 characters long, known only to you, and difficult for others to guess.Email is not valid.Email is not unique.Terms of Service not agreed.Privacy Policy not agreed.";
 
         // Act
-        Pair<Boolean, List<String>> result = registrationService.register(request);
+        Pair<Boolean, String> result = registrationService.register(request);
 
         // Assert
         Assertions.assertFalse(result.getFirst());

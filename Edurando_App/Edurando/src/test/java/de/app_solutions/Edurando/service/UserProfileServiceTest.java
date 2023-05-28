@@ -17,7 +17,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.util.Pair;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,6 +33,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.PostgreSQLContainer;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
@@ -54,10 +58,10 @@ public class UserProfileServiceTest {
     @Autowired
     private UserProfileRepository userProfileRepository;
 
-    @MockBean
+    @Autowired
     private ConfirmationTokenRepository confirmationTokenRepository;
 
-    @MockBean
+    @Autowired
     private RegistrationService registrationService;
 
     @MockBean
@@ -67,25 +71,28 @@ public class UserProfileServiceTest {
     @MockBean
     private AddressRepository addressRepository;
 
-
-    @MockBean
+    @Autowired
     private ConfirmationTokenService confirmationTokenService;
 
     @MockBean
     private PasswordEncoder passwordEncoder;
 
     @MockBean
-    private EditPasswordRequest pwRequest;
-/*
+    private EditPasswordRequest editPasswordRequest;
+
+    @Autowired
+    private SubjectService subjectService;
+
     @Test
     public void signUpUserTest() throws Exception {
         String token1 = userProfileService.signUpUser(new UserProfile("Student", "Firstname", "Lastname", "email2@stud.th-luebeck.de", "Password_123"));
+
         String token2 = confirmationTokenRepository.findAll().get(confirmationTokenRepository.findAll().toArray().length - 1).getToken();
 
         assertEquals(token1, token2);
     }
 
- */
+
 
     @Test
     public void enableAppUser() throws Exception {
@@ -100,26 +107,44 @@ public class UserProfileServiceTest {
         // Assert the enable value and enabled status
         assertEquals(1, enable);
         assertTrue(enabled);
-
     }
 
 
     @Test
-    public void testSearchQuery() {
+    @Transactional
+    void search() {
+        // Arrange
+        UserProfile userProfile1 = new UserProfile();
+        userProfile1.setId(1L);
+        userProfile1.setRole(Role.teacher);
+        userProfile1.setFirstName("Max");
+        userProfile1.setLastName("Mustermann");
+        userProfile1.setUsername("max.mustermann@example.com");
 
-        UserProfile user = new UserProfile("Student", "Max", "Mustermann", "max.mustermann@stud.th-luebeck.de", "Password_123");
-        userProfileService.signUpUser(user);
+        userProfile1.setSubjects(new ArrayList<>());
+        userProfile1.setTopics(new ArrayList<>());
+
+        EditSubjectRequest editSubjectRequest = new EditSubjectRequest();
+        editSubjectRequest.setId(1L);
+        editSubjectRequest.setSubject("Physics");
+        editSubjectRequest.setTopic("Thermodynamics");
+        userProfileService.signUpUser(userProfile1);
+        subjectService.addSubjectData(editSubjectRequest);
 
 
-        String searchTerm = "Max";
-        List<UserProfile> u = userProfileService.getAllUsers();
-        List<UserProfile> filteredProfiles = userProfileRepository.search(searchTerm);
-        System.out.println(u);
-        System.out.println(filteredProfiles);
-    // Überprüfen, ob die Liste nicht leer ist
-        assertNotNull(filteredProfiles);
-        assertFalse(filteredProfiles.isEmpty());
+        String searchTerm = "Physics";
+
+        // Act
+        List<UserProfile> searchResults = userProfileRepository.search(searchTerm);
+
+        // Assert
+        assertThat(searchResults.get(0).getFirstName()).isEqualTo("Max");
+        assertThat(searchResults.get(0).getLastName()).isEqualTo("Mustermann");
+        assertThat(searchResults.get(0).getUsername()).isEqualTo("max.mustermann@example.com");
+
     }
+
+
 
 
 }

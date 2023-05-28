@@ -16,8 +16,6 @@ public interface SubjectRepository extends JpaRepository<Subject,Long> {
 
 /*    @Query("SELECT userProfiles from Subject where Subject.name = ?1")
     Optional<List<UserProfile>>  findUserProfilesByName(String  name);
-
-
 */
 
 /*    @Query("SELECT userProfiles from Subject subject where subject.name = ?1")
@@ -30,7 +28,7 @@ public interface SubjectRepository extends JpaRepository<Subject,Long> {
         Optional<List<Subject>> findSubjectsByUserProfileId(Long id);*/
     List<Subject> findAllByName(String subject);
 
-   /* @Query("SELECT subject from Subject subject where subject.name = ?1")
+    /* @Query("SELECT subject from Subject subject where subject.name = ?1")
     Optional<Subject> findSubjectsByName(String  name);
 
     @Query("SELECT subject.name from Subject subject where subject.name = ?1")

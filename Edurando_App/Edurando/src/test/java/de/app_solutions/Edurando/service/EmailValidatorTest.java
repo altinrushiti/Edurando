@@ -28,13 +28,13 @@ public class EmailValidatorTest {
         List<UserProfile> users = new ArrayList<>();
         users.add(new UserProfile("Student", "Bennet", "Gurklies","bennet.gurklies@stud.th-luebeck.de","password"));
         when(userProfileRepository.findAll()).thenReturn(users);
-        assertEquals(Pair.of(false,List.of("Email is not unique.")),
+        assertEquals(Pair.of(false,"Email is not unique."),
                 emailValidator.testMail("bennet.gurklies@stud.th-luebeck.de"));
     }
 
     @Test
     public void mailNotValidTest() {
-        assertEquals(Pair.of(false,List.of("Email is not valid.")),emailValidator.testMail("max.musterfrau@example.com"));
+        assertEquals(Pair.of(false,"Email is not valid."),emailValidator.testMail("max.musterfrau@example.com"));
     }
 
     @Test
@@ -42,13 +42,13 @@ public class EmailValidatorTest {
         List<UserProfile> users = new ArrayList<>();
         users.add(new UserProfile("Student", "Bennet", "Gurklies","max.musterfrau@example.com","password"));
         when(userProfileRepository.findAll()).thenReturn(users);
-        assertEquals(Pair.of(false,List.of("Email is not valid.","Email is not unique.")),
+        assertEquals(Pair.of(false,"Email is not valid.Email is not unique."),
                 emailValidator.testMail("max.musterfrau@example.com"));
     }
 
     @Test
     public void mailValidTest() {
-        assertEquals(Pair.of(true,List.of()),
+        assertEquals(Pair.of(true,""),
                 emailValidator.testMail("max.mustermann@uni-ulm.de"));
     }
 

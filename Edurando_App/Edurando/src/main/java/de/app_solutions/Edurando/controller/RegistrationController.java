@@ -25,12 +25,11 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @PostMapping("/register")
-    public ResponseEntity<List<String>> register(@RequestBody RegistrationRequest request) {
-        Pair<Boolean, List<String>> response = registrationService.register(request);
+    public ResponseEntity<String> register(@RequestBody RegistrationRequest request) {
+        Pair<Boolean, String> response = registrationService.register(request);
         if (response.getFirst()) return ResponseEntity.ok(response.getSecond());
         else return ResponseEntity.badRequest().body(response.getSecond());
     }
-
 
     @GetMapping(path = "confirm")
     public String confirm(@RequestParam("token") String token) {
