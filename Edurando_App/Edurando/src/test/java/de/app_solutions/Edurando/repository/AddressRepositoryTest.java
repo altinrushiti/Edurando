@@ -33,6 +33,7 @@ public class AddressRepositoryTest {
         Optional<Address> foundAddress = addressRepository.findAddressByStreetAndHouseNumberAndCityAndPostCodeAndState(street, houseNumber, city, postCode, state);
 
 
+
         assertTrue(foundAddress.isPresent());
         assertEquals(address.getId(), foundAddress.get().getId());
         assertEquals(street, foundAddress.get().getStreet());

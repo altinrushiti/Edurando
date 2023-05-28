@@ -25,7 +25,9 @@ public class TopicRepositoryTest {
         topic.setName("Algebra");
         topicRepository.save(topic);
 
+
         Optional<Topic> foundTopic = topicRepository.findByName("Algebra");
+
 
         assertTrue(foundTopic.isPresent());
         assertEquals(topic.getId(),foundTopic.get().getId());

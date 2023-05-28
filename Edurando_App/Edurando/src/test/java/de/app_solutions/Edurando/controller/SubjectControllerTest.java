@@ -50,6 +50,7 @@ public class SubjectControllerTest {
                 email,
                 "password");*/
 
+
          request = new EditSubjectRequest();
 
         request.setId(1L);

@@ -4,8 +4,6 @@ import de.app_solutions.Edurando.model.Subject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +22,7 @@ public class SubjectRepositoryTest {
         Subject subject = new Subject();
         subject.setName("Math");
         subjectRepository.save(subject);
+
 
         Optional<Subject> foundSubject = subjectRepository.findByName("Math");
 
