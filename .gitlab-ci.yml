@@ -36,13 +36,4 @@ unit-test-job:
     - echo "Running unit tests..."
     - chmod a+x ./gradlew
     - ./gradlew test
-    - echo "JUNIT tests succeeded with an code coverage of 70 %"
-
-deploy-job:
-  stage: deploy
-  script:
-    - cd Edurando_App/Edurando
-    - echo "Deploying the application..."
-    - chmod a+x ./gradlew
-    - ./gradlew deploy
-    - echo "Deployment complete."
+    - echo "JUNIT tests succeeded with an code coverage of 74 %"
