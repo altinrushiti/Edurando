@@ -1,9 +1,6 @@
 package de.app_solutions.Edurando.service;
 
-import de.app_solutions.Edurando.model.EditPasswordRequest;
-import de.app_solutions.Edurando.model.EditPersonalDataRequest;
-import de.app_solutions.Edurando.model.Role;
-import de.app_solutions.Edurando.model.UserProfile;
+import de.app_solutions.Edurando.model.*;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
 import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
@@ -16,70 +13,63 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.testcontainers.containers.PostgreSQLContainer;
 
+import javax.transaction.Transactional;
+
 import static org.mockito.ArgumentMatchers.eq;
 
 import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class EditProfileServiceTest {
-
-
 
     @Autowired
     private EditProfileService editProfileService;
 
     @MockBean
     private UserProfileRepository userProfileRepository;
+    @MockBean
+    private UserProfileService userProfileService;
 
     @MockBean
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Test
-    public void editPasswordTest() {
-
-        // Arrange
-        UserProfile user1 = new UserProfile();
-        user1.setId(1L);
-        user1.setPassword("Test123!");
-
-        EditPasswordRequest pwRequest = new EditPasswordRequest(1L, "Test123!", "Pflaume3!!", "Pflaume3!!");
-
-        when(userProfileRepository.findUserProfileById(1L)).thenReturn(Optional.of(user1));
-        when(bCryptPasswordEncoder.matches(user1.getPassword(), pwRequest.getCurrentPassword())).thenReturn(true);
-        when(bCryptPasswordEncoder.matches(user1.getPassword(), pwRequest.getNewPassword())).thenReturn(false);
-
-        // Act
-        Pair<Boolean, List<String>> result = editProfileService.editPassword(pwRequest);
-
-        when(bCryptPasswordEncoder.matches(user1.getPassword(), pwRequest.getCurrentPassword())).thenReturn(false);
-        when(bCryptPasswordEncoder.matches(user1.getPassword(), pwRequest.getNewPassword())).thenReturn(true);
-
-        // Assert
-        assertTrue(result.getFirst());
-    }
-
-    @Test
     public void editPersonalDataTest() {
         // Arrange
-        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann@example.com","password");
+        UserProfile user4 = new UserProfile();
+        user4.setId(4L);
+        user4.setFirstName("Max");
+        user4.setLastName("Mustermann");
 
-        // ... set other properties
+        user4.setUsername("max.mustermann@example4.com");
+        user4.setPassword("Test123!");
+
+        Address address = new Address();
+        address.setStreet("TestStreet");
+        address.setHouseNumber("TestHouseNumber");
+        address.setCity("TestCity");
+        address.setState("TestState");
+        address.setPostCode(12345);
+        //address.setUserProfile(List.of(user4));
+        user4.setAddress(address);
+
+        //userProfileService.signUpUser(user4);
+// Simulate the behavior of retrieving the user profile from the repository
+        when(userProfileRepository.findUserProfileById(4L)).thenReturn(Optional.of(user4));
+
 
         EditPersonalDataRequest request = new EditPersonalDataRequest();
-        request.setId(1L);
+        request.setId(4L);
         request.setFirstName("Jane");
         request.setLastName("Smith");
         request.setGender("Male");
@@ -92,19 +82,14 @@ public class EditProfileServiceTest {
 
         // ... set other properties
 
-        // Simulate the behavior of retrieving the user profile from the repository
-        when(userProfileRepository.findUserProfileById(1L)).thenReturn(Optional.of(user));
-
         // Act
-        Pair<Boolean, String> result = editProfileService.editPersonalData(request);
+        editProfileService.editPersonalData(request);
 
         // Assert
-        assertTrue(result.getFirst());
-        assertEquals("The processing was successful", result.getSecond());
-        assertEquals("Jane", user.getFirstName());
-        assertEquals("Smith", user.getLastName());
-        assertEquals(Role.teacher, user.getRole());
-        assertEquals("Male", user.getGender());
+        assertEquals("Jane", user4.getFirstName());
+        assertEquals("Smith", user4.getLastName());
+        assertEquals(Role.teacher, user4.getRole());
+        assertEquals("Male", user4.getGender());
 
         // ... assert other properties
 

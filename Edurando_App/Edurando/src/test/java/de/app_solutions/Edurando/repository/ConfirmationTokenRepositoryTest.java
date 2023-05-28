@@ -17,7 +17,7 @@ import java.util.Optional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 class ConfirmationTokenRepositoryTest {
@@ -47,13 +47,12 @@ class ConfirmationTokenRepositoryTest {
         Optional<ConfirmationToken> foundToken = confirmationTokenRepository.findByToken("1234567890abcdef");
 
         assertThat(foundToken.isPresent()).isTrue();
-       // assertThat(foundToken.get().getToken()).isEqualTo("1234567890abcdef");
-        assertThat(foundToken.get().getUser().getUsername()).isEqualTo("max.mustermann@example.com");
 
+        foundToken.ifPresent(confirmationToken -> assertThat(confirmationToken.getUser().getUsername()).isEqualTo("max.mustermann@example.com"));
+       // assertThat(foundToken.get().getToken()).isEqualTo("1234567890abcdef");
 
     }
 
 
 }
 
- */

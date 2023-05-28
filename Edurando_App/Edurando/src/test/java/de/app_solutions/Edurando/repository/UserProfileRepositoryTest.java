@@ -17,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class UserProfileRepositoryTest {
 
-
-
     @Autowired
     private UserProfileRepository userProfileRepository;
 

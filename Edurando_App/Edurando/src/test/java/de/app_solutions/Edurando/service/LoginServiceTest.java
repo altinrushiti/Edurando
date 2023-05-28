@@ -14,15 +14,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class LoginServiceTest {
 
-    /*
-
-    @MockBean
+    @Autowired
     private UserProfileService userProfileService;
 
     @MockBean
@@ -42,20 +42,107 @@ public class LoginServiceTest {
 
     @MockBean
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     private LoginService loginService;
-    @MockBean
+
+    @Autowired
     private RegistrationService registrationService;
+    @Test
+    public void loginUserNotRegisteredTest() {
+        UserProfile user = new UserProfile();
+        user.setId(22L);
+        user.setFirstName("Max");
+        user.setLastName("Mustermann");
+
+        user.setUsername("max.mustermann@stud.th-luebeck.de");
+        user.setPassword("Test123!");
+        when(userProfileRepository.findUserProfileByUsername(user.getUsername())).thenReturn(Optional.of(user));
+
+        LoginRequest loginRequest = new LoginRequest("max.musterfrau@stud.th-luebeck.de", "Pflaume234!");
+
+        Pair<Boolean, String> rs = loginService.login(loginRequest);
+        assertEquals(Pair.of(false, "Account not registered. Please sign up first."), rs);
+    }
 
     @Test
     public void loginUserNotVerifiedTest() {
 
-        RegistrationRequest request = new RegistrationRequest("Student", "Max", "Mustermann", "max.mustermann@stud.th-luebeck.de", "password", "password", true, true);
-        registrationService.register(request);
-        LoginRequest loginRequest = new LoginRequest("max.mustermann@stud.th-luebeck.de", "Test_123");
+        UserProfile user = new UserProfile();
+        user.setId(22L);
+        user.setFirstName("Max");
+        user.setLastName("Mustermann");
 
-        Pair<Boolean, List<String>> rs = loginService.login(loginRequest);
-        assertEquals(Pair.of(false, List.of("Password or username is not correct.")),
-                rs);
-    } */
+        user.setUsername("max.mustermann@example4.com");
+        user.setPassword("Test123!");
+
+        when(userProfileRepository.findUserProfileByUsername(user.getUsername())).thenReturn(Optional.of(user));
+
+        LoginRequest loginRequest = new LoginRequest("max.mustermann@example4.com", "Test123!");
+
+        Pair<Boolean, String> rs = loginService.login(loginRequest);
+        assertEquals(Pair.of(false, "You are not verified."), rs);
+    }
+
+    @Test
+    public void loginUserIsLockedTest() {
+
+        UserProfile user = new UserProfile();
+        user.setId(22L);
+        user.setFirstName("Max");
+        user.setLastName("Mustermann");
+
+        user.setUsername("max.mustermann@example5.com");
+        user.setPassword("Test123!");
+        user.setEnabled(true);
+        user.setLocked(true);
+        when(userProfileRepository.findUserProfileByUsername(user.getUsername())).thenReturn(Optional.of(user));
+
+        LoginRequest loginRequest = new LoginRequest("max.mustermann@example5.com", "Test123!");
+
+        Pair<Boolean, String> rs = loginService.login(loginRequest);
+        assertEquals(Pair.of(false, "Your account is locked. Please contact the support."), rs);
+    }
+
+    @Test
+    public void loginPasswordOrUsernameFailTest() {
+
+        UserProfile user = new UserProfile();
+        user.setId(22L);
+        user.setFirstName("Max");
+        user.setLastName("Mustermann");
+
+        user.setUsername("max.mustermann@example6.com");
+        user.setPassword("Test123!");
+        user.setEnabled(true);
+
+        when(userProfileRepository.findUserProfileByUsername(user.getUsername())).thenReturn(Optional.of(user));
+
+        LoginRequest loginRequest = new LoginRequest("max.mustermann@example6.com", "!Test123!");
+        when(!bCryptPasswordEncoder.matches(loginRequest.getPassword(),user.getPassword())).thenReturn(false);
+
+        Pair<Boolean, String> rs = loginService.login(loginRequest);
+        assertEquals(Pair.of(false, "Password or username is not correct."), rs);
+    }
+    @Test
+    public void loginSuccessTest() {
+
+        UserProfile user = new UserProfile();
+        user.setId(23L);
+        user.setFirstName("Lena");
+        user.setLastName("Musterfrau");
+
+        user.setUsername("lena.musterfrau@example7.com");
+        user.setPassword("Test123!");
+        //userProfileService.signUpUser(user);
+        user.setEnabled(true);
+
+        when(userProfileRepository.findUserProfileByUsername(user.getUsername())).thenReturn(Optional.of(user));
+
+        LoginRequest loginRequest = new LoginRequest("lena.musterfrau@example7.com", "Test123!");
+        when(bCryptPasswordEncoder.matches(loginRequest.getPassword(),user.getPassword())).thenReturn(true);
+        Pair<Boolean, String> rs = loginService.login(loginRequest);
+        assertEquals(Pair.of(true, "Login successful."), rs);
+    }
+
 }

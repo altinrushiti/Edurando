@@ -38,8 +38,6 @@ public class SubjectController {
         Pair<Boolean, String> response = subjectService.addSubjectData(editSubjectRequest);
         if (response.getFirst()) return ResponseEntity.ok(response.getSecond());
         else return ResponseEntity.badRequest().body(response.getSecond());
-
     }
-
 
 }

@@ -2,6 +2,7 @@ package de.app_solutions.Edurando.controller;
 
 import de.app_solutions.Edurando.model.EditPasswordRequest;
 import de.app_solutions.Edurando.model.EditPersonalDataRequest;
+import de.app_solutions.Edurando.service.EditPasswordService;
 import de.app_solutions.Edurando.service.EditProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
@@ -14,13 +15,15 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1")
 @CrossOrigin(origins = "http://localhost:5173")
-public class EditProfileController {
+public class EditPasswordController {
 
-    private final EditProfileService editProfileService;
 
-    @PutMapping("/updatePersonalData")
-    public ResponseEntity<String> updatePersonalData(@RequestBody EditPersonalDataRequest editPersonalDataRequest) {
-        Pair<Boolean, String> result = editProfileService.editPersonalData(editPersonalDataRequest);
+    private final EditPasswordService editPasswordService;
+
+    @PutMapping("/editPassword")
+    public ResponseEntity<String> editPassword(@RequestBody EditPasswordRequest passwordRequest) {
+
+        Pair<Boolean, String> result = editPasswordService.editPassword(passwordRequest);
 
         if (result.getFirst()) {
             return ResponseEntity.ok().body(result.getSecond());
@@ -28,4 +31,6 @@ public class EditProfileController {
             return ResponseEntity.badRequest().body(result.getSecond());
         }
     }
+
 }
+

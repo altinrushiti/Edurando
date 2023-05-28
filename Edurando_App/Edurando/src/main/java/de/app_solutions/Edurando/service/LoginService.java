@@ -25,20 +25,19 @@ public class LoginService {
         boolean userExist = userProfileRepository.findUserProfileByUsername(loginRequest.getEmail()).isPresent();
         List<String> l = new ArrayList<>();
         if (!userExist) {
-            return Pair.of(false, "Password or username is not correct.");
+            return Pair.of(false, "Account not registered. Please sign up first.");
         } else {
             UserProfile user = userProfileRepository.findUserProfileByUsername(loginRequest.getEmail()).get();
             if (!user.isEnabled()) {
                 return Pair.of(false, "You are not verified.");
             }
             if (user.isLocked()) {
-                return Pair.of(false, "Your account is locked.");
+                return Pair.of(false, "Your account is locked. Please contact the support.");
             }
             if (!(bCryptPasswordEncoder.matches(loginRequest.getPassword(), user.getPassword()) && loginRequest.getEmail().equalsIgnoreCase(user.getUsername()))) {
                 return Pair.of(false, "Password or username is not correct.");
             }
-            return Pair.of(true, "Successful!");
+            return Pair.of(true, "Login successful.");
         }
-
     }
 }

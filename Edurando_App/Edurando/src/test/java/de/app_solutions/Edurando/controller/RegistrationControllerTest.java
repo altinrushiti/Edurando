@@ -43,27 +43,26 @@ public class RegistrationControllerTest {
     @Autowired
     private RegistrationController registrationController;
 
+
     @Test
     void testRegister() throws Exception {
         // Arrange
         RegistrationRequest request = new RegistrationRequest("Student","Max", "Mustermann", "max.mustermann@example.com", "password","password",true,true);
         String requestJson = new ObjectMapper().writeValueAsString(request); // serializing the request object to JSON string
-        Pair<Boolean, List<String>> registrationResponse = Pair.of(true, List.of("Registration was successful"));
+        Pair<Boolean, String> registrationResponse = Pair.of(true, "Registration was successful");
         when(registrationService.register(request)).thenReturn(registrationResponse);
 
-        RegistrationController registrationController = new RegistrationController(registrationService);
+        registrationController = new RegistrationController(registrationService);
 
         // Act
-        ResponseEntity<List<String>> result = registrationController.register(request);
-
+        ResponseEntity<String> result = registrationController.register(request);
 
         // Act and Assert
         mockMvc.perform(post("/api/v1/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andExpect(status().isOk())
-                .andExpect(content().json(new ObjectMapper().writeValueAsString(result.getBody())));
-
+                .andExpect(content().string(Objects.requireNonNull(result.getBody())));
     }
 
 
@@ -79,7 +78,6 @@ public class RegistrationControllerTest {
         mockMvc.perform(get("/api/v1/confirm/?token="+token))
                         .andExpect(status().isOk())
                                 .andExpect(content().string(expectedResult));
-
     }
 
 }
