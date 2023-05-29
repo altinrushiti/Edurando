@@ -23,11 +23,14 @@ public class ChatMessage {
     @ManyToOne
     private UserProfile receiver;
 
+
     private String message;
+    private String chatRoomId;
 
     public ChatMessage(UserProfile sender, UserProfile receiver, String message) {
         this.sender = sender;
         this.receiver = receiver;
         this.message = message;
     }
+
 }
