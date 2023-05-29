@@ -35,6 +35,12 @@ public class UserProfile implements UserDetails {
     private boolean termsAgreed;
     private boolean privacyAgreed;
 
+    @OneToMany
+    private List<ChatMessage> chatMessages;
+
+    @OneToMany
+    private List<UserProfile> sender;
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private List<Subject> subjects;
