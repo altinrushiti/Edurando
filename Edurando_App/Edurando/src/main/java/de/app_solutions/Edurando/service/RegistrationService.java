@@ -5,6 +5,7 @@ import de.app_solutions.Edurando.model.ConfirmationToken;
 import de.app_solutions.Edurando.model.RegistrationRequest;
 import de.app_solutions.Edurando.model.Role;
 import de.app_solutions.Edurando.model.UserProfile;
+import de.app_solutions.Edurando.repository.UserProfileRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class RegistrationService {
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
     private final PasswordValidator passwordValidator;
+    private final UserProfileRepository userProfileRepository;
 
     public Pair<Boolean, String> register(RegistrationRequest request) {
 
@@ -57,7 +59,6 @@ public class RegistrationService {
             String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", token);
             emailSender.send(request.getEmail(), buildEmail(request, link));
             result = Pair.of(true, "Registration was successful.");
-
         } else {
             result = Pair.of(false, sb.toString());
         }
@@ -72,7 +73,6 @@ public class RegistrationService {
         if (confirmationToken.getConfirmedAt() != null) {
             throw new IllegalStateException("email already confirmed");
         }
-
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
 
         if (expiredAt.isBefore(LocalDateTime.now())) {
@@ -84,6 +84,30 @@ public class RegistrationService {
         return "verifizierung_erfolgreich";
 
     }
+
+    public String generateNewConfirmationToken(String email) {
+        /*
+        UserProfile user = userProfileRepository.findUserProfileByUsername(email).get();
+
+
+        // Erzeugen eines neuen Tokens
+        String newToken = UUID.randomUUID().toString();
+
+        // Aktualisieren des Tokens des Benutzers
+        ConfirmationToken confirmationToken = user.getConfirmationToken();
+        confirmationToken.setToken(newToken);
+        confirmationToken.setCreatedDateTime(LocalDateTime.now());
+        confirmationToken.setExpirationDateTime(LocalDateTime.now().plusMinutes(15));
+
+        // Speichern des aktualisierten Bestätigungstokens
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
+
+        return newToken;
+
+         */
+        return null;
+    }
+
 
     private String buildEmail(RegistrationRequest user, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +

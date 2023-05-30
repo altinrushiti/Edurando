@@ -8,8 +8,10 @@ import org.springframework.data.util.Pair;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -17,27 +19,20 @@ public class LoginService {
 
     private final UserProfileRepository userProfileRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    //private final JwtTokenProvider jwtTokenProvider;
-    private final static String USER_NOT_FOUND = "User with Email %s was not found.";
 
     public Pair<Boolean, String> login(LoginRequest loginRequest) {
+        Optional<UserProfile> user = userProfileRepository.findUserProfileByUsername(loginRequest.getEmail());
 
-        boolean userExist = userProfileRepository.findUserProfileByUsername(loginRequest.getEmail()).isPresent();
-        List<String> l = new ArrayList<>();
-        if (!userExist) {
-            return Pair.of(false, "Account not registered. Please sign up first.");
-        } else {
-            UserProfile user = userProfileRepository.findUserProfileByUsername(loginRequest.getEmail()).get();
-            if (!user.isEnabled()) {
-                return Pair.of(false, "You are not verified.");
-            }
-            if (user.isLocked()) {
-                return Pair.of(false, "Your account is locked. Please contact the support.");
-            }
-            if (!(bCryptPasswordEncoder.matches(loginRequest.getPassword(), user.getPassword()) && loginRequest.getEmail().equalsIgnoreCase(user.getUsername()))) {
-                return Pair.of(false, "Password or username is not correct.");
-            }
-            return Pair.of(true, "Login successful.");
+        if (user.isEmpty() || !(bCryptPasswordEncoder.matches(loginRequest.getPassword(), user.get().getPassword()) && loginRequest.getEmail().equalsIgnoreCase(user.get().getUsername()))) {
+            return Pair.of(false, "Invalid credentials. Try again!");
         }
+        if (!user.get().isEnabled()) {
+            return Pair.of(false, "You are not verified.");
+        }
+        if (user.get().isLocked()) {
+            return Pair.of(false, "Your account is locked. Please contact the support.");
+        }
+        return Pair.of(true, "Login successful.");
     }
 }
+
