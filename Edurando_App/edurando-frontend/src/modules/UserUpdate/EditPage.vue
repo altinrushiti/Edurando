@@ -6,32 +6,32 @@
         </svg>
     </button>
     <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-50 h-full mt-16" aria-label="Sidebar">
-        <div class="h-full px-3 py-4 overflow-y-auto" :class="isSidebarOpen ? 'bg-purple-50 border' : 'bg-transparent md:bg-purple-50 md:border'">
-            <ul class="space-y-2 font-medium text-[#483d8b]">
+        <div class="h-full px-3 py-4 overflow-y-auto" :class="isSidebarOpen ? 'bg-purple-50 border dark:bg-[#1f1c25] dark:border-[#17151a]' : 'bg-transparent md:bg-purple-50 dark:md:bg-[#1f1c25] dark:md:border-[#17151a] md:border'">
+            <ul class="space-y-2 font-medium text-[#483d8b] dark:text-[#7f6dfc]">
                 <li :class="!isSidebarOpen && 'hidden md:block'">
-                    <RouterLink to="/editProfile" active-class="bg-[#e4e2ee]" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
+                    <RouterLink to="/editProfile" active-class="bg-[#e4e2ee] dark:bg-[#3d3844]" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee] dark:hover:bg-[#3d3844]">
                         <font-awesome-icon :icon="['fas', 'user']" />
                         <span :class="isSidebarOpen ? '' : 'hidden'" class="flex-1 ml-3 whitespace-nowrap">Personal Data</span>
                     </RouterLink>
                 </li>
                 <li :class="!isSidebarOpen && 'hidden md:block'">
-                    <RouterLink to="/ChangePassword" active-class="bg-[#e4e2ee]" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
+                    <RouterLink to="/ChangePassword" active-class="bg-[#e4e2ee] dark:bg-[#3d3844]" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee] dark:hover:bg-[#3d3844]">
                         <font-awesome-icon :icon="['fas', 'key']" />
                         <span :class="isSidebarOpen ? '' : 'hidden'" class="flex-1 ml-3 whitespace-nowrap">Change Password</span>
                     </RouterLink>
                 </li>
                 <li v-if="role === 'teacher'" :class="!isSidebarOpen && 'hidden md:block'">
-                    <RouterLink to="/SubjectsTopics" active-class="bg-[#e4e2ee]" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
+                    <RouterLink to="/SubjectsTopics" active-class="bg-[#e4e2ee] dark:bg-[#3d3844]" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee] dark:hover:bg-[#3d3844]">
                         <font-awesome-icon :icon="['fas', 'table-list']" />
                         <span :class="isSidebarOpen ? '' : 'hidden'" class="flex-1 ml-3 whitespace-nowrap">Subjects/Topics</span>
                     </RouterLink>
                 </li>
                 <li>
-                    <button :class="isSidebarOpen ? '' : 'hidden'" @click="toggleSidebar" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
+                    <button :class="isSidebarOpen ? '' : 'hidden'" @click="toggleSidebar" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee] dark:hover:bg-[#3d3844]">
                         <font-awesome-icon :icon="['fas', 'angles-left']" />
                         <span class="flex-1 ml-3 whitespace-nowrap">Collapse Sidebar</span>
                     </button>
-                    <button :class="isSidebarOpen ? 'hidden' : '' " @click="toggleSidebar" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
+                    <button :class="isSidebarOpen ? 'hidden' : '' " @click="toggleSidebar" class="flex items-center p-2 rounded-lg hover:bg-[#e4e2ee] dark:hover:bg-[#3d3844]">
                         <font-awesome-icon :icon="['fas', 'angles-right']" />
                     </button>
                 </li>
