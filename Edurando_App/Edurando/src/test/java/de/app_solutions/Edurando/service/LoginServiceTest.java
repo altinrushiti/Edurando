@@ -62,7 +62,7 @@ public class LoginServiceTest {
         LoginRequest loginRequest = new LoginRequest("max.musterfrau@stud.th-luebeck.de", "Pflaume234!");
 
         Pair<Boolean, String> rs = loginService.login(loginRequest);
-        assertEquals(Pair.of(false, "Account not registered. Please sign up first."), rs);
+        assertEquals(Pair.of(false, "Invalid credentials. Try again!"), rs);
     }
 
     @Test
@@ -122,7 +122,7 @@ public class LoginServiceTest {
         when(!bCryptPasswordEncoder.matches(loginRequest.getPassword(),user.getPassword())).thenReturn(false);
 
         Pair<Boolean, String> rs = loginService.login(loginRequest);
-        assertEquals(Pair.of(false, "Password or username is not correct."), rs);
+        assertEquals(Pair.of(false, "Invalid credentials. Try again!"), rs);
     }
     @Test
     public void loginSuccessTest() {

@@ -9,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.persistence.OneToOne;
 import java.util.UUID;
-
+/*
 @Getter
 @Setter
 @NoArgsConstructor(force = true)
@@ -37,3 +37,5 @@ public class ChatChannel {
 
 
 }
+
+ */

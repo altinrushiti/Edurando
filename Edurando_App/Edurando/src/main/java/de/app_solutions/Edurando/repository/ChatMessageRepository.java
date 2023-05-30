@@ -1,5 +1,5 @@
 package de.app_solutions.Edurando.repository;
-
+/*
 import de.app_solutions.Edurando.model.ChatMessage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,3 +26,5 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage,String>
     public List<ChatMessage> getExistingChatMessages(
             @Param("userIdOne") Long userIdOne, @Param("userIdTwo") Long userIdTwo, Pageable pageable);
 }
+
+ */
