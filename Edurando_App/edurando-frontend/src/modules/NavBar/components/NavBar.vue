@@ -1,10 +1,12 @@
 <template>
   <header class="text-white font-font-family">
     <nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center bg-[#483d8b] p-2">
-      <div class="logo flex items-center">
-        <img class="w-[100px] h-[60px]" src="@/assets/logo/logo_image.png" alt="Logo" />
-        <h1 class="text-3xl font-medium text-align text-align: center">Edurando</h1>
-      </div>
+      <RouterLink to="/">
+        <div class="logo flex items-center">
+          <img class="w-[100px] h-[60px]" src="@/assets/logo/logo_image.png" alt="Logo" />
+          <h1 class="text-3xl font-medium text-align text-align: center">Edurando</h1>
+        </div>
+      </RouterLink>
       <div class="box">
         <input type="checkbox" id="check">
         <div class="search-box">
@@ -15,18 +17,6 @@
         </div>
       </div>
       <ul class="flex justify-around gap-2 ml-3 mr-2 text-2xl">
-        <li class="hidden md:block" @mouseover="showHome = true" @mouseleave="showHome = false">
-          <RouterLink to="/">
-            <font-awesome-icon class="p-0" icon="fa-solid fa-house"/>
-            <span v-if="showHome">Home</span>
-          </RouterLink>
-        </li>
-        <li class="hidden md:block" @mouseover="showAbout = true" @mouseleave="showAbout = false">
-          <RouterLink to="/about">
-            <font-awesome-icon class="" icon="fa-solid fa-circle-info"/>
-            <span v-if="showAbout">About</span>
-          </RouterLink>
-        </li>
         <li class="flex-col md:hidden flex">
           <button @click="toggleMenu">
             <font-awesome-icon :icon="showMenu ? 'fa-solid fa-times' : 'fa-solid fa-bars'"></font-awesome-icon>

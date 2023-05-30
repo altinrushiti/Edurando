@@ -5,6 +5,7 @@
                 <div>
                     <h3 class="text-base leading-6 font-medium text-[#231e44] py-4">Links</h3>
                     <ul class="text-base leading-6 text-[#7b73ac] max-w-7xl flex-col sm:flex-row mx-auto">
+                        <li><router-link to="/about">About</router-link></li>
                         <li><router-link to="/TermsOfService">Terms of Service</router-link></li>
                         <li><router-link to="/PrivacyPolicy">Privacy Policy</router-link></li>
                         <li><router-link to="/LegalNotice">Legal Notice</router-link></li>
