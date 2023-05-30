@@ -1,4 +1,3 @@
-/*
 package de.app_solutions.Edurando.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -22,4 +21,3 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/ws").withSockJS();
     }
 }
-*/
