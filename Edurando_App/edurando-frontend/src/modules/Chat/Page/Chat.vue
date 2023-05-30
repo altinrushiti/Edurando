@@ -45,11 +45,11 @@ onMounted(() => {
     <!-- Sidebar -->
     <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-[15%] h-full mt-16" aria-label="Sidebar">
       <div class="h-full px-3 py-4 overflow-y-auto "
-           :class="isSidebarOpen ? 'bg-purple-50 border' : 'bg-transparent md:bg-purple-50 md:border'">
-        <ul class="space-y-2 font-medium text-[#483d8b]">
+           :class="isSidebarOpen ? 'bg-purple-50 border dark:bg-[#1f1c25] dark:border-[#17151a]' : 'bg-transparent dark:md:bg-[#1f1c25] dark:md:border-[#17151a] md:bg-purple-50 md:border'">
+        <ul class="space-y-2 font-medium text-[#483d8b] dark:text-[#7f6dfc]">
           <li class="">
             <RouterLink to="/editProfile" active-class="bg-[#e4e2ee]"
-                        class="justify-center flex items-center p-2 rounded-lg hover:bg-[#e4e2ee]">
+                        class="justify-center flex items-center p-2 rounded-lg hover:bg-[#e4e2ee] dark:hover:bg-[#3d3844]">
               <div>{{ user.getUser.firstName + " " + user.getUser.lastName }}
                 <p>
                   Letzte Nachricht
@@ -66,10 +66,10 @@ onMounted(() => {
       <!-- Chat Messages -->
       <div class="flex-1 overflow-y-auto">
         <div v-for="message in chatMessages" :key="message.id" class="flex flex-col items-start mb-4">
-          <div class="bg-gray-100 p-2 rounded-lg">
-            <p class="text-gray-800">{{ message.text }}</p>
+          <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded-lg">
+            <p class="text-gray-800 dark:text-white">{{ message.text }}</p>
           </div>
-          <p class="text-xs text-gray-500 mt-1">{{ message.sender }}</p>
+          <p class="text-xs text-gray-500 dark:text-white mt-1">{{ message.sender }}</p>
         </div>
       </div>
 
