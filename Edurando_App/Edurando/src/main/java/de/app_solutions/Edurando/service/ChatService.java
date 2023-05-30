@@ -1,5 +1,5 @@
 package de.app_solutions.Edurando.service;
-
+/*
 import de.app_solutions.Edurando.model.ChatMessage;
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.ChatMessageRepository;
@@ -44,3 +44,5 @@ public class ChatService {
 
 
 }
+
+ */

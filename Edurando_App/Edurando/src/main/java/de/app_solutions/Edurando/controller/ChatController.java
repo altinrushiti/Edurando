@@ -1,5 +1,5 @@
 package de.app_solutions.Edurando.controller;
-
+/*
 import de.app_solutions.Edurando.model.ChatMessage;
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
@@ -26,3 +26,5 @@ public class ChatController {
     }
 
 }
+
+ */
