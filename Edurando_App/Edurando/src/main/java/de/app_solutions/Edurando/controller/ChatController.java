@@ -18,11 +18,11 @@ public class ChatController {
     @Autowired
     private ChatService chatService;
 
-    @MessageMapping("/chat")
+/*    @MessageMapping("/chat")
     @SendTo("/topic/chat")
     public ChatMessage processChatMessage(ChatMessage chatMessage) {
         chatService.processChatMessage(chatMessage);
         return chatMessage;
-    }
+    }*/
 
 }

@@ -10,11 +10,12 @@ import javax.persistence.*;
 import javax.persistence.OneToOne;
 import java.util.UUID;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
-@Entity
+
 public class ChatChannel {
 
     @Id

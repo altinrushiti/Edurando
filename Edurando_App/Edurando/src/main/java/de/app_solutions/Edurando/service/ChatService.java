@@ -1,12 +1,15 @@
 package de.app_solutions.Edurando.service;
 
-import de.app_solutions.Edurando.model.ChatMessage;
-import de.app_solutions.Edurando.model.UserProfile;
+import de.app_solutions.Edurando.model.*;
+import de.app_solutions.Edurando.repository.ChatChannelRepository;
 import de.app_solutions.Edurando.repository.ChatMessageRepository;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,8 +20,48 @@ public class ChatService {
 
     @Autowired
     private ChatMessageRepository chatMessageRepository;
+    @Autowired
+    private ChatChannelRepository chatChannelRepository;
+    @Autowired
+    private  UserProfileService userProfileService;
 
-    public void processChatMessage(ChatMessage chatMessage) {
+    private String
+    getExistingChannel(ChatChannelInitializationDTO chatChannelInitializationDTO){
+        List<ChatChannel> channel = chatChannelRepository
+                .findExistingChannel(chatChannelInitializationDTO.getUserIdTwo(),
+                        chatChannelInitializationDTO.getUserIdTwo() );
+
+        return (channel != null && !channel.isEmpty()) ? channel.get(0).getUuid() : null;
+
+    }
+
+    private  String newChatSession(ChatChannelInitializationDTO chatChannelInitializationDTO)
+    throws UsernameNotFoundException {
+
+        ChatChannel channel = new ChatChannel(userProfileService.getUserById(chatChannelInitializationDTO.getUserIdOne()),userProfileService.getUserById(chatChannelInitializationDTO.getUserIdTwo()));
+
+        chatChannelRepository.save(channel);
+
+        return channel.getUuid();
+    }
+    public String establishChatSession(ChatChannelInitializationDTO chatChannelInitializationDTO)
+            throws IsSameUserException, BeansException, UsernameNotFoundException {
+
+        if (chatChannelInitializationDTO.getUserIdTwo() == chatChannelInitializationDTO.getUserIdTwo()) {
+            throw new IsSameUserException();
+        }
+        String uuid = getExistingChannel(chatChannelInitializationDTO);
+
+        return (uuid != null) ? uuid : newChatSession(chatChannelInitializationDTO);
+    }
+
+
+
+
+
+
+}
+/*    public void processChatMessage(ChatMessage chatMessage) {
 
 
         // Get the sender and receiver user profiles
@@ -39,8 +82,4 @@ public class ChatService {
             // Save the chat message
             chatMessageRepository.save(chatMessage);
         }
-    }
-
-
-
-}
+    }*/
