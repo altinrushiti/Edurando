@@ -1,26 +1,26 @@
 <template>
     <edit-page></edit-page>
-    <div class="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen bg-gray-100 dark:bg-[#181818] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8">
             <div>
-                <h2 class="mt-5 text-center text-3xl font-extrabold text-gray-900">Change Password</h2>
+                <h2 class="mt-5 text-center text-3xl font-extrabold text-gray-900 dark:text-[#b5a9fc]">Change Password</h2>
             </div>
             <form class="mt-8 space-y-6" @submit.prevent="editPassword">
                 <div class="rounded-md shadow-sm space-y-2">
                     <div>
-                        <label for="currentPassword" class="text-black font-font-family p-2">Current Password</label>
+                        <label for="currentPassword" class="text-black dark:text-[#b5a9fc] font-font-family p-2">Current Password</label>
                         <input id="currentPassword" name="currentPassword" type="password"
                                v-model="password.currentPassword"
                                autocomplete="currentPassword" required
-                               class="mb-4 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                               class="mb-4 appearance-none rounded-none relative block focus:outline-none w-full px-3 py-2 border border-gray-300 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Current Password">
                     </div>
 
                     <div>
-                        <label for="newPassword" class="text-black font-font-family p-2">New Password</label>
+                        <label for="newPassword" class="text-black dark:text-[#b5a9fc] font-font-family p-2">New Password</label>
                         <input id="newPassword" name="newPassword" type="password" v-model="password.newPassword"
                                autocomplete="newPassword" required
-                               class="mb-4 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                               class="mb-4 appearance-none rounded-none relative block focus:outline-none w-full px-3 py-2 border border-gray-300 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="New Password">
                         <p v-if="showPasswordError(password.newPassword)"
                             class="text-red-500 text-xs">Please choose a more secure password, at least 8 characters long, known only to you, and difficult for others to guess."</p>
@@ -28,12 +28,12 @@
                     </div>
 
                     <div>
-                        <label for="newPasswordRepeat" class="text-black font-font-family p-2">Repeat New
+                        <label for="newPasswordRepeat" class="text-black dark:text-[#b5a9fc] font-font-family p-2">Repeat New
                             Password</label>
                         <input id="newPasswordRepeat" name="newPasswordRepeat" type="password"
                                v-model="password.newPasswordRepeat"
                                autocomplete="newPasswordRepeat" required
-                               class="mb-4 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                               class="mb-4 appearance-none rounded-none relative block focus:outline-none w-full px-3 py-2 border border-gray-300 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Repeat New Password">
                     </div>
                 </div>
