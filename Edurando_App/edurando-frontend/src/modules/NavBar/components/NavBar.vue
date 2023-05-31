@@ -1,21 +1,20 @@
 <template>
   <header class="text-white font-font-family z-50">
-    <div v-if="showSubmenu" class="fixed w-auto top-10 mt-[0.8%] h-auto right-0 bg-gray-100 dark:bg-[#181818] p-2 -z-50"
-         @mouseleave="showSubmenu = false">
+    <div v-if="showSubmenu" class="fixed w-auto top-10 mt-[0.8%] h-auto right-0 bg-gray-100 dark:bg-[#181818] p-2 -z-50" @mouseleave="showSubmenu = false">
       <ul class="list-none mt-0">
         <li class="hover:bg-gray-200 dark:hover:bg-gray-800 p-2">
           <RouterLink to="/editProfile">
-            <p class="dark:text-gray-700 text-black text-center">Profile</p>
+            <p class="dark:text-white text-black text-center">Profile</p>
           </RouterLink>
         </li>
         <li class="hover:bg-gray-200 dark:hover:bg-gray-800 p-2">
           <RouterLink to="/settings">
-            <p class="dark:text-gray-700 text-black text-center">Settings</p>
+            <p class="dark:text-white text-black text-center">Settings</p>
           </RouterLink>
         </li>
-        <li class="hover:bg-gray-200 dark:hover:bg-gray-800 p-2 border-t-2">
+        <li class="hover:bg-gray-200 dark:hover:bg-gray-800 p-2 border-t-gray-200 border-t-2 dark:border-t-gray-800">
           <button @click="logOut">
-            <p class="dark:text-gray-700 text-black text-center">Logout</p>
+            <p class="dark:text-white text-black text-center">Logout</p>
           </button>
         </li>
       </ul>
@@ -69,6 +68,10 @@ const showAbout = ref(false)
 const showSubmenu = ref(false)
 const user = ref(useUserStore())
 const router = ref(useRouter())
+
+onMounted(() => {
+  console.log(user.value.getUser)
+})
 
 async function logOut() {
   try {
