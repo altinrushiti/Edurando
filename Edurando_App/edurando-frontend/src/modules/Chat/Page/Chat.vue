@@ -1,11 +1,42 @@
 <script setup xmlns="http://www.w3.org/1999/html">
-import {reactive, ref} from 'vue';
+import {onMounted, reactive, ref} from 'vue';
 import {useUserStore} from "@/store/store";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {Stomp} from "@stomp/stompjs";
 
 const isSidebarOpen = ref(false);
 const user = useUserStore();
 
+/*const socket = new SockJs('/ws');
+const stompClient = Stomp.over(socket)
+
+const message = 'Hallo';
+
+onMounted(() => {
+  console.log("Test")
+  stompClient.send('/app/chat', {}, JSON.stringify(message))
+})*/
+
+const connection = ref(null);
+
+const sendMessage = (message) => {
+  if (connection.value.readyState === WebSocket.OPEN) {
+    connection.value.send(JSON.stringify(message));
+  } else {
+    console.error('WebSocket is not open.');
+  }
+};
+
+onMounted(() => {
+  connection.value = new WebSocket('ws://localhost:9001/ws');
+
+  connection.value.onopen = () => {
+    console.log('WebSocket connection opened.');
+    connection.value.send(JSON.stringify("Test"))
+    // Hier kannst du Nachrichten senden, sobald die Verbindung geöffnet ist
+    sendMessage('Hallo Server');
+  };
+});
 
 </script>
 
@@ -47,7 +78,7 @@ const user = useUserStore();
         <input v-model="newMessage" @keyup.enter="sendMessage" type="text"
                class=" flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 "
                placeholder="Type your message..."/>
-        <button @click="sendMessage" class="ml-3">
+        <button @click="connection.value.send(JSON.stringify('Test'))" class="ml-3">
           <font-awesome-icon :icon="['fas', 'paper-plane']"/>
         </button>
       </div>
