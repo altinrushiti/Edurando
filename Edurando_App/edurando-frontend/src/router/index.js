@@ -10,6 +10,8 @@ import SubjectsTopicSave from "@/modules/UserUpdate/components/SubjectsTopicSave
 import {useUserStore} from "@/store/store";
 import NotFound from "@/view/NotFound.vue";
 import Chat from "@/modules/Chat/Page/Chat.vue";
+import Imprint from "@/modules/Imprint/imprint.vue";
+import About from "@/modules/About/About.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,6 +67,16 @@ const router = createRouter({
             path: '/login',
             name: 'login',
             component: Login
+        },
+        {
+            path: '/imprint',
+            name: 'imprint',
+            component: Imprint
+        },
+        {
+            path: '/about',
+            name: 'about',
+            component: About
         },
         {
             path: '/SubjectsTopicSave',
