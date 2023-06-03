@@ -5,12 +5,15 @@ import {ref} from "vue";
 export const useUserStore = defineStore('user', {
     state: () => ({
         user: null,
-        isLoggedOut: ref(true)
+        isLoggedOut: true,
     }),
     persist: true,
     getters: {
         getUser() {
             return this.user;
+        },
+        getChatSenders() {
+            return this.chatSenders;
         },
         getIsLoggedOut() {
             return this.isLoggedOut;
@@ -55,7 +58,7 @@ export const useUserStore = defineStore('user', {
                 console.error(error);
             }
         },
-        logOut() {
+        async logOut() {
             const user = null;
             const isLoggedOut = true
             this.user = user

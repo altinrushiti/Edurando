@@ -66,16 +66,17 @@ const showMenu = ref(false)
 const showHome = ref(false)
 const showAbout = ref(false)
 const showSubmenu = ref(false)
-const user = ref(useUserStore())
+const user = useUserStore()
 const router = ref(useRouter())
 
 onMounted(() => {
-  console.log(user.value.getUser)
+  console.log(user.getIsLoggedOut === true)
+  console.log(user.getUser)
 })
 
 async function logOut() {
   try {
-    user.value.logOut()
+    await user.logOut()
     await router.value.push('/')
     location.reload()
   } catch (error) {

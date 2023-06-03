@@ -90,6 +90,14 @@ const router = createRouter({
                 needsAuth: true
             }
         },
+        {
+            path: '/chat/:username',
+            name: 'chat2',
+            component: Chat,
+            meta: {
+                needsAuth: true
+            }
+        },
 
     ]
 })
