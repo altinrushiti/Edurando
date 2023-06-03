@@ -10,8 +10,8 @@ import SubjectsTopicSave from "@/modules/UserUpdate/components/SubjectsTopicSave
 import {useUserStore} from "@/store/store";
 import NotFound from "@/view/NotFound.vue";
 import Chat from "@/modules/Chat/Page/Chat.vue";
-import Imprint from "@/modules/Imprint/imprint.vue";
-
+import Channel from "@/modules/Chat/Components/Channel.vue";
+import Receiver from "@/modules/Chat/Components/Receiver.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -69,12 +69,6 @@ const router = createRouter({
             component: Login
         },
         {
-            path: '/imprint',
-            name: 'imprint',
-            component: Imprint
-        },
-
-        {
             path: '/SubjectsTopicSave',
             name: 'SubjectsTopicSave',
             component: SubjectsTopicSave,
@@ -97,6 +91,15 @@ const router = createRouter({
             meta: {
                 needsAuth: true
             }
+        },
+        {
+            path: '/channel',
+            name: 'channel',
+            component: Channel,
+        },{
+            path: '/receiver',
+            name: 'receiver',
+            component: Receiver,
         },
 
     ]
