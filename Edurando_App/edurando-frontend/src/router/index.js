@@ -12,6 +12,7 @@ import NotFound from "@/view/NotFound.vue";
 import Chat from "@/modules/Chat/Page/Chat.vue";
 import Channel from "@/modules/Chat/Components/Channel.vue";
 import Receiver from "@/modules/Chat/Components/Receiver.vue";
+import Imprint from "@/modules/Imprint/imprint.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -75,6 +76,11 @@ const router = createRouter({
             meta: {
                 needsAuth: true
             }
+        },
+        {
+            path: '/imprint',
+            name: 'imprint',
+            component: Imprint
         },
         {
             path: '/chat',
