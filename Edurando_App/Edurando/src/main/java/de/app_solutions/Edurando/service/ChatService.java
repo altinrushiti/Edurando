@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -83,7 +84,7 @@ public class ChatService {
         chatMessages.addAll(
                 userProfileRepository.findUserProfileById(Long.parseLong(ids[1])).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_BY_ID, id))).getChatMessages()
         );
-        return chatMessages;
+        return chatMessages.stream().filter(chatMessage -> (chatMessage.getSender().equals(Long.parseLong(ids[0])) && chatMessage.getReceiver().equals(Long.parseLong(ids[1]))) || (chatMessage.getReceiver().equals(Long.parseLong(ids[0])) && chatMessage.getSender().equals(Long.parseLong(ids[1])))).sorted(Comparator.comparing(ChatMessage::getTimeSent)).collect(Collectors.toList());
     }
 }
 

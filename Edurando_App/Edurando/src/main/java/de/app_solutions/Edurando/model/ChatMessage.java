@@ -28,7 +28,6 @@ public class ChatMessage {
 
     private String contents;
 
-
     public ChatMessage(Long sender, Long receiver, String contents, LocalDateTime timeSent) {
         this.sender = sender;
         this.receiver = receiver;
