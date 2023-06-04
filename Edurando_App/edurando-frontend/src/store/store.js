@@ -2,10 +2,12 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 import {ref} from "vue";
 
+
 export const useUserStore = defineStore('user', {
     state: () => ({
         user: null,
-        isLoggedOut: ref(true)
+        isLoggedOut: true,
+        chatReceiver: 0
     }),
     persist: true,
     getters: {
@@ -14,6 +16,9 @@ export const useUserStore = defineStore('user', {
         },
         getIsLoggedOut() {
             return this.isLoggedOut;
+        },
+        getChatReceiver() {
+            return this.chatReceiver;
         },
     },
     actions: {
@@ -55,13 +60,18 @@ export const useUserStore = defineStore('user', {
                 console.error(error);
             }
         },
-        logOut() {
+        async logOut() {
             const user = null;
             const isLoggedOut = true
             this.user = user
             this.isLoggedOut = isLoggedOut
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('isLoggedOut', JSON.stringify(isLoggedOut));
+        },
+        async fetchChatReceiverById(id) {
+            const chatReceiver = id
+            this.chatReceiver = chatReceiver
+            localStorage.setItem('chatReceiver', JSON.stringify(chatReceiver))
         }
     },
 });

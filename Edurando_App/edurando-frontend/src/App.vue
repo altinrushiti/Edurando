@@ -9,7 +9,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 <template>
 <NavBar />
     <RouterView />
-<Footer />
+<!--<Footer />-->
 </template>
 
 <style scoped>

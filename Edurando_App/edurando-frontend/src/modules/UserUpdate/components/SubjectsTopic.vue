@@ -70,6 +70,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import EditPage from '@/modules/UserUpdate/EditPage.vue';
 import {useRouter} from "vue-router";
 import {useUserStore} from "@/store/store";
+import {transformData} from "@/functions/functions";
 
 const data = reactive({
     user: {
@@ -105,25 +106,6 @@ const components = {
     FontAwesomeIcon,
     'editPage': EditPage
 };
-
-function transformData(data) {
-    const transformedData = {};
-
-    for (const item of data) {
-        const subjectName = item.subject.name;
-
-        if (!transformedData[subjectName]) {
-            transformedData[subjectName] = [];
-        }
-
-        transformedData[subjectName].push({
-            id: item.id,
-            name: item.name
-        });
-    }
-
-    return transformedData;
-}
 
 // Du kannst hier weitere Exporte hinzufügen, falls benötigt
 
