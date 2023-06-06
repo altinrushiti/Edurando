@@ -1,12 +1,10 @@
 <script setup>
-import { useUserStore } from '@/store/store';
 import {ref} from "vue";
 import { reactive, onMounted } from "vue";
 import axios from "axios";
 import EdCard from "@/shared/ui/EdCard.vue";
 
 const responseData = ref("");
-const user = useUserStore()
 
 onMounted(async () => {
     try {
@@ -22,12 +20,12 @@ onMounted(async () => {
 
 <template>
   <div class="flex flex-col justify-center items-center mt-[100px]">
-      <h1 class="text-4xl font-bold text-center">Top 10 Bestbewertete Lehrer</h1>
+      <h1 class="text-4xl font-bold text-center">Our Top 10 Teachers</h1>
       <div class="w-[15%] h-2 bg-[#483d8b] rounded-full mt-2 hover:w-[20%] hover:bg-purple-800 "></div>
   </div>
   <div class="flex flex-wrap justify-center items-center my-[50px] gap-4">
-      <EdCard v-for="user in responseData"
-              :key="user.id" :item="user"/>
+      <EdCard v-for="topUser in responseData"
+              :key="topUser.id" :item="topUser"/>
   </div>
 
 </template>

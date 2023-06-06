@@ -111,7 +111,7 @@
 </template>
 
 <script setup>
-import {reactive} from "vue";
+import {onMounted, reactive} from "vue";
 import axios from "axios";
 import {useUserStore} from "@/store/store";
 import router from "@/router";
@@ -133,6 +133,10 @@ const user = reactive({
     city: userStore.getUser.address.city,
     state: userStore.getUser.address.state,
     postCode: userStore.getUser.address.postCode !== -1 ? userStore.getUser.address.postCode : ''
+})
+
+onMounted(() => {
+  console.log(router.currentRoute.value.path)
 })
 
 async function onEdit() {
