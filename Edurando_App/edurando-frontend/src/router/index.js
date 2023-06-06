@@ -10,8 +10,6 @@ import SubjectsTopicSave from "@/modules/UserUpdate/components/SubjectsTopicSave
 import {useUserStore} from "@/store/store";
 import NotFound from "@/view/NotFound.vue";
 import Chat from "@/modules/Chat/Page/Chat.vue";
-import Channel from "@/modules/Chat/Components/Channel.vue";
-import Receiver from "@/modules/Chat/Components/Receiver.vue";
 import Imprint from "@/modules/Imprint/imprint.vue";
 import Search from "@/view/Search.vue";
 
