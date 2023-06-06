@@ -8,6 +8,11 @@
           </RouterLink>
         </li>
         <li class="hover:bg-gray-200 dark:hover:bg-gray-800 p-2">
+          <RouterLink to="/chat">
+            <p class="dark:text-white text-black text-center">Chat</p>
+          </RouterLink>
+        </li>
+        <li class="hover:bg-gray-200 dark:hover:bg-gray-800 p-2">
           <RouterLink to="/settings">
             <p class="dark:text-white text-black text-center">Settings</p>
           </RouterLink>
@@ -27,7 +32,7 @@
       <div class="box">
         <input type="checkbox" id="check">
         <div class="search-box">
-          <input type="text" placeholder="type here">
+          <input v-model="searchTerm" type="text" placeholder="type here">
           <label for="check" class="icon">
             <font-awesome-icon icon="fa-solid fa-magnifying-glass"></font-awesome-icon>
           </label>
@@ -67,17 +72,27 @@ const showHome = ref(false)
 const showAbout = ref(false)
 const showSubmenu = ref(false)
 const user = useUserStore()
-const router = ref(useRouter())
+const router = useRouter()
+const searchTerm = ref('')
 
 onMounted(() => {
   console.log(user.getIsLoggedOut === true)
   console.log(user.getUser)
 })
 
+watch(() => searchTerm.value, (newValue) => {
+  if (newValue.length > 3) {
+    router.push('/search')
+    user.fetchSearchResult(newValue)
+  } else {
+    router.push('/')
+  }
+})
+
 async function logOut() {
   try {
     await user.logOut()
-    await router.value.push('/')
+    await router.push('/')
     location.reload()
   } catch (error) {
     console.log(error)
@@ -85,8 +100,9 @@ async function logOut() {
 }
 
 function redirectToHome() {
-  router.value.push('/')
+  router.push('/')
 }
+
 </script>
 
 <style scoped>

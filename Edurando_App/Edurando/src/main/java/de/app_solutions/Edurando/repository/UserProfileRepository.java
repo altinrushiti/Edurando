@@ -43,6 +43,3 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
     List<UserProfile> search(@Param("searchTerm") String searchTerm);
 
 }
-
-
-
