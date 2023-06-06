@@ -54,13 +54,12 @@ public class RegistrationServiceTest {
         when(emailValidator.testMail(anyString())).thenReturn(Pair.of(true,""));
         when(passwordValidator.passwordTest(anyString(), anyString())).thenReturn(Pair.of(true, ""));
 
-        when(userProfileService.signUpUser(Mockito.any(UserProfile.class))).thenReturn("token");
+        when(userProfileService.signUpUser(any(UserProfile.class))).thenReturn("token");
         // Test
         Pair<Boolean, String> result = registrationService.register(request);
 
         // Verify
         assertEquals(Pair.of(true, "Registration was successful."), result);
-        //Mockito.verify(emailSender).send(anyString(), anyString());
     }
 
     @Test
@@ -69,8 +68,8 @@ public class RegistrationServiceTest {
         RegistrationRequest request = new RegistrationRequest("Student", "Max", "Mustermann",
                 "max.mustermann@example.com", "password", "password", false, false);
 
-        when(emailValidator.testMail(Mockito.anyString())).thenReturn(Pair.of(false, "Email is not valid.Email is not unique."));
-        when(passwordValidator.passwordTest(Mockito.anyString(), Mockito.anyString()))
+        when(emailValidator.testMail(anyString())).thenReturn(Pair.of(false, "Email is not valid.Email is not unique."));
+        when(passwordValidator.passwordTest(anyString(), anyString()))
                 .thenReturn(Pair.of(false, "Passwords do not match,Please choose a more secure password, at least 8 characters long, known only to you, and difficult for others to guess."));
 
         String expectedMsg = "Passwords do not match,Please choose a more secure password, at least 8 characters long, known only to you, and difficult for others to guess.Email is not valid.Email is not unique.Terms of Service not agreed.Privacy Policy not agreed.";

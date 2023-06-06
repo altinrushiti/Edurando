@@ -11,5 +11,6 @@ import lombok.ToString;
 @AllArgsConstructor
 public class ChatSenderRequest {
     private final Long id;
-    private final Long ChatSender;
+    private final Long chatReceiver;
 }
+

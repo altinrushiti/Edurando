@@ -61,9 +61,9 @@ public class UserProfileControllerTest {
     }
     @Test
     public void getUserProfiles_returnsList() throws Exception {
-        UserProfile user1 = new UserProfile("Student", "Max", "Mustermann", "max.mustermann@stud.th-luebeck.de", "MaxMustermann_123");
+        UserProfile user1 = new UserProfile("Student", "Max", "Mustermann", "max.muster@stud.th-luebeck.de", "Test_123");
         user1.setId(1L);
-        user1.setProfilePictureReference("Edurando_App/Edurando/src/main/resources/p_placeholder.png");
+        user1.setProfilePictureReference("../assets/p_placeholder.png");
         user1.setRating(0);
         // Set values for other properties if needed
 
@@ -73,7 +73,34 @@ public class UserProfileControllerTest {
 
         mockMvc.perform(get("/api/v1/profiles"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("[{\"id\":1,\"firstName\":\"Max\",\"lastName\":\"Mustermann\",\"mobile\":'',\"profilePictureReference\":\"Edurando_App/Edurando/src/main/resources/p_placeholder.png\",\"personalBiography\":'',\"rating\":0,\"gender\":'',\"tutoringLocation\":'',\"username\":\"max.mustermann@stud.th-luebeck.de\",\"password\":\"MaxMustermann_123\",\"termsAgreed\":false,\"privacyAgreed\":false,\"subjects\":null,\"topics\":null,\"ratings\":null,\"role\":\"student\",\"locked\":false,\"enabled\":false,\"authorities\":[{\"authority\":\"student\"}],\"credentialsNonExpired\":true,\"accountNonExpired\":true,\"accountNonLocked\":true}]"));
+                .andExpect(content().json("""
+                        [
+                            {
+                                "id": 1,
+                                "firstName": "Max",
+                                "lastName": "Mustermann",
+                                "mobile": "",
+                                "profilePictureReference": "../assets/p_placeholder.png",
+                                "personalBiography": "",
+                                "rating": 0.0,
+                                "gender": "",
+                                "tutoringLocation": "",
+                                "username": "max.muster@stud.th-luebeck.de",
+                                "role": "student",
+                                "subjects": null,
+                                "topics": null,
+                                "ratings": null,
+                                "address": {
+                                    "id": null,
+                                    "street": "",
+                                    "houseNumber": "",
+                                    "city": "",
+                                    "postCode": -1,
+                                    "state": "",
+                                    "userProfile": null
+                                }
+                            }
+                        ]"""));
     }
 
 

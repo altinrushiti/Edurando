@@ -19,9 +19,9 @@ import java.util.List;
 public class ChatController {
     private final ChatService chatService;
 
-    @PutMapping("/editChatSenders")
+    @PutMapping("/editChatReceivers")
     public ResponseEntity<String> editChatSenders(@RequestBody ChatSenderRequest chatSenderRequest) {
-        Pair<Boolean, String> result = chatService.editChatSenders(chatSenderRequest);
+        Pair<Boolean, String> result = chatService.editChatReceivers(chatSenderRequest);
 
         if (result.getFirst()) {
             return ResponseEntity.ok().body(result.getSecond());
@@ -32,7 +32,7 @@ public class ChatController {
 
     @GetMapping("/chatSenders/{id}")
     public List<UserProfileDTO> getChatSenders(@PathVariable Long id) {
-        return chatService.getChatSenders(id);
+        return chatService.getChatReceivers(id);
     }
 
     @PostMapping("/send")

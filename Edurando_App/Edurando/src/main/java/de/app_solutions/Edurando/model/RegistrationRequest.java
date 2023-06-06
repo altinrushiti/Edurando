@@ -19,4 +19,5 @@ public class RegistrationRequest {
     private final String passwordRepeat;
     private final Boolean termsAgreed;
     private final Boolean privacyAgreed;
+
 }
