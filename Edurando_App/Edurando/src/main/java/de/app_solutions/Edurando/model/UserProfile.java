@@ -1,6 +1,5 @@
 package de.app_solutions.Edurando.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -35,11 +35,24 @@ public class UserProfile implements UserDetails {
     private boolean termsAgreed;
     private boolean privacyAgreed;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "receiver")
     private List<ChatMessage> chatMessages;
 
+    public List<ChatMessage> getChatMessages() {
+        if (chatMessages == null) {
+            chatMessages = new ArrayList<>();
+        }
+        return chatMessages;
+    }
+
     @ElementCollection
-    private List<Long> chatSenders;
+    private List<Long> chatReceivers;
+    public List<Long> getChatReceivers() {
+        if (chatReceivers == null) {
+            chatReceivers = new ArrayList<>();
+        }
+        return chatReceivers;
+    }
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JsonManagedReference
@@ -52,8 +65,22 @@ public class UserProfile implements UserDetails {
     @ManyToMany
     private List<Rating> ratings;
 
+   /* @OneToMany
+    private List<ConfirmationToken> confirmationToken;
+    public List<ConfirmationToken> getConfirmationToken() {
+        if (confirmationToken == null) {
+            confirmationToken = new ArrayList<>();
+        }
+        return confirmationToken;
+    }
+
+    */
     @Enumerated(EnumType.STRING)
     private Role role;
+
+   // @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    //@Column(name = "conf_user", unique = true, nullable = false)
+    //private ConfirmationToken confirmationToken;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;

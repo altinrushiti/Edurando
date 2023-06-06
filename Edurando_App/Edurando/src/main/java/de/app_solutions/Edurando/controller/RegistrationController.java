@@ -35,4 +35,13 @@ public class RegistrationController {
     public String confirm(@RequestParam("token") String token) {
         return registrationService.confirmToken(token);
     }
+
+   /* @PostMapping("/confirm")
+    public ResponseEntity<String> resendConfirmationMail(@RequestParam("email") String email) {
+        Pair<Boolean,String> response = registrationService.resendConfirmationEmail(email);
+        if (response.getFirst()) return ResponseEntity.ok(response.getSecond());
+        else return ResponseEntity.badRequest().body(response.getSecond());
+    }
+
+    */
 }

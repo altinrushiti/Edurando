@@ -59,10 +59,15 @@ public class UserProfileService implements UserDetailsService {
                 user
         );
 
-        confirmationTokenService.saveConfirmationToken(confirmationToken);
+        // Hinzufügen des ConfirmationToken zum UserProfile
+        //user.getConfirmationToken().add(confirmationToken);
 
+         // Speichern Sie das aktualisierte UserProfile mit dem ConfirmationToken
+
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
         return token;
     }
+
 
     public int enableAppUser(String email) {
         return userProfileRepository.enableAppUser(email);

@@ -39,7 +39,9 @@ public class EdurandoApplication {
             userProfileService.signUpUser(new UserProfile("Teacher", "Emily", "Jones", "krish.kalra14@stud.th-luebeck.de", "Test_123", true, 5.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
             userProfileService.signUpUser(new UserProfile("Teacher", "William", "Brown", "krish.kalra15@stud.th-luebeck.de", "Test_123", true, 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
         };
-    }*/
+    }
+
+     */
 
 
 
