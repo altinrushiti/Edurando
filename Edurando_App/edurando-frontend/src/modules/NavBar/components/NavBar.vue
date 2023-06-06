@@ -65,11 +65,7 @@
 import {onMounted, ref, watch} from "vue";
 import {useUserStore} from "@/store/store";
 import {useRouter} from "vue-router";
-import home from "@/view/Home.vue";
 
-const showMenu = ref(false)
-const showHome = ref(false)
-const showAbout = ref(false)
 const showSubmenu = ref(false)
 const user = useUserStore()
 const router = useRouter()
@@ -81,7 +77,7 @@ onMounted(() => {
 })
 
 watch(() => searchTerm.value, (newValue) => {
-  if (newValue.length > 3) {
+  if (newValue.length > 2) {
     router.push('/search')
     user.fetchSearchResult(newValue)
   } else {
