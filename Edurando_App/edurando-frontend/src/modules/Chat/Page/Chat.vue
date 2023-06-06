@@ -24,7 +24,7 @@ onMounted(() => {
 
 async function send() {
   try {
-    const response = await axios.post('send', chatMessage)
+    const response = await axios.post('/send', chatMessage)
     console.log(response.data)
     console.log("Receiver: ", user.getChatReceiver)
     console.log("Sender: ", user.getUser.id)
