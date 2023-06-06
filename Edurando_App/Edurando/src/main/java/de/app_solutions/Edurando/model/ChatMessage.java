@@ -1,33 +1,38 @@
 package de.app_solutions.Edurando.model;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 public class ChatMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private UserProfile sender;
+    private Long sender;
 
-    @ManyToOne
-    private UserProfile receiver;
+    private Long receiver;
 
-    private String message;
+    private LocalDateTime timeSent;
 
-    public ChatMessage(UserProfile sender, UserProfile receiver, String message) {
+    private String contents;
+
+    public ChatMessage(Long sender, Long receiver, String contents, LocalDateTime timeSent) {
         this.sender = sender;
         this.receiver = receiver;
-        this.message = message;
+        this.contents = contents;
+        this.timeSent = timeSent;
     }
+
 }

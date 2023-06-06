@@ -1,6 +1,6 @@
 package de.app_solutions.Edurando.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,8 +38,8 @@ public class UserProfile implements UserDetails {
     @OneToMany
     private List<ChatMessage> chatMessages;
 
-    @OneToMany
-    private List<UserProfile> sender;
+    @ElementCollection
+    private List<Long> chatSenders;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JsonManagedReference
