@@ -8,9 +8,9 @@
       <div class="box">
         <input type="checkbox" id="check">
         <div class="search-box">
-          <input type="text" placeholder="type here">
+          <input v-model="searchInput" @input="emitSearch" type="text" placeholder="type here">
           <label for="check" class="icon">
-            <i class="fas fa-search"></i>
+            <font-awesome-icon icon="fa-solid fa-magnifying-glass"/>
           </label>
         </div>
       </div>
@@ -50,10 +50,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref,defineEmits } from "vue";
+const emit = defineEmits()
+
 const showMenu = ref(false)
 const showHome = ref(false)
 const showAbout = ref(false)
+const searchInput = ref('');
+const emitSearch = () => {
+ emit('search', searchInput.value);
+};
+
 
 function toggleMenu() {
   showMenu.value = !showMenu.value;
