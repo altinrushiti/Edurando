@@ -1,10 +1,46 @@
 <script setup>
+import axios from "axios";
+import {reactive, ref} from "vue";
+import {showPasswordError, transformData} from "@/functions/functions";
+import {useUserStore} from "@/store/store";
+import {useRouter} from "vue-router";
+
+const props = defineProps(["item"])
+const subjects = reactive(transformData(props.item.topics))
+const emit = defineEmits(['close-modal'])
+const userStorage = useUserStore()
+const router = useRouter()
+const result = ref('')
+
+function close() {
+  emit("close-modal")
+}
+
+const showError = ref(false)
+
+
+async function redirectToChat() {
+  try {
+    const response1 = await axios.put('/editChatReceivers', {id: userStorage.getUser.id, chatReceiver: props.item.id})
+    result.value = response1.data
+    const response2 = await router.push('/chat/' + props.item.id)
+    console.log(props.item.id)
+  } catch (error) {
+    showError.value = true
+    result.value = error.response.data
+  }
+}
 
 </script>
 
 <template>
-  <div class="fixed inset-0 flex items-center justify-center z-50 bg-opacity-100 bg-gray-400 ">
+  <div class="fixed inset-0 flex items-center justify-center z-50 bg-opacity-100">
     <div class="bg-white w-full max-w-md mx-auto rounded-lg shadow-lg">
+      <div class="flex justify-end relative cursor-pointer z-max right-1">
+        <a @click="close">
+          <font-awesome-icon :icon="['fas', 'xmark']" />
+        </a>
+      </div>
       <div class="p-4">
         <h2 class="text-lg font-semibold">More About Me</h2>
       </div>
@@ -20,24 +56,17 @@
       <div class="p-4">
         <h3 class="text-lg font-semibold">My Subjects</h3>
         <div class="overflow-x-auto">
-          <table class="mt-4 w-full border">
+          <table class="mt-4 w-full border" v-for="subject in Object.keys(subjects)">
             <thead>
-            <tr class="bg-gray-200">
-              <th class="py-2 px-4 border-b">Subjects</th>
-              <th class="py-2 px-4 border-b">Topics</th>
-            </tr>
+              <tr class="bg-gray-200">
+                <th class="py-2 px-4 border-b">{{ subject }}</th>
+              </tr>
             </thead>
-            <tbody>
+            <tbody v-for="topic in subjects[subject]" class="flex justify-center">
             <tr class="bg-white">
-              <td class="py-2 px-4 border-b">{{item.subjects[0].name}}</td>
-              <td class="py-2 px-4 border-b">{{item.topics[0].name}}</td>
+              <td class="py-2 px-4 border-b">{{topic.name}}</td>
             </tr>
-            <!-- <tr class="bg-gray-100">
-               <td class="py-2 px-4 border-b">Subject 2</td>
-               <td class="py-2 px-4 border-b">Topic 2</td>
-             </tr>
-             -->
-            <!-- Add more rows as needed -->
+
             </tbody>
           </table>
         </div>
@@ -46,9 +75,10 @@
       <div class="px-4 py-2 bg-gray-100">
         <!-- Modal content here -->
       </div>
-      <div class="flex justify-end p-4">
-        <button class="px-4 py-2 text-white bg-purple-800 rounded hover:bg-purple-600">Contact Me</button>
+      <div class="flex justify-end" :class="showError ? 'pt-4 pr-4' : 'p-4'">
+        <button class="px-4 py-2 text-white bg-purple-800 rounded hover:bg-purple-600" @click="redirectToChat">Contact Me</button>
       </div>
+      <p v-if="showError" class="text-red-500 text-xs flex justify-center p-4">{{ result }}</p>
     </div>
   </div>
 
