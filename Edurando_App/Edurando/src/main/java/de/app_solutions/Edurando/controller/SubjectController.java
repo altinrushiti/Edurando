@@ -1,7 +1,6 @@
 package de.app_solutions.Edurando.controller;
 
 import de.app_solutions.Edurando.model.EditSubjectRequest;
-import de.app_solutions.Edurando.model.EditTopicRequest;
 import de.app_solutions.Edurando.model.Subject;
 import de.app_solutions.Edurando.repository.SubjectRepository;
 import de.app_solutions.Edurando.service.SubjectService;

@@ -5,25 +5,33 @@ import de.app_solutions.Edurando.model.ConfirmationToken;
 import de.app_solutions.Edurando.model.RegistrationRequest;
 import de.app_solutions.Edurando.model.Role;
 import de.app_solutions.Edurando.model.UserProfile;
+import de.app_solutions.Edurando.repository.UserProfileRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.util.Pair;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.Tuple;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class RegistrationService {
-
+    private final static String USER_NOT_FOUND = "User with Email %s was not found.";
     private final UserProfileService userProfileService;
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
     private final PasswordValidator passwordValidator;
+    private final UserProfileRepository userProfileRepository;
 
     public Pair<Boolean, String> register(RegistrationRequest request) {
 
@@ -57,13 +65,25 @@ public class RegistrationService {
             String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", token);
             emailSender.send(request.getEmail(), buildEmail(request, link));
             result = Pair.of(true, "Registration was successful.");
-
         } else {
             result = Pair.of(false, sb.toString());
         }
         System.err.println(result);
         return result;
     }
+
+   /* public Pair<Boolean,String> resendConfirmationEmail(String email) {
+
+        UserProfile user = userProfileService.getUserByEmail(email);
+        String newToken = confirmationTokenService.generateConfirmationToken(user);
+
+        String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", newToken);
+        emailSender.send(email, buildEmail(user, link));
+
+        return Pair.of(true,"Confirmation email has been resent.");
+    }
+
+    */
 
     @Transactional
     public String confirmToken(String token) {
@@ -72,7 +92,6 @@ public class RegistrationService {
         if (confirmationToken.getConfirmedAt() != null) {
             throw new IllegalStateException("email already confirmed");
         }
-
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
 
         if (expiredAt.isBefore(LocalDateTime.now())) {

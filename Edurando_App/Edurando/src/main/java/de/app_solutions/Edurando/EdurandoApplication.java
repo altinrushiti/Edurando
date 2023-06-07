@@ -20,8 +20,7 @@ public class EdurandoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EdurandoApplication.class, args);
 	}
-/*
-    @Bean
+    /*@Bean
     CommandLineRunner commandLineRunner(UserProfileService userProfileService) {
         return args -> {
             userProfileService.signUpUser(new UserProfile("Student", "Krish", "Kalra", "krish.kalra@stud.th-luebeck.de", "Test_123", true));
@@ -42,7 +41,8 @@ public class EdurandoApplication {
         };
     }
 
- */
+     */
+
 
 
 

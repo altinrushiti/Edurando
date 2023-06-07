@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -19,26 +20,19 @@ public class ChatMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "senderId")
-    private UserProfile sender;
+    private Long sender;
 
-    @OneToOne
-    @JoinColumn(name = "receiverId")
-    private UserProfile receiver;
+    private Long receiver;
 
-    @NotNull
-    private Date timeSent;
+    private LocalDateTime timeSent;
 
-    @NotNull
     private String contents;
 
-
-    public ChatMessage(UserProfile sender, UserProfile receiver, String contents) {
+    public ChatMessage(Long sender, Long receiver, String contents, LocalDateTime timeSent) {
         this.sender = sender;
         this.receiver = receiver;
         this.contents = contents;
-        this.timeSent = new Date();
+        this.timeSent = timeSent;
     }
 
 }

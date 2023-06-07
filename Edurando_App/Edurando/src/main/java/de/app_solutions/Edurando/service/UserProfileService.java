@@ -20,12 +20,13 @@ import java.util.*;
 @Data
 public class UserProfileService implements UserDetailsService {
 
-    private final static String USER_NOT_FOUND = "User with Email %s was not found.";
-    private final static String USER_NOT_FOUND_BY_ID = "User with id: %s was not found.";
+    protected final static String USER_NOT_FOUND = "User with Email %s was not found.";
+    protected final static String USER_NOT_FOUND_BY_ID = "User with id: %s was not found.";
     private final UserProfileRepository userProfileRepository;
     private final AddressRepository addressRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
+    private final UserProfileDTOMapper userProfileDTOMapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -58,10 +59,15 @@ public class UserProfileService implements UserDetailsService {
                 user
         );
 
-        confirmationTokenService.saveConfirmationToken(confirmationToken);
+        // Hinzufügen des ConfirmationToken zum UserProfile
+        //user.getConfirmationToken().add(confirmationToken);
 
+         // Speichern Sie das aktualisierte UserProfile mit dem ConfirmationToken
+
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
         return token;
     }
+
 
     public int enableAppUser(String email) {
         return userProfileRepository.enableAppUser(email);
@@ -70,20 +76,26 @@ public class UserProfileService implements UserDetailsService {
 
 
 
-    public List<UserProfile> getAllUsers() {
-        return userProfileRepository.findAll();
+    public List<UserProfileDTO> getAllUsers() {
+        return userProfileRepository.findAll()
+                .stream()
+                .map(userProfileDTOMapper)
+                .toList();
     }
 
-    public UserProfile getUserById(Long id) {
-        return userProfileRepository.findUserProfileById(id).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_BY_ID, id)));
+    public UserProfileDTO getUserById(Long id) {
+        return userProfileDTOMapper.apply(userProfileRepository.findUserProfileById(id).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_BY_ID, id))));
     }
 
-    public UserProfile getUserByEmail(String email) {
-        return userProfileRepository.findUserProfileByUsername(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
+    public UserProfileDTO getUserByEmail(String email) {
+        return userProfileDTOMapper.apply(userProfileRepository.findUserProfileByUsername(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email))));
     }
 
-    public List<UserProfile> showTopUsers() {
-        return userProfileRepository.findTop10ByOrderByRatingDesc();
+    public List<UserProfileDTO> showTopUsers() {
+        return userProfileRepository.findTop10ByOrderByRatingDesc()
+                .stream()
+                .map(userProfileDTOMapper)
+                .toList();
     }
 
 }
