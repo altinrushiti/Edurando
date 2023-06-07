@@ -2,7 +2,7 @@ package de.app_solutions.Edurando.controller;
 
 import de.app_solutions.Edurando.model.ChatMessage;
 import de.app_solutions.Edurando.model.ChatMessageRequest;
-import de.app_solutions.Edurando.model.ChatSenderRequest;
+import de.app_solutions.Edurando.model.ChatReceiverRequest;
 import de.app_solutions.Edurando.model.UserProfileDTO;
 import de.app_solutions.Edurando.service.ChatService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,8 @@ public class ChatController {
     private final ChatService chatService;
 
     @PutMapping("/editChatReceivers")
-    public ResponseEntity<String> editChatSenders(@RequestBody ChatSenderRequest chatSenderRequest) {
-        Pair<Boolean, String> result = chatService.editChatReceivers(chatSenderRequest);
+    public ResponseEntity<String> editChatReceivers(@RequestBody ChatReceiverRequest chatReceiverRequest) {
+        Pair<Boolean, String> result = chatService.editChatReceivers(chatReceiverRequest);
 
         if (result.getFirst()) {
             return ResponseEntity.ok().body(result.getSecond());
@@ -30,8 +30,8 @@ public class ChatController {
         }
     }
 
-    @GetMapping("/chatSenders/{id}")
-    public List<UserProfileDTO> getChatSenders(@PathVariable Long id) {
+    @GetMapping("/chatReceivers/{id}")
+    public List<UserProfileDTO> getChatReceivers(@PathVariable Long id) {
         return chatService.getChatReceivers(id);
     }
 
