@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @AllArgsConstructor
-public class ChatSenderRequest {
+public class ChatReceiverRequest {
     private final Long id;
     private final Long chatReceiver;
 }

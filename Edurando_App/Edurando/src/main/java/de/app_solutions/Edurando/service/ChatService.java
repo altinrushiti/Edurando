@@ -46,23 +46,23 @@ public class ChatService {
     }
 
 
-    public Pair<Boolean, String> editChatReceivers(ChatSenderRequest chatSenderRequest) {
+    public Pair<Boolean, String> editChatReceivers(ChatReceiverRequest chatReceiverRequest) {
         TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
         return transactionTemplate.execute(status -> {
 
-            if (Objects.equals(chatSenderRequest.getId(), chatSenderRequest.getChatReceiver())) {
+            if (Objects.equals(chatReceiverRequest.getId(), chatReceiverRequest.getChatReceiver())) {
                 return Pair.of(false, "You cannot chat with yourself");
             } else {
-                Optional<UserProfile> receiver = userProfileRepository.findUserProfileById(chatSenderRequest.getId());
-                Optional<UserProfile> sender = userProfileRepository.findUserProfileById(chatSenderRequest.getChatReceiver());
+                Optional<UserProfile> receiver = userProfileRepository.findUserProfileById(chatReceiverRequest.getId());
+                Optional<UserProfile> sender = userProfileRepository.findUserProfileById(chatReceiverRequest.getChatReceiver());
                 if (receiver.isPresent() && sender.isPresent()) {
 
-                    if (!sender.get().getChatReceivers().contains(chatSenderRequest.getId())) {
-                        sender.get().getChatReceivers().add(chatSenderRequest.getId());
+                    if (!sender.get().getChatReceivers().contains(chatReceiverRequest.getId())) {
+                        sender.get().getChatReceivers().add(chatReceiverRequest.getId());
                     }
 
-                    if (!receiver.get().getChatReceivers().contains(chatSenderRequest.getChatReceiver())) {
-                        receiver.get().getChatReceivers().add(chatSenderRequest.getChatReceiver());
+                    if (!receiver.get().getChatReceivers().contains(chatReceiverRequest.getChatReceiver())) {
+                        receiver.get().getChatReceivers().add(chatReceiverRequest.getChatReceiver());
                     }
 
                     userProfileRepository.save(receiver.get());

@@ -4,7 +4,6 @@ package de.app_solutions.Edurando.service;
         import static org.mockito.Mockito.when;
 
         import de.app_solutions.Edurando.model.*;
-        import de.app_solutions.Edurando.repository.ChatMessageRepository;
         import de.app_solutions.Edurando.repository.UserProfileRepository;
         import org.junit.jupiter.api.BeforeEach;
         import org.junit.jupiter.api.Test;
@@ -12,15 +11,10 @@ package de.app_solutions.Edurando.service;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.boot.test.context.SpringBootTest;
         import org.springframework.boot.test.mock.mockito.MockBean;
-        import org.springframework.data.util.Pair;
         import org.springframework.test.context.junit4.SpringRunner;
 
-        import javax.transaction.Transactional;
-        import java.time.LocalDateTime;
         import java.util.List;
         import java.util.Optional;
-        import java.util.Random;
-        import java.util.stream.Collectors;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -73,11 +67,11 @@ public class ChatServiceTest {
 
     @Test
     public void testEditChatReceiversAndGetChatReceivers() {
-        ChatSenderRequest chatSenderRequest1 = new ChatSenderRequest(sender.getId(), receiver1.getId());
-        chatService.editChatReceivers(chatSenderRequest1);
+        ChatReceiverRequest chatReceiverRequest1 = new ChatReceiverRequest(sender.getId(), receiver1.getId());
+        chatService.editChatReceivers(chatReceiverRequest1);
 
-        ChatSenderRequest chatSenderRequest2 = new ChatSenderRequest(sender.getId(), receiver2.getId());
-        chatService.editChatReceivers(chatSenderRequest2);
+        ChatReceiverRequest chatReceiverRequest2 = new ChatReceiverRequest(sender.getId(), receiver2.getId());
+        chatService.editChatReceivers(chatReceiverRequest2);
 
         List<UserProfileDTO> chatReceivers = chatService.getChatReceivers(sender.getId());
 
