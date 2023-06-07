@@ -8,18 +8,24 @@ import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.util.Pair;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.Tuple;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class RegistrationService {
-
+    private final static String USER_NOT_FOUND = "User with Email %s was not found.";
     private final UserProfileService userProfileService;
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
@@ -66,6 +72,19 @@ public class RegistrationService {
         return result;
     }
 
+   /* public Pair<Boolean,String> resendConfirmationEmail(String email) {
+
+        UserProfile user = userProfileService.getUserByEmail(email);
+        String newToken = confirmationTokenService.generateConfirmationToken(user);
+
+        String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", newToken);
+        emailSender.send(email, buildEmail(user, link));
+
+        return Pair.of(true,"Confirmation email has been resent.");
+    }
+
+    */
+
     @Transactional
     public String confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService.getToken(token).orElseThrow(() -> new IllegalStateException("token not found"));
@@ -84,30 +103,6 @@ public class RegistrationService {
         return "verifizierung_erfolgreich";
 
     }
-
-    public String generateNewConfirmationToken(String email) {
-        /*
-        UserProfile user = userProfileRepository.findUserProfileByUsername(email).get();
-
-
-        // Erzeugen eines neuen Tokens
-        String newToken = UUID.randomUUID().toString();
-
-        // Aktualisieren des Tokens des Benutzers
-        ConfirmationToken confirmationToken = user.getConfirmationToken();
-        confirmationToken.setToken(newToken);
-        confirmationToken.setCreatedDateTime(LocalDateTime.now());
-        confirmationToken.setExpirationDateTime(LocalDateTime.now().plusMinutes(15));
-
-        // Speichern des aktualisierten Bestätigungstokens
-        confirmationTokenService.saveConfirmationToken(confirmationToken);
-
-        return newToken;
-
-         */
-        return null;
-    }
-
 
     private String buildEmail(RegistrationRequest user, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
