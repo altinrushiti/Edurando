@@ -13,6 +13,9 @@ import Chat from "@/modules/Chat/Page/Chat.vue";
 import Channel from "@/modules/Chat/Components/Channel.vue";
 import Receiver from "@/modules/Chat/Components/Receiver.vue";
 import Imprint from "@/modules/Imprint/imprint.vue";
+import Search from "@/view/Search.vue";
+
+const entryList = ['entry1', 'entry2', 'entry3']
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -99,13 +102,9 @@ const router = createRouter({
             }
         },
         {
-            path: '/channel',
-            name: 'channel',
-            component: Channel,
-        },{
-            path: '/receiver',
-            name: 'receiver',
-            component: Receiver,
+            path: '/search',
+            name: 'search',
+            component: Search,
         },
 
     ]

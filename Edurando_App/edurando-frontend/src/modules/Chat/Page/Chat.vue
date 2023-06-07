@@ -7,6 +7,7 @@ import Channel from "../Components/Channel.vue"
 import Receiver from "../Components/Receiver.vue"
 
 const isSidebarOpen = ref(false);
+const isSend = ref(false);
 const user = useUserStore();
 const senders = ref([]);
 const chatMessages = ref([]);
@@ -23,11 +24,12 @@ onMounted(() => {
 
 async function send() {
   try {
-    const response = await axios.post('send', chatMessage)
+    const response = await axios.post('/send', chatMessage)
     console.log(response.data)
     console.log("Receiver: ", user.getChatReceiver)
     console.log("Sender: ", user.getUser.id)
     chatMessage.content = ''
+    await loadChat(user.getChatReceiver)
   } catch (error) {
     console.error(error)
   }
@@ -45,6 +47,7 @@ async function chatSenders() {
 async function loadChat(receiver) {
   try {
     const response1 = await user.fetchChatReceiverById(receiver)
+    chatMessage.receiver = receiver
     console.log("Receiver: ", user.getChatReceiver)
     console.log("Sender: ", user.getUser.id)
     const response2 = await axios.get('/chatHistory/' + user.getChatReceiver + "-" + user.getUser.id)
@@ -66,7 +69,7 @@ async function loadChat(receiver) {
             <div v-for="sender in senders" :key="sender.id">
               <RouterLink :to="'/chat/' + sender.id" active-class="bg-[#e4e2ee]" @click="loadChat(sender.id)"
                           class="justify-center flex items-center p-2 rounded-lg hover:bg-[#e4e2ee] dark:hover:bg-[#3d3844]">
-                <div>{{ sender.firstName + " " + sender.lastName }}</div>
+                <div @click="loadChat(sender.id)">{{ sender.firstName + " " + sender.lastName }}</div>
               </RouterLink>
             </div>
           </li>
@@ -81,7 +84,7 @@ async function loadChat(receiver) {
     <div class="flex-1 overflow-y-auto">
       <div v-for="chatMessage in chatMessages" :key="chatMessage.id">
         <channel v-if="chatMessage.sender === user.getUser.id" :item="chatMessage" class="m-1"/>
-        <Receiver v-else class="ml-[20%] m-1" :item="chatMessage"/>
+        <Receiver v-else class="m-1" :item="chatMessage"/>
       </div>
 
     </div>

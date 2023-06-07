@@ -7,7 +7,8 @@ export const useUserStore = defineStore('user', {
     state: () => ({
         user: null,
         isLoggedOut: true,
-        chatReceiver: 0
+        chatReceiver: 0,
+        searchResult: []
     }),
     persist: true,
     getters: {
@@ -20,6 +21,10 @@ export const useUserStore = defineStore('user', {
         getChatReceiver() {
             return this.chatReceiver;
         },
+        getSearchResult() {
+            return this.searchResult;
+        },
+
     },
     actions: {
         async fetchUser(email) {
@@ -72,6 +77,15 @@ export const useUserStore = defineStore('user', {
             const chatReceiver = id
             this.chatReceiver = chatReceiver
             localStorage.setItem('chatReceiver', JSON.stringify(chatReceiver))
+        },
+        async fetchSearchResult(query) {
+            try {
+                const response = await axios.get('/profiles/search/' + query)
+                this.searchResult = response.data
+                localStorage.setItem('searchResult', JSON.stringify(response.data))
+            } catch (error) {
+                console.error(error)
+            }
         }
     },
 });
