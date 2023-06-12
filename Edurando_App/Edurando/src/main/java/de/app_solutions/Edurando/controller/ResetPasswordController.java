@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class ResetPasswordController {
     private final ResetPasswordService resetPasswordService;
 
-    @PostMapping("/resetPassword")
+    @PostMapping("/forgotPassword")
     public ResponseEntity<Pair<Boolean,String>> forgotPassword(@RequestParam("email") String email) {
         Pair<Boolean, String> response = resetPasswordService.forgotPassword(email);
         if (response.getFirst()) return ResponseEntity.ok(response);
@@ -28,4 +28,11 @@ public class ResetPasswordController {
         else return ResponseEntity.badRequest().body(response);
     }
 
+
+    @PostMapping("/resetPassword")
+    public ResponseEntity<Pair<Boolean,String>> resetPassword(@RequestParam("email") String email,@RequestParam("newPassword") String newPassword,@RequestParam("newPasswordRepeat") String newPasswordRepeat) {
+        Pair<Boolean, String> response = resetPasswordService.resetPassword(email,newPassword,newPasswordRepeat);
+        if (response.getFirst()) return ResponseEntity.ok(response);
+        else return ResponseEntity.badRequest().body(response);
+    }
 }
