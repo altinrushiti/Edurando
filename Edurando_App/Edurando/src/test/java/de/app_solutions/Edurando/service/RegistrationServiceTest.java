@@ -94,7 +94,7 @@ public class RegistrationServiceTest {
         String result = registrationService.confirmToken(token);
 
         // Assert
-        assertEquals("Verfication successul", result);
+        assertEquals("Verification successful", result);
     }
 
     @Test
