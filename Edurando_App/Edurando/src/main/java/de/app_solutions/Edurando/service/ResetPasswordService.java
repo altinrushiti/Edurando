@@ -21,22 +21,30 @@ public class ResetPasswordService {
     private final UserProfileRepository userProfileRepository;
     private final EmailSender emailSender;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private String confirmCode;
+
     public Pair<Boolean,String> forgotPassword(String email) {
-        UserProfile user = userProfileRepository.findUserProfileByUsername(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
-
-
-        confirmCode = generateRandomCode();
-        emailSender.send(user.getUsername(), buildEmail(user.getUsername(), confirmCode),"Reset password request");
-
-        return Pair.of(true, bCryptPasswordEncoder.encode(confirmCode));
+        Optional<UserProfile> user = userProfileRepository.findUserProfileByUsername(email);
+        String confirmCode;
+        if(user.isPresent()) {
+            confirmCode = generateRandomCode();
+            emailSender.send(user.get().getUsername(), buildEmail(user.get().getUsername(), confirmCode), "Reset password request");
+            String encodedConfirmCode = bCryptPasswordEncoder.encode(confirmCode);
+            return Pair.of(true, encodedConfirmCode);
+        } else {
+            return Pair.of(false, String.format(USER_NOT_FOUND, email));
+        }
     }
 
 
-    public Pair<Boolean,String> confirmCode(String confirmCode) {
-        return null;
-    }
+    public Pair<Boolean,String> confirmCode(String confirmCode, String enteredConfirmCode) {
+        String encodedEnteredConfirmCode = bCryptPasswordEncoder.encode(enteredConfirmCode);
+        if(bCryptPasswordEncoder.matches(encodedEnteredConfirmCode, confirmCode)) {
+            return Pair.of(true, "Confirmation was successful.");
+        } else {
+            return Pair.of(false, "The entered confirmationcode is not correct.");
+        }
 
+    }
 
     public String generateRandomCode() {
         // Erstelle eine Instanz der Random-Klasse
