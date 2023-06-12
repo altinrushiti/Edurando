@@ -100,7 +100,7 @@ public class RegistrationService {
         confirmationToken.setConfirmedAt(LocalDateTime.now());
         //confirmationTokenService.setConfirmationAt(token);
         userProfileService.enableAppUser(confirmationToken.getUser().getUsername());
-        return "verifizierung_erfolgreich";
+        return "Verification successful";
     }
 
 
