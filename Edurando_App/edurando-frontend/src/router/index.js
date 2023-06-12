@@ -12,6 +12,7 @@ import NotFound from "@/view/NotFound.vue";
 import Chat from "@/modules/Chat/Page/Chat.vue";
 import Imprint from "@/modules/Imprint/imprint.vue";
 import Search from "@/view/Search.vue";
+import ResetPasswordPage from "@/modules/ResetPassword/page/ResetPasswordPage.vue";
 
 const entryList = ['entry1', 'entry2', 'entry3']
 
@@ -103,6 +104,11 @@ const router = createRouter({
             path: '/search',
             name: 'search',
             component: Search,
+        },
+        {
+            path: '/reset-password',
+            name: 'reset-password',
+            component: ResetPasswordPage,
         },
 
     ]

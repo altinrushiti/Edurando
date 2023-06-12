@@ -27,9 +27,16 @@
 
         <p v-if="this.response.length !== 0" class="text-red-500 text-xs">{{this.response}}</p>
 
+        <div class="border-b-2 flex justify-center">
+          <a @click="resetPassword"
+                  class="hover:cursor-pointer font-medium text-purple-500">
+            Reset password?
+          </a>
+        </div>
+
         <div>
           <button type="submit"
-                  class="mt-7 text-center mx-auto w-1/2 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#483d8b] hover:bg-purple-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  class="mt-4 text-center mx-auto w-1/2 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#483d8b] hover:bg-purple-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
             Login
           </button>
           <button @click="signUp" type="button"
@@ -88,6 +95,13 @@ export default defineComponent({
       async signUp() {
         try {
           this.$router.push({path: '/register'})
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      async resetPassword() {
+        try {
+          this.$router.push({path: '/reset-password'})
         } catch (error) {
           console.log(error)
         }
