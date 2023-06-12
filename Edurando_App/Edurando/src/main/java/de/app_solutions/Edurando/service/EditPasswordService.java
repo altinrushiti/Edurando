@@ -13,12 +13,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
+import static de.app_solutions.Edurando.service.UserProfileService.USER_NOT_FOUND_BY_ID;
+
 @Data
 @Service
 public class EditPasswordService {
-    private final static String USER_NOT_FOUND = "User with Email %s was not found.";
-    private final static String USER_NOT_FOUND_BY_ID = "User with id: %s was not found.";
-    private final UserProfileRepository userProfileRepository;
+     private final UserProfileRepository userProfileRepository;
     private final AddressRepository addressRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
@@ -28,9 +30,12 @@ public class EditPasswordService {
     private EditPasswordRequest pwRequest;
 
     public Pair<Boolean, String> editPassword(EditPasswordRequest pwRequest) {
-        UserProfile user = userProfileRepository.findUserProfileById(pwRequest.getId())
-                .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_BY_ID, pwRequest.getId())));
+        Optional<UserProfile> userOpt = userProfileRepository.findUserProfileById(pwRequest.getId());
 
+        if(userOpt.isEmpty()) {  //!user.isPresent()
+            return Pair.of(false, String.format(USER_NOT_FOUND_BY_ID, pwRequest.getId()));
+        }
+        UserProfile user = userOpt.get();
         String currentUserPw = user.getPassword();
         Pair<Boolean, String> newPwTuple = pwRequest.passwordTest(pwRequest.getNewPassword(), pwRequest.getNewPasswordRepeat());
 
