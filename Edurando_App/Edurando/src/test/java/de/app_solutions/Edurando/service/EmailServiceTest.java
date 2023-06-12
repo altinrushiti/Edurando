@@ -16,8 +16,9 @@ public class EmailServiceTest {
     public void testSend() {
         String to = "krish.kalra3@gmail.com";
         String email = "Hello, World!";
+        String subject = "Baum";
         EmailSender emailSender = mock(EmailSender.class);
-        emailSender.send(to, email);
-        verify(emailSender).send(to, email);
+        emailSender.send(to, email,subject);
+        verify(emailSender).send(to, email,subject);
     }
 }

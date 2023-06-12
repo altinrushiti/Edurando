@@ -37,8 +37,8 @@
             <p class="text-lg">Herr Bennet Gurklies</p>
             <p class="text-lg">Herr Ghamdan Al-Sofey</p>
             <p class="text-lg">Herr Krish Kalra</p>
-            <p class="text-lg">Frau Sena Dimitrie</p>
-            <p class="text-lg">Herr Zainoul Abdine Barry</p>
+            <p class="text-lg">Frau Sena Demircik</p>
+            <p class="text-lg">Herr Zainoul Abidine Barry</p>
           </div>
         </div>
 
@@ -50,8 +50,8 @@
             <p class="text-lg">Herr Bennet Gurklies</p>
             <p class="text-lg">Herr Ghamdan Al-Sofey</p>
             <p class="text-lg">Herr Krish Kalra</p>
-            <p class="text-lg">Frau Sena Dimitrie</p>
-            <p class="text-lg">Herr Zainoul Abdine Barry</p>
+            <p class="text-lg">Frau Sena Demircik</p>
+            <p class="text-lg">Herr Zainoul Abidine Barry</p>
           </div>
         </div>
       </div>

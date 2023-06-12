@@ -1,111 +1,58 @@
 package de.app_solutions.Edurando.service;
 
-
-import de.app_solutions.Edurando.model.ConfirmationToken;
 import de.app_solutions.Edurando.model.RegistrationRequest;
-import de.app_solutions.Edurando.model.Role;
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
-import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.data.util.Pair;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.Tuple;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+import java.util.Random;
 
 @Service
-@AllArgsConstructor
-public class RegistrationService {
+@Data
+public class ResetPasswordService {
     private final static String USER_NOT_FOUND = "User with Email %s was not found.";
     private final UserProfileService userProfileService;
     private final EmailValidator emailValidator;
-    private final ConfirmationTokenService confirmationTokenService;
-    private final EmailSender emailSender;
-    private final PasswordValidator passwordValidator;
     private final UserProfileRepository userProfileRepository;
+    private final EmailSender emailSender;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private String confirmCode;
+    public Pair<Boolean,String> forgotPassword(String email) {
+        UserProfile user = userProfileRepository.findUserProfileByUsername(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
 
-    public Pair<Boolean, String> register(RegistrationRequest request) {
 
-        //Password valid Test
-        Pair<Boolean, String> pwTest = passwordValidator.passwordTest(request.getPassword(), request.getPasswordRepeat());
-        Pair<Boolean, String> emailTest = emailValidator.testMail(request.getEmail());
-        StringBuilder sb = new StringBuilder();
-        sb.append(pwTest.getSecond());
-        sb.append(emailTest.getSecond());
-        Pair<Boolean, String> result;
+        confirmCode = generateRandomCode();
+        emailSender.send(user.getUsername(), buildEmail(user.getUsername(), confirmCode),"Reset password request");
 
-        boolean valid = pwTest.getFirst() && emailTest.getFirst();
-
-        if (!request.getTermsAgreed()) {
-            sb.append("Terms of Service not agreed.");
-            valid = false;
-        }
-        if (!request.getPrivacyAgreed()) {
-            sb.append("Privacy Policy not agreed.");
-            valid = false;
-        }
-        if (valid) {
-            String token = userProfileService.signUpUser(new UserProfile(
-                            request.getRole(),
-                            request.getFirstName(),
-                            request.getLastName(),
-                            request.getEmail(),
-                            request.getPassword()
-                    )
-            );
-            String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", token);
-            emailSender.send(request.getEmail(), buildEmail(request, link),"Confirm your email");
-            result = Pair.of(true, "Registration was successful.");
-        } else {
-            result = Pair.of(false, sb.toString());
-        }
-        System.err.println(result);
-        return result;
-    }
-
-   /* public Pair<Boolean,String> resendConfirmationEmail(String email) {
-
-        UserProfile user = userProfileService.getUserByEmail(email);
-        String newToken = confirmationTokenService.generateConfirmationToken(user);
-
-        String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", newToken);
-        emailSender.send(email, buildEmail(user, link));
-
-        return Pair.of(true,"Confirmation email has been resent.");
-    }
-
-    */
-
-    @Transactional
-    public String confirmToken(String token) {
-        ConfirmationToken confirmationToken = confirmationTokenService.getToken(token).orElseThrow(() -> new IllegalStateException("token not found"));
-
-        if (confirmationToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("email already confirmed");
-        }
-        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
-
-        if (expiredAt.isBefore(LocalDateTime.now())) {
-            throw new IllegalStateException("token expired");
-        }
-        confirmationToken.setConfirmedAt(LocalDateTime.now());
-        //confirmationTokenService.setConfirmationAt(token);
-        userProfileService.enableAppUser(confirmationToken.getUser().getUsername());
-        return "verifizierung_erfolgreich";
+        return Pair.of(true, bCryptPasswordEncoder.encode(confirmCode));
     }
 
 
+    public Pair<Boolean,String> confirmCode(String confirmCode) {
+        return null;
+    }
 
-    private String buildEmail(RegistrationRequest user, String link) {
+
+    public String generateRandomCode() {
+        // Erstelle eine Instanz der Random-Klasse
+        Random random = new Random();
+
+        // Generiere eine zufällige 4-stellige Zahl
+        int code = random.nextInt(9000) + 1000;
+
+        // Konvertiere die Zahl in einen String und gib sie zurück
+        return String.valueOf(code);
+    }
+
+    private String buildEmail(String email,String confirmCode) {
+
+        UserProfile user = userProfileRepository.findUserProfileByUsername(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
+
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
                 "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
@@ -123,7 +70,7 @@ public class RegistrationService {
                 "                  \n" +
                 "                    </td>\n" +
                 "                    <td style=\"font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\">\n" +
-                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Confirm your E-Mail</span>\n" +
+                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Reset your password</span>\n" +
                 "                    </td>\n" +
                 "                  </tr>\n" +
                 "                </tbody></table>\n" +
@@ -161,7 +108,7 @@ public class RegistrationService {
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
                 "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
                 "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hello " + user.getFirstName() + " " + user.getLastName() + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Thank you for registering at Edurando! Please open the following link to verify your E-Mail:</p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Verify now</a> </p></blockquote>\nThe link will expire in 15 minutes.<p style=\"margin-bottom: 0\">Dear regards</p><p style=\"margin: 0\">The Edurando Team</p>" +
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hello " + user.getFirstName() + " " + user.getLastName() + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">We're sending you this email because you requested a password reset. Use the following code to reset your password: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\">" + confirmCode + "</p></blockquote>\nIf you didn't request a password reset, you can ignore this email. Your password will not be changed.<p style=\"margin-bottom: 0\">Dear regards</p><p style=\"margin: 0\">The Edurando Team</p>" +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
@@ -173,5 +120,4 @@ public class RegistrationService {
                 "\n" +
                 "</div></div>";
     }
-
 }
