@@ -12,15 +12,39 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.Random;
 
+import static de.app_solutions.Edurando.service.UserProfileService.USER_NOT_FOUND;
+
 @Service
 @Data
 public class ResetPasswordService {
-    private final static String USER_NOT_FOUND = "User with Email %s was not found.";
     private final UserProfileService userProfileService;
     private final EmailValidator emailValidator;
     private final UserProfileRepository userProfileRepository;
     private final EmailSender emailSender;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordValidator passwordValidator;
+
+    public Pair<Boolean,String> resetPassword(String email,String newPassword, String newPasswordRepeat) {
+        Optional<UserProfile> userOpt = userProfileRepository.findUserProfileByUsername(email);
+
+        if(userOpt.isEmpty()) {  //!user.isPresent()
+            return Pair.of(false, String.format(USER_NOT_FOUND, email));
+        }
+        UserProfile user = userOpt.get();
+        String currentUserPw = user.getPassword();
+        Pair<Boolean, String> newPwTuple = passwordValidator.passwordTest(newPassword,newPasswordRepeat);
+        if (bCryptPasswordEncoder.matches(newPassword, currentUserPw)) {
+            return Pair.of(false, "Password could not be changed because the new password is the same as the previous password.");
+        }
+        if (!newPwTuple.getFirst()) {
+            return newPwTuple;
+        }
+        String encodedPassword = bCryptPasswordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+        userProfileRepository.save(user);
+
+        return Pair.of(true, "Password reset was successful.");
+    }
 
     public Pair<Boolean,String> forgotPassword(String email) {
         Optional<UserProfile> user = userProfileRepository.findUserProfileByUsername(email);
@@ -35,15 +59,12 @@ public class ResetPasswordService {
         }
     }
 
-
     public Pair<Boolean,String> confirmCode(String confirmCode, String enteredConfirmCode) {
-        String encodedEnteredConfirmCode = bCryptPasswordEncoder.encode(enteredConfirmCode);
-        if(bCryptPasswordEncoder.matches(encodedEnteredConfirmCode, confirmCode)) {
+        if(bCryptPasswordEncoder.matches(enteredConfirmCode, confirmCode)) {
             return Pair.of(true, "Confirmation was successful.");
         } else {
             return Pair.of(false, "The entered confirmationcode is not correct.");
         }
-
     }
 
     public String generateRandomCode() {
