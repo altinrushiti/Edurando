@@ -28,6 +28,7 @@ public class ResetPasswordController {
         else return ResponseEntity.badRequest().body(response);
     }
 
+
     @PostMapping("/resetPassword")
     public ResponseEntity<Pair<Boolean,String>> resetPassword(@RequestParam("email") String email,@RequestParam("newPassword") String newPassword,@RequestParam("newPasswordRepeat") String newPasswordRepeat) {
         Pair<Boolean, String> response = resetPasswordService.resetPassword(email,newPassword,newPasswordRepeat);
