@@ -31,7 +31,7 @@ public class RegistrationController {
         else return ResponseEntity.badRequest().body(response.getSecond());
     }
 
-    @GetMapping(path = "confirm")
+    @GetMapping( "/confirm")
     public String confirm(@RequestParam("token") String token) {
         return registrationService.confirmToken(token);
     }
