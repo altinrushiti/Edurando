@@ -49,5 +49,7 @@ public class ChatController {
     public List<ChatMessage> getChatMessages(@PathVariable String id) {
         return chatService.getChatMessages(id);
     }
+
+
 }
 
