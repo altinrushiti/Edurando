@@ -9,6 +9,7 @@ const router = useRouter();
 const result = ref("");
 const email = ref("");
 const emailStore = useEmailStore();
+// const email = ref(emailStore.email)
 
 async function sendEmail() {
   try {
