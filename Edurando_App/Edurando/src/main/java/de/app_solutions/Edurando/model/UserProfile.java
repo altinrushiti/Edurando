@@ -65,6 +65,8 @@ public class UserProfile implements UserDetails {
     @ManyToMany
     private List<Rating> ratings;
 
+    @OneToOne
+    private ConfirmationCode confirmationCode;
    /* @OneToMany
     private List<ConfirmationToken> confirmationToken;
     public List<ConfirmationToken> getConfirmationToken() {
