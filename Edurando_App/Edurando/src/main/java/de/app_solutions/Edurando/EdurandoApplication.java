@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.util.Pair;
 
 import javax.persistence.Tuple;
 import java.util.ArrayList;
@@ -25,36 +26,19 @@ public class EdurandoApplication {
         SpringApplication.run(EdurandoApplication.class, args);
     }
 
-    // Definition der Tuple-Klasse
-    static class Tuple<T, U> {
-        private final T first;
-        private final U second;
 
-        public Tuple(T first, U second) {
-            this.first = first;
-            this.second = second;
-        }
 
-        public T getFirst() {
-            return first;
-        }
-
-        public U getSecond() {
-            return second;
-        }
-    }
-
-    public Tuple<List<Subject>, List<Topic>> randomSubjectTopic() {
+    public Pair<List<Subject>, List<Topic>> randomSubjectTopic() {
         Random random = new Random();
         List<UserProfile> userProfiles = new ArrayList<>();
         List<Subject> subjects = new ArrayList<>();
         List<Topic> topics = new ArrayList<>();
-        Tuple<List<Subject>, List<Topic>> result = new Tuple<>(subjects,topics);
+        Pair<List<Subject>, List<Topic>> result =  Pair.of(subjects,topics);
 
         int indexOfArray;
 
-        String[] subjectsArray = {"Math", "Physics", "Chemistry", "Biology", "History"};
-        String[] topicsArray = {"Algebra", "Mechanics", "Organic Chemistry", "Genetics", "World War II"};
+        String[] subjectsArray = {"Math", "Physics", "Chemistry", "Biology", "History","Programming"};
+        String[] topicsArray = {"Algebra", "Mechanics", "Organic Chemistry", "Genetics", "World War II","C"};
 
 
         for (int i = 0; i < 7; i++) {
@@ -104,7 +88,7 @@ public class EdurandoApplication {
             userProfileService.signUpUser(new UserProfile("Teacher", "Zainoul", "Barry", "zainoul.barry@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
             userProfileService.signUpUser(new UserProfile("Teacher", "Bennet", "Gurklies", "bennet.gurklies@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
             userProfileService.signUpUser(new UserProfile("Teacher", "Ahmed", "Radwan", "ahmed.radwan@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
-            userProfileService.signUpUser(new UserProfile("Teacher", "Ghamdan", "Al-Sofey", "ghamdan.al-sofey@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
+            userProfileService.signUpUser(new UserProfile("Teacher", "Ghamdan", "Al-Sofey", "ghamdan.al-sofeygg@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
             userProfileService.signUpUser(new UserProfile("Teacher", "Sena", "Demircik", "sena.demircik@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 5.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
 
 
