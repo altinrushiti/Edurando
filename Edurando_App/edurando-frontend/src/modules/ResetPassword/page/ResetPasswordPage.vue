@@ -18,12 +18,8 @@ async function sendEmail() {
   }
 }
 
-async function goBack() {
-  try {
-    const response = await router.push("/login")
-  } catch (error) {
-    console.log(error)
-  }
+function goBack() {
+    router.push("/login")
 }
 
 </script>

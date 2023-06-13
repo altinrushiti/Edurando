@@ -9,13 +9,24 @@
             </div>
             <form class="mt-8 space-y-6" @submit.prevent="onEdit">
                 <div class="rounded-md shadow-sm space-y-2">
-                    <div>
+                  <label for="profilePicture" class="text-black dark:text-[#b5a9fc] font-font-family p-2 file-sel">Profile picture</label>
+                  <div class="relative m-auto w-[100px]">
+                    <img class="rounded-full w-[100px] h-[100px]" :src="image" alt="" />
+                    <div class="absolute bottom-0 right-0 bg-[#483d8b] w-[30px] h-[30px] leading-[33px] text-center rounded-full overflow-hidden ">
+                      <input id="profilePicture" name="profilePicture" type="file" @change="handleFileChange" class="absolute scale-[2] opacity-0" ref="fileInput">
+                      <font-awesome-icon :icon="['fa', 'camera']" class="static text-white"/>
+                    </div>
+                  </div>
+                  <div class="relative flex justify-center">
+                    <button @click="removeImage" class="bg-red-500 rounded-md px-2 hover:bg-red-400" type="button">Remove image</button>
+                  </div>
+                  <div>
                         <label for="firstname" class="text-black dark:text-[#b5a9fc] font-font-family p-2">First Name</label>
                         <input id="firstname" name="firstname" type="text" v-model="user.firstName" required
                                autocomplete="firstname" placeholder="Firstname"
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                pattern="[A-Za-zäöüÄÖÜ]+" title="Please only enter letters">
-                    </div>
+                  </div>
                     <div>
                         <label for="lastname" class="text-black dark:text-[#b5a9fc] font-font-family p-1">Last Name</label>
                         <input id="lastname" name="lastname" type="text" v-model="user.lastName"
@@ -112,7 +123,7 @@
 </template>
 
 <script setup>
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, reactive, ref, watch} from "vue";
 import axios from "axios";
 import {useUserStore} from "@/store/store";
 import router from "@/router";
@@ -128,105 +139,63 @@ const user = reactive({
     role: userStore.getUser.role,
     personalBiography: userStore.getUser.personalBiography,
     mobile: userStore.getUser.mobile,
-    profilePictureReference: '',
     street: userStore.getUser.address.street,
     houseNumber: userStore.getUser.address.houseNumber,
     city: userStore.getUser.address.city,
     state: userStore.getUser.address.state,
     postCode: userStore.getUser.address.postCode !== -1 ? userStore.getUser.address.postCode : ''
 })
+const image = ref(null)
+const file = ref(null)
 
-onMounted(() => {
-  console.log(router.currentRoute.value.path)
-})
+onMounted(async () => {
+  // Dynamisches Importieren des Bildes
+  const imageModule = await import(userStore.getUser.profilePictureReference);
+  image.value = imageModule.default
+});
 
 async function onEdit() {
-
-  try {
-        const response = await axios.put('/updatePersonalData', user)
-        console.log(response)
-        await userStore.fetchUserById(user.id)
-        await router.push({path: '/'})
+    try {
+      const response1 = await axios.put('/updatePersonalData', user)
+      if (file.value !== null) {
+        let formData = new FormData()
+        formData.append('id', user.id)
+        formData.append('file', file.value)
+        const response2 = await axios.post('/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+      }
+      await userStore.fetchUserById(user.id)
+      await router.push('/')
     } catch (error) {
         console.log(error.response.data)
     }
 }
 
-function getUser() {
-    this.user = userStore.getUser
-}/*import {defineComponent} from "vue";
-import axios from "axios";
-import EditPage from "../EditPage.vue";
+function handleFileChange(event) {
+  file.value = event.target.files[0];
 
-export default defineComponent({
-        name: 'editProfile',
-        components: {
-            'editPage': EditPage
-        },
-        data() {
-            return {
-                user: {
-                    id: 1,
-                    firstName: '',
-                    lastName: '',
-                    gender: '',
-                    role: '',
-                    personalBiography: '',
-                    mobile: '',
-                    profilePictureReference: '',
-                    street: '',
-                    houseNumber: '',
-                    city: '',
-                    state: '',
-                    postCode: '',
+  image.value = URL.createObjectURL(file.value)
+}
 
-                }
-            }
+async function removeImage() {
+  const imageModule = await import("../../../assets/p_placeholder.png");
+  image.value = imageModule.default
+  try {
+    const response1 = await axios.delete(`/removeImage/?id=${user.id}`)
+    const response2 = await userStore.fetchUserById(user.id)
+    console.log(response1.data)
 
-        },
-        created() {
-        }, mounted() {
-            this.getUser()
-            console.log('Component mounted.')
-        },
-        methods: {
-            getUser() {
-              axios.get('/profile/1')
-                  .then(response => {
-                      console.log(response)
-                      this.user = response.data
-                  })
-            .catch(error => {
-                console.log(error)
-            })
-            },
-            onEdit() {
-                axios.put('/updatePersonalData', this.user)
-                    .then(response => {
-                        console.log(response)
-                        this.user = response.data
-                    })
-                    .catch(error => {
-                            console.log(error)
-                        }
-                    )
-            },
-            handleFileUpload(event) {
-                const file = event.target.files[0];
-                const reader = new FileReader();
-
-                reader.onload = () => {
-                    this.imageUrl = reader.result;
-                };
-
-                if (file) {
-                    reader.readAsDataURL(file);
-                }
-            },
-            removeImage() {
-                this.imageUrl = null;
-            },
-        }
-    }
-)*/
+  } catch (error) {
+    console.error(error)
+  }
+}
 </script>
+
+<style scoped>
+  input[type="file"]::-webkit-file-upload-button {
+    cursor: pointer;
+  }
+</style>

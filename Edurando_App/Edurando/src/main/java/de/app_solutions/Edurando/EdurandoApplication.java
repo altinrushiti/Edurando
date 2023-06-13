@@ -80,10 +80,10 @@ public class EdurandoApplication {
 
         return args -> {
 
-            userProfileService.signUpUser(new UserProfile("Student", "Krish", "Kalra", "krish.kalra@stud.th-luebeck.de", "Test_123", true));
+            userProfileService.signUpUser(new UserProfile("Student", "Krish", "Kalra", "krish.kalra1@stud.th-luebeck.de", "Test_123", true));
             userProfileService.signUpUser(new UserProfile("Student", "Krish", "Kalra", "krish.kalra2@stud.th-luebeck.de", "Test_123", true));
             userProfileService.signUpUser(new UserProfile("Student", "Krish", "Kalra", "krish.kalra3@stud.th-luebeck.de", "Test_123", true));
-            userProfileService.signUpUser(new UserProfile("Teacher", "Krish", "Kalra", "krish.kalra4@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 5.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
+            userProfileService.signUpUser(new UserProfile("Teacher", "Krish", "Kalra", "krish.kalra@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 5.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
             userProfileService.signUpUser(new UserProfile("Teacher", "Altin", "Rushiti", "altin.rushiti@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
             userProfileService.signUpUser(new UserProfile("Teacher", "Zainoul", "Barry", "zainoul.barry@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
             userProfileService.signUpUser(new UserProfile("Teacher", "Bennet", "Gurklies", "bennet.gurklies@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));

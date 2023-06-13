@@ -14,7 +14,7 @@
                     </div>
                     <div class="mt-5 w-1/2">
                         <label for="topic" class="text-black dark:text-[#b5a9fc] font-font-family p-1">Topic</label>
-                        <input id="topic" name="topic" type="text" v-model="data.request.topic"
+                        <input id="topic" name="topic" type="text" v-model="data.request.topic" @keyup.enter="addSubjectTopic"
                                class="dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black focus:outline-none appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Enter Topic">
                     </div>
@@ -107,16 +107,11 @@ const saved = ref(false);
 const router = useRouter()
 let result = ref('')
 
-async function goBack() {
-    try {
-        await router.push('/SubjectsTopics')
-    } catch (error) {
-        console.log(error)
-    }
+function goBack() {
+  router.push('/SubjectsTopics')
 }
 
-async function addSubjectTopic(event) {
-    event.preventDefault()
+async function addSubjectTopic() {
     try {
         const response = await axios.put('/updateSubjectData', data.request)
         result = response.data

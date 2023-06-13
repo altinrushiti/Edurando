@@ -37,7 +37,7 @@ async function send() {
 
 async function chatSenders() {
   try {
-    const response = await axios.get('/chatSenders/' + user.getUser.id)
+    const response = await axios.get('/chatReceivers/' + user.getUser.id)
     senders.value = response.data
   } catch (error) {
     console.error(error)

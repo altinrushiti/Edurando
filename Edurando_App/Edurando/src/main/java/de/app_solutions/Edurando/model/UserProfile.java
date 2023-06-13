@@ -25,7 +25,7 @@ public class UserProfile implements UserDetails {
     private String firstName;
     private String lastName;
     private String mobile = "";
-    private String profilePictureReference = "../assets/p_placeholder.png";
+    private String profilePictureReference = "../../../assets/p_placeholder.png";
     private String personalBiography = "";
     private float rating;
     private String gender = "";
