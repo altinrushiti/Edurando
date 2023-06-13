@@ -1,6 +1,8 @@
 import {describe, it, expect} from "vitest";
-import Home from "../../view/Home.vue";
+
+
 import {mount} from "@vue/test-utils";
+import Home from "../src/view/Home.vue";
 
 
 describe("Home", () => {
