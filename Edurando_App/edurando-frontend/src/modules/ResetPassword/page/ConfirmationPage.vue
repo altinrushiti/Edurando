@@ -1,29 +1,8 @@
 <script setup>
-
-import {ref} from "vue";
-import {useRouter} from "vue-router";
-import axios from "axios";
-
-const router = useRouter();
-const eMail = ref("");
-const result = ref("");
-
-
-async function sendEmail() {
-  try{
-    const response = await axios.post('/', eMail.value)
-    result.value = response.data
-    console.log(result)
-  } catch (error) {
-    result.value = error.request.response
-    console.log(error)
-  }
-}
-
 function goBack() {
-  router.back()
-}
 
+  router.back(0)
+}
 </script>
 
 <template>
@@ -32,27 +11,27 @@ function goBack() {
       <div class="border border-white bg-white rounded-md p-8">
         <div class="bg-white rounded-md p-8">
           <h2 class="mt-4 text-center text-3xl font-extrabold text-gray-900 dark:text-[#b5a9fc]">
-            Find Profile
+            Confirm Number
           </h2>
           <p class="mt-2 text-center text-gray-600 dark:text-gray-400">
-            Bitte gib deine E-Mail-Adresse ein, um dein Passwort zurückzusetzen.
+            Please enter the number you received via email to confirm.
           </p>
         </div>
-        <form class="mt-3 space-y-6 bg-white rounded-md p-8">
+        <form class="mt-3 space-y-6 bg-white rounded-md p-8" @submit.prevent="confirmNumber">
           <div class="rounded-md shadow-sm space-y-2">
             <div>
-              <label for="email" class="text-black dark:text-[#b5a9fc] font-font-family p-2">E-Mail</label>
-              <input id="email" name="email" type="email"
-                     autocomplete="email" required
+              <label for="confirmation-number" class="text-black dark:text-[#b5a9fc] font-font-family p-2">Confirmation Number</label>
+              <input id="confirmation-number" name="confirmation-number" type="text"
+                     autocomplete="off" required
                      class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black focus:outline-none rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                     placeholder="E-Mail" v-model="eMail" >
+                     placeholder="Confirmation Number" v-model="confirmationNumber">
             </div>
             <div class="flex justify-between">
-              <button @click="sendEmail()" type="submit"
+              <button type="submit"
                       class="w-1/2 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-purple-500 bg-transparent hover:bg-purple-100 dark:hover:bg-[#26233b] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-                Send E-Mail
+                Confirm
               </button>
-              <button @click="goBack()" type="button"
+              <button @click="goBack" type="button"
                       class="w-1/2 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-500 bg-transparent hover:bg-gray-100 dark:hover:bg-[#26233b] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                 Back
               </button>
@@ -62,7 +41,11 @@ function goBack() {
       </div>
     </div>
   </div>
+
+
+
 </template>
 
 <style scoped>
+
 </style>

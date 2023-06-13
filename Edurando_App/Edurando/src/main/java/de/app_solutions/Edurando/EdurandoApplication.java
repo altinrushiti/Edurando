@@ -11,70 +11,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.util.Pair;
 
-import javax.persistence.Tuple;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @SpringBootApplication
 public class EdurandoApplication {
 
-
-    public static void main(String[] args) {
-        SpringApplication.run(EdurandoApplication.class, args);
-    }
-
-
-
-    public Pair<List<Subject>, List<Topic>> randomSubjectTopic() {
-        Random random = new Random();
-        List<UserProfile> userProfiles = new ArrayList<>();
-        List<Subject> subjects = new ArrayList<>();
-        List<Topic> topics = new ArrayList<>();
-        Pair<List<Subject>, List<Topic>> result =  Pair.of(subjects,topics);
-
-        int indexOfArray;
-
-        String[] subjectsArray = {"Math", "Physics", "Chemistry", "Biology", "History","Programming"};
-        String[] topicsArray = {"Algebra", "Mechanics", "Organic Chemistry", "Genetics", "World War II","C"};
-
-
-        for (int i = 0; i < 7; i++) {
-
-            indexOfArray = random.nextInt(subjectsArray.length);
-            String randomSubjectName = subjectsArray[indexOfArray];
-            String randomTopicName = topicsArray[indexOfArray];
-
-            Subject s = new Subject();
-
-            s.setName(randomSubjectName);
-            s.setUserProfiles(userProfiles);
-            s.setTopics(new ArrayList<>());
-            subjects.add(s);
-
-            Topic t = new Topic();
-
-            t.setName(randomTopicName);
-            t.setUserProfiles(userProfiles);
-            t.setSubject(s);
-            topics.add(t);
-
-
-            s.getTopics().add(t);
-
-            if (topics.size()== 2){
-                break;
-            }
-
-        }
-
-
-        return result;
-    }
-
-    @Bean
+	public static void main(String[] args) {
+		SpringApplication.run(EdurandoApplication.class, args);
+	}
+    /*@Bean
     CommandLineRunner commandLineRunner(UserProfileService userProfileService) {
 
 
@@ -95,6 +41,10 @@ public class EdurandoApplication {
         };
     }
 
+     */
+
+
+
+
 
 }
-
