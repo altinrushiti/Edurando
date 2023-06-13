@@ -28,7 +28,7 @@ public class LoginService {
         } else {
             UserProfile user = userProfileRepository.findUserProfileByUsername(loginRequest.getEmail()).get();
             if (!user.isEnabled()) {
-                return Pair.of(false, "You are not verified.");
+                return Pair.of(false, "Your account is not verified.");
             }
             if (user.isLocked()) {
                 return Pair.of(false, "Your account is locked. Please contact the support.");

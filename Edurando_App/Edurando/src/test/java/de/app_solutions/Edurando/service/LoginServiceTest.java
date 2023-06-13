@@ -81,7 +81,7 @@ public class LoginServiceTest {
         LoginRequest loginRequest = new LoginRequest("max.mustermann@example4.com", "Test123!");
 
         Pair<Boolean, String> rs = loginService.login(loginRequest);
-        assertEquals(Pair.of(false, "You are not verified."), rs);
+        assertEquals(Pair.of(false, "Your account is not verified."), rs);
     }
 
     @Test
