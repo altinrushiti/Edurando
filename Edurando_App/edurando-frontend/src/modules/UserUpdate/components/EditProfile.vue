@@ -108,7 +108,7 @@
             </form>
         </div>
     </div>
-
+<Footer></Footer>
 </template>
 
 <script setup>
@@ -117,6 +117,7 @@ import axios from "axios";
 import {useUserStore} from "@/store/store";
 import router from "@/router";
 import EditPage from "@/modules/UserUpdate/EditPage.vue";
+import Footer from "@/modules/Footer/Footer.vue";
 
 const userStore = useUserStore();
 
@@ -152,81 +153,4 @@ async function onEdit() {
     }
 }
 
-function getUser() {
-    this.user = userStore.getUser
-}/*import {defineComponent} from "vue";
-import axios from "axios";
-import EditPage from "../EditPage.vue";
-
-export default defineComponent({
-        name: 'editProfile',
-        components: {
-            'editPage': EditPage
-        },
-        data() {
-            return {
-                user: {
-                    id: 1,
-                    firstName: '',
-                    lastName: '',
-                    gender: '',
-                    role: '',
-                    personalBiography: '',
-                    mobile: '',
-                    profilePictureReference: '',
-                    street: '',
-                    houseNumber: '',
-                    city: '',
-                    state: '',
-                    postCode: '',
-
-                }
-            }
-
-        },
-        created() {
-        }, mounted() {
-            this.getUser()
-            console.log('Component mounted.')
-        },
-        methods: {
-            getUser() {
-              axios.get('/profile/1')
-                  .then(response => {
-                      console.log(response)
-                      this.user = response.data
-                  })
-            .catch(error => {
-                console.log(error)
-            })
-            },
-            onEdit() {
-                axios.put('/updatePersonalData', this.user)
-                    .then(response => {
-                        console.log(response)
-                        this.user = response.data
-                    })
-                    .catch(error => {
-                            console.log(error)
-                        }
-                    )
-            },
-            handleFileUpload(event) {
-                const file = event.target.files[0];
-                const reader = new FileReader();
-
-                reader.onload = () => {
-                    this.imageUrl = reader.result;
-                };
-
-                if (file) {
-                    reader.readAsDataURL(file);
-                }
-            },
-            removeImage() {
-                this.imageUrl = null;
-            },
-        }
-    }
-)*/
 </script>
