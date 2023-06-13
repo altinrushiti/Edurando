@@ -38,6 +38,9 @@ public class UserProfile implements UserDetails {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "receiver")
     private List<ChatMessage> chatMessages;
 
+    public UserProfile(String student, String krish, String kalra, String s, String test123, List<Subject> subjects1, boolean b) {
+    }
+
     public List<ChatMessage> getChatMessages() {
         if (chatMessages == null) {
             chatMessages = new ArrayList<>();
@@ -89,6 +92,8 @@ public class UserProfile implements UserDetails {
 
     private boolean enabled;
 
+
+
     public UserProfile(String role, String firstName, String lastName,  String email, String password) {
         if (role.equals("Student")) this.role = Role.student;
         else this.role = Role.teacher;
@@ -99,7 +104,7 @@ public class UserProfile implements UserDetails {
         this.address = new Address();
     }
 
-    public UserProfile(String role, String firstName, String lastName,  String email, String password, boolean enabled) {
+    public UserProfile(String role, String firstName, String lastName,  String email, String password,  boolean enabled) {
         if (role.equals("Student")) this.role = Role.student;
         else this.role = Role.teacher;
         this.firstName = firstName;
@@ -110,7 +115,7 @@ public class UserProfile implements UserDetails {
         this.enabled = enabled;
     }
 
-    public UserProfile(String role, String firstName, String lastName,  String email, String password, boolean enabled, float rating, String personalBiography) {
+    public UserProfile(String role, String firstName, String lastName,  String email, String password, boolean enabled,List<Subject> subjects, List<Topic>topics, float rating, String personalBiography) {
         if (role.equals("Student")) this.role = Role.student;
         else this.role = Role.teacher;
         this.firstName = firstName;
@@ -119,8 +124,16 @@ public class UserProfile implements UserDetails {
         this.password = password;
         this.address = new Address();
         this.enabled = enabled;
+        this.password = password;
+        this.subjects = subjects;
+        this.topics = topics;
         this.rating = rating;
         this.personalBiography = personalBiography;
+    }
+
+    public UserProfile(long fromUserId) {
+
+        this.id = fromUserId;
     }
 
     @Override

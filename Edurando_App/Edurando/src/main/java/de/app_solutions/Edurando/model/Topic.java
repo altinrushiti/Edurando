@@ -4,10 +4,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -15,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +29,6 @@ public class Topic {
     private Subject subject;
 
 
+    public Topic(String t) {
+    }
 }
