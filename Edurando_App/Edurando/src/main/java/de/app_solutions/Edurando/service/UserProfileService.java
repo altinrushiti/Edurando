@@ -40,7 +40,7 @@ public class UserProfileService implements UserDetailsService {
     public String signUpUser(UserProfile user) {
         boolean userExists = userProfileRepository.findUserProfileByUsername(user.getUsername()).isPresent();
 
-        if (userExists) {
+        if (userExists && user.isEnabled()) {
             throw new IllegalStateException("E-Mail already taken");
         }
 
@@ -48,7 +48,7 @@ public class UserProfileService implements UserDetailsService {
 
         user.setPassword(encodedPassword);
 
-        userProfileRepository.save(user);
+        //userProfileRepository.save(user);
 
         String token = UUID.randomUUID().toString();
 
@@ -59,11 +59,13 @@ public class UserProfileService implements UserDetailsService {
                 user
         );
 
+        //user.setConfirmationToken(confirmationToken);
+
         // Hinzufügen des ConfirmationToken zum UserProfile
         //user.getConfirmationToken().add(confirmationToken);
 
          // Speichern Sie das aktualisierte UserProfile mit dem ConfirmationToken
-
+        userProfileRepository.save(user);
         confirmationTokenService.saveConfirmationToken(confirmationToken);
         return token;
     }

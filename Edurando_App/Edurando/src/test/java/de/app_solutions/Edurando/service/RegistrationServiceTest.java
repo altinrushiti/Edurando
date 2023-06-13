@@ -91,7 +91,7 @@ public class RegistrationServiceTest {
         when(confirmationTokenService.getToken(token)).thenReturn(Optional.of(confirmationToken));
 
         // Act
-        String result = registrationService.confirmToken(token);
+        String result = registrationService.confirmToken(token).getSecond();
 
         // Assert
         assertEquals("Verification successful", result);
@@ -101,13 +101,15 @@ public class RegistrationServiceTest {
     void testConfirmTokenWithExpiredToken() {
         // Arrange
         String token = "test_token";
-        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann@example.com","password");
+        UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann6@example.com","password");
         ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now().minusMinutes(5), LocalDateTime.now(), user); // expires_at: now -> will throw exception
         when(confirmationTokenService.getToken(token)).thenReturn(Optional.of(confirmationToken));
 
         // Act & Assert
-        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> registrationService.confirmToken(token));
-        assertEquals("token expired", exception.getMessage());
+        Pair<Boolean,String> expectedResponse = Pair.of(false,"token expired");
+        Pair<Boolean,String> response = registrationService.confirmToken(token);
+        //IllegalStateException exception = assertThrows(IllegalStateException.class, () -> registrationService.confirmToken(token));
+        assertEquals(expectedResponse, response);
     }
 
     @Test
@@ -120,8 +122,9 @@ public class RegistrationServiceTest {
         when(confirmationTokenService.getToken(token)).thenReturn(Optional.of(confirmationToken));
 
         // Act & Assert
-        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> registrationService.confirmToken(token));
-        assertEquals("email already confirmed", exception.getMessage());
+        Pair<Boolean,String> expectedResponse = Pair.of(false,"email already confirmed");
+        Pair<Boolean,String> response = registrationService.confirmToken(token);
+        assertEquals(expectedResponse, response);
     }
 
 

@@ -70,6 +70,8 @@ public class UserProfile implements UserDetails {
 
     @OneToOne
     private ConfirmationCode confirmationCode;
+    @OneToOne
+    private ConfirmationToken confirmationToken;
    /* @OneToMany
     private List<ConfirmationToken> confirmationToken;
     public List<ConfirmationToken> getConfirmationToken() {
