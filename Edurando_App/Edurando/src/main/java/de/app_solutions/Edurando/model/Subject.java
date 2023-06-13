@@ -3,7 +3,6 @@ package de.app_solutions.Edurando.model;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +28,6 @@ public class Subject {
     private List<Topic> topics;
 
 
+    public Subject(String math, List<UserProfile> userProfiles, List<Topic> topics) {
+    }
 }
