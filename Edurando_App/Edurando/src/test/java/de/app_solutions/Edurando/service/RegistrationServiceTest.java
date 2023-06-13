@@ -102,7 +102,7 @@ public class RegistrationServiceTest {
         // Arrange
         String token = "test_token";
         UserProfile user = new UserProfile("Student", "Max", "Mustermann","max.mustermann6@example.com","password");
-        ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now().minusMinutes(5), LocalDateTime.now(), user); // expires_at: now -> will throw exception
+        ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().minusMinutes(5), user); // expires_at: now -> will throw exception
         when(confirmationTokenService.getToken(token)).thenReturn(Optional.of(confirmationToken));
 
         // Act & Assert
