@@ -14,6 +14,7 @@ import Imprint from "@/modules/Imprint/imprint.vue";
 import Search from "@/view/Search.vue";
 import ResetPasswordPage from "@/modules/ResetPassword/page/ResetPasswordPage.vue";
 import ConfirmationPage from "@/modules/ResetPassword/page/ConfirmationPage.vue";
+import PasswortdForm from "@/modules/ResetPassword/page/PasswortdForm.vue";
 
 const entryList = ['entry1', 'entry2', 'entry3']
 
@@ -115,6 +116,13 @@ const router = createRouter({
             path: '/confirmNumber',
             name: 'Confirmation-Number',
             component: ConfirmationPage,
+
+        },
+
+        {
+            path: '/passwordform',
+            name: 'Password-Form',
+            component: PasswortdForm,
 
         }
 
