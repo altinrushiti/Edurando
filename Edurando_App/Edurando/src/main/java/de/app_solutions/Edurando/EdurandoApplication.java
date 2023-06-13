@@ -26,7 +26,7 @@ public class EdurandoApplication {
         SpringApplication.run(EdurandoApplication.class, args);
     }
 
-
+/*
 
     public Pair<List<Subject>, List<Topic>> randomSubjectTopic() {
         Random random = new Random();
@@ -94,6 +94,8 @@ public class EdurandoApplication {
 
         };
     }
+
+ */
 
 
 }
