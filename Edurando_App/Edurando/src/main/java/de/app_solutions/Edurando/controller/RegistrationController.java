@@ -32,16 +32,16 @@ public class RegistrationController {
     }
 
     @GetMapping( "/confirm")
-    public String confirm(@RequestParam("token") String token) {
-        return registrationService.confirmToken(token);
-    }
+    public ResponseEntity<String> confirm(@RequestParam("token") String token) {
+        Pair<Boolean, String> response = registrationService.confirmToken(token);
+        if (response.getFirst()) return ResponseEntity.ok(response.getSecond());
+        else return ResponseEntity.badRequest().body(response.getSecond());    }
 
-   /* @PostMapping("/confirm")
+    @PostMapping("/reconfirm")
     public ResponseEntity<String> resendConfirmationMail(@RequestParam("email") String email) {
         Pair<Boolean,String> response = registrationService.resendConfirmationEmail(email);
         if (response.getFirst()) return ResponseEntity.ok(response.getSecond());
         else return ResponseEntity.badRequest().body(response.getSecond());
     }
 
-    */
 }

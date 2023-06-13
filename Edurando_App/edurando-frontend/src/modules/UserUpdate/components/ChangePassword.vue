@@ -45,14 +45,15 @@
                     </div>
             </form>
         </div>
-
     </div>
+  <Footer></Footer>
 </template>
 
 <script setup>
 import {reactive, ref, watch} from 'vue';
 import axios from 'axios';
 import EditPage from '@/modules/UserUpdate/EditPage.vue';
+import Footer from "@/modules/Footer/Footer.vue";
 import {useRouter} from "vue-router";
 import {showPasswordError} from '@/functions/functions'
 

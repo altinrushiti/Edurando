@@ -119,7 +119,7 @@
             </form>
         </div>
     </div>
-
+<Footer></Footer>
 </template>
 
 <script setup>
@@ -128,6 +128,7 @@ import axios from "axios";
 import {useUserStore} from "@/store/store";
 import router from "@/router";
 import EditPage from "@/modules/UserUpdate/EditPage.vue";
+import Footer from "@/modules/Footer/Footer.vue";
 
 const userStore = useUserStore();
 

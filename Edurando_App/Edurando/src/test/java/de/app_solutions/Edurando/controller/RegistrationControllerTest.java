@@ -70,14 +70,16 @@ public class RegistrationControllerTest {
     void testConfirm() throws Exception {
         // Arrange
         String token = "test_token";
+        Pair<Boolean, String> expectedResult = Pair.of(true, "Verification successful.");
+        ResponseEntity<String> response = ResponseEntity.ok().body("Verification successful.");
+        String requestJson = new ObjectMapper().writeValueAsString(expectedResult);
 
-        String expectedResult = "verifizierung_erfolgreich";
         when(registrationService.confirmToken(token)).thenReturn(expectedResult);
 
         // Act
         mockMvc.perform(get("/api/v1/confirm/?token="+token))
                         .andExpect(status().isOk())
-                                .andExpect(content().string(expectedResult));
+                                .andExpect(content().string(Objects.requireNonNull(response.getBody())));
     }
 
 }

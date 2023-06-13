@@ -12,7 +12,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
@@ -28,6 +31,10 @@ public class ResetPasswordService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final PasswordValidator passwordValidator;
     private final ConfirmationCodeRepository confirmationCodeRepository;
+
+    private static final Duration EMAIL_SEND_INTERVAL = Duration.ofMinutes(5);
+    private Map<String, LocalDateTime> lastEmailSentTimes = new HashMap<>();
+
 
     public Pair<Boolean, String> resetPassword(ResetPasswordRequest request) {
         Optional<UserProfile> userOpt = userProfileRepository.findUserProfileByUsername(request.getEmail());
@@ -79,8 +86,11 @@ public class ResetPasswordService {
             return Pair.of(false, "The entered confirmationcode is not correct.");
         }
     }
+
+
     @Transactional
     public Pair<Boolean, String> forgotPassword(String email) {
+        LocalDateTime currentTime = LocalDateTime.now();
         Optional<UserProfile> userOpt = userProfileRepository.findUserProfileByUsername(email);
         if (userOpt.isPresent()) {
             UserProfile user = userOpt.get();
@@ -102,8 +112,16 @@ public class ResetPasswordService {
                     LocalDateTime.now().plusMinutes(15),
                     user
             );
+            LocalDateTime lastEmailSentTime = lastEmailSentTimes.getOrDefault(user.getUsername(), LocalDateTime.MIN);
+            if (lastEmailSentTime.plus(EMAIL_SEND_INTERVAL).isAfter(currentTime)) {
+                return Pair.of(false, "Please wait before requesting another password reset.");
+            }
+
             //user.setConfirmationCode(confirmationCode);
             emailSender.send(user.getUsername(), buildEmail(confirmationCode.getUser().getUsername(), confirmationCode.getCode()), "Reset password request");
+
+            // Aktualisiere lastEmailSentTime für den aktuellen Benutzer
+            lastEmailSentTimes.put(email, LocalDateTime.now());
 
             String encodedConfirmCode = bCryptPasswordEncoder.encode(confirmationCode.getCode());
             confirmationCode.setCode(encodedConfirmCode);
