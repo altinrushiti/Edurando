@@ -55,7 +55,7 @@ async function redirectToChat() {
       <div class="w-[40%] h-1 bg-[#483d8b]  mt-2  mx-auto "></div>
       <div class="p-4">
         <h3 class="text-lg font-semibold">My Subjects</h3>
-        <div class="overflow-x-auto">
+        <div class="h-[300px] overflow-y-auto">
           <table class="mt-4 w-full border" v-for="subject in Object.keys(subjects)">
             <thead>
               <tr class="bg-gray-200">

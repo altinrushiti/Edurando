@@ -17,7 +17,6 @@ public class EditPersonalDataRequest {
     private String role;
     private String personalBiography;
     private String mobile;
-    private String profilePictureReference;
     private String street;
     private String houseNumber;
     private String city;

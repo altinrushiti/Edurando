@@ -85,7 +85,8 @@ export default defineComponent({
                 await userStore.fetchUser(email);
 
                 // Weiterleiten oder andere Aktionen ausführen
-                this.$router.push({ path: '/' });
+                await this.$router.push({ path: '/' });
+                location.reload()
             } catch (error) {
                 this.loginRequest.password = ''
                 this.response = error.response.data

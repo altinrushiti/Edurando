@@ -13,8 +13,10 @@ import Chat from "@/modules/Chat/Page/Chat.vue";
 import Imprint from "@/modules/Imprint/imprint.vue";
 import Search from "@/view/Search.vue";
 import ResetPasswordPage from "@/modules/ResetPassword/page/ResetPasswordPage.vue";
+import ConfirmationPage from "@/modules/ResetPassword/page/ConfirmationPage.vue";
+import PasswordForm from "@/modules/ResetPassword/page/PasswordForm.vue";
 
-const entryList = ['entry1', 'entry2', 'entry3']
+const userStore = async () => await useUserStore()
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -85,16 +87,7 @@ const router = createRouter({
             component: Imprint
         },
         {
-            path: '/chat',
-            name: 'chat',
-            component: Chat,
-            meta: {
-                needsAuth: true
-            }
-        },
-        {
-            path: '/chat/:username',
-            name: 'chat2',
+            path: '/chat/:id?',
             component: Chat,
             meta: {
                 needsAuth: true
@@ -110,13 +103,25 @@ const router = createRouter({
             name: 'reset-password',
             component: ResetPasswordPage,
         },
+        {
+            path: '/confirmNumber',
+            name: 'Confirmation-Number',
+            component: ConfirmationPage,
+
+        },
+        {
+            path: '/passwordform',
+            name: 'Password-Form',
+            component: PasswordForm,
+
+        }
 
     ]
 })
 
-
 router.beforeEach(async (to, from, next) => {
-    const isLogged = await useUserStore().getUser !== null
+    const isLogged = userStore.getUser !== null
+
     if (to.meta.needsAuth && !isLogged) {
         next('/login');
 

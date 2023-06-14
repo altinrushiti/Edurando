@@ -5,6 +5,8 @@ import axios from "axios";
 import EdCard from "@/shared/ui/EdCard.vue";
 import EdModal from "@/shared/ui/EdModal.vue";
 import {useUserStore} from "@/store/store";
+import Footer from "@/modules/Footer/Footer.vue"
+
 
 const responseData = ref("");
 const showModal = ref(false)
@@ -45,6 +47,8 @@ onMounted(async () => {
     <EdCard v-for="topUser in responseData" :key="topUser.id" :item="topUser" @show-modal="setShowModal"/>
     <EdModal v-if="showModal" :item="user" @close-modal="closeModal"/>
   </div>
+  <Footer />
+
 
 </template>
 
