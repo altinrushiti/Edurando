@@ -50,7 +50,7 @@ public class UserProfileController {
     }
 
     @PostMapping(path = "/upload")
-    public ResponseEntity<String> getUserProfile(@RequestParam("id") String id, @RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<String> uploadImage(@RequestParam("id") String id, @RequestParam("file") MultipartFile file) throws IOException {
         Pair<Boolean, String> result = userProfileService.uploadProfilePicture(Long.parseLong(id), file);
 
         if (result.getFirst()) {
