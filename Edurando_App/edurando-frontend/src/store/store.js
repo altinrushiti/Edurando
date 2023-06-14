@@ -8,6 +8,7 @@ export const useUserStore = defineStore('user', {
         user: null,
         isLoggedOut: true,
         chatReceiver: 0,
+        chatReceivers: [],
         searchResult: []
     }),
     persist: true,
@@ -20,6 +21,9 @@ export const useUserStore = defineStore('user', {
         },
         getChatReceiver() {
             return this.chatReceiver;
+        },
+        getChatReceivers() {
+            return this.chatReceivers;
         },
         getSearchResult() {
             return this.searchResult;

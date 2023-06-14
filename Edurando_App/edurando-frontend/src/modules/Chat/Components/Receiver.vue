@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-end justify-end">
+  <div class="flex items-start justify-start">
     <div :class="{'relative': isChannel}" class="rounded-lg shadow-lg p-4 w-[35%]">
       <div class="flex items-start">
         <div class="flex-shrink-0">

@@ -39,7 +39,7 @@
                         <textarea id="biography" name="biography" v-model="user.personalBiography" rows="5"
                                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                   placeholder="Write your biography here"
-                                  minlength="10" required></textarea>
+                                  minlength="10"></textarea>
                     </div>
                     <div>
                         <label for="role" class="text-black dark:text-[#b5a9fc] font-font-family flex p-1 font-size=10px">Gender</label>
