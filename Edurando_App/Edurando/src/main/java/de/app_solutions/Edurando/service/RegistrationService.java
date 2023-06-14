@@ -7,6 +7,7 @@ import de.app_solutions.Edurando.model.Role;
 import de.app_solutions.Edurando.model.UserProfile;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,16 +17,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.Tuple;
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static de.app_solutions.Edurando.service.UserProfileService.USER_NOT_FOUND;
 
 @Service
-@AllArgsConstructor
+@Data
 public class RegistrationService {
     private final static String USER_NOT_FOUND = "User with Email %s was not found.";
     private final UserProfileService userProfileService;
@@ -34,6 +33,8 @@ public class RegistrationService {
     private final EmailSender emailSender;
     private final PasswordValidator passwordValidator;
     private final UserProfileRepository userProfileRepository;
+    private static final Duration EMAIL_SEND_INTERVAL = Duration.ofMinutes(5);
+    private Map<String, LocalDateTime> lastEmailSentTimes = new HashMap<>();
 
     public Pair<Boolean, String> register(RegistrationRequest request) {
 
@@ -75,16 +76,22 @@ public class RegistrationService {
     }
 
     public Pair<Boolean, String> resendConfirmationEmail(String email) {
+        LocalDateTime currentTime = LocalDateTime.now();
 
         Optional<UserProfile> userOpt = userProfileRepository.findUserProfileByUsername(email);
-        if(userOpt.isEmpty()) {
+        if (userOpt.isEmpty()) {
             return Pair.of(false, String.format(USER_NOT_FOUND, email));
         }
         UserProfile user = userOpt.get();
         String newToken = userProfileService.signUpUser(user);
+        LocalDateTime lastEmailSentTime = lastEmailSentTimes.getOrDefault(user.getUsername(), LocalDateTime.MIN);
+        if (lastEmailSentTime.plus(EMAIL_SEND_INTERVAL).isAfter(currentTime)) {
+            return Pair.of(false, "Please wait before requesting another confirmation-mail.");
+        }
         String link = String.format("http://localhost:9001/api/v1/confirm/?token=%s", newToken);
-        emailSender.send(email, buildEmail(user.getUsername(), link),"Confirm your Email");
-
+        emailSender.send(email, buildEmail(user.getUsername(), link), "Confirm your Email");
+        // Aktualisiere lastEmailSentTime für den aktuellen Benutzer
+        lastEmailSentTimes.put(email, LocalDateTime.now());
         return Pair.of(true, "Confirmation email has been resent.");
     }
 
@@ -176,6 +183,7 @@ public class RegistrationService {
                 "\n" +
                 "</div></div>";
     }
+
     private String buildEmail(String email, String link) {
         UserProfile user = userProfileRepository.findUserProfileByUsername(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
 
