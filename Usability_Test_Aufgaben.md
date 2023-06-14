@@ -22,7 +22,6 @@ Ihre Aufgabe ist es die unten stehende Aufgabenliste abzuarbeiten (kleinere Aufg
 - [ ] War leicht zu finden!
 - [ ] War schwierig zu finden...
 - [ ] War zu schwierig zu finden / Ich brauchte Hilfe :(
-- [ ] 
 
 ### **2. Login:**
 
