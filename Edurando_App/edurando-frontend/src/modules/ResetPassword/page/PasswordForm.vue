@@ -11,14 +11,16 @@ const password = reactive({
   newPassword: '',
   newPasswordRepeat: '',
 });
+const result = ref("e")
 async function onSetPassword() {
-  if (password.password!== password.confirmPassword && !password.password.email) {
+  /*if (password.password!== password.confirmPassword && !password.password.email) {
     alert('Passwords do not match')
     return
-  }
+  }*/
   try {
     const response = await axios.post('/resetPassword', password)
-    console.log(response)
+    result.value = response.data
+    console.log(result.value)
     await router.push('/login')
   } catch (error) {
     console.log(error)
@@ -65,6 +67,7 @@ function goBack() {
               </button>
             </div>
           </div>
+          <p v-if="result" class="text-red-500 text-xs">{{result}}</p>
         </form>
       </div>
     </div>

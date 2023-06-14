@@ -48,7 +48,6 @@ public class EditProfileControllerTest {
         request.setLastName("Smith");
         request.setGender("Male");
         request.setPersonalBiography("");
-        request.setProfilePictureReference("");
         request.setMobile("");
         request.setRole("Lehrer");
         request.setStreet("Lehmstrasse");

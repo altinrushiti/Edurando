@@ -63,6 +63,7 @@ async function sendEmail() {
               </button>
             </div>
           </div>
+          <p v-if="result" class="text-red-500 text-xs">{{result}}</p>
         </form>
       </div>
     </div>
