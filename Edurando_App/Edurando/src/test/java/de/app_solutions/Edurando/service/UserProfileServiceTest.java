@@ -5,47 +5,33 @@ import de.app_solutions.Edurando.model.*;
 import de.app_solutions.Edurando.repository.AddressRepository;
 import de.app_solutions.Edurando.repository.ConfirmationTokenRepository;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
-import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
-import org.springframework.data.util.Pair;
-import org.junit.jupiter.api.Test;
 
+import static de.app_solutions.Edurando.service.UserProfileService.UPLOAD_DIR;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.util.Pair;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
-import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -144,7 +130,36 @@ public class UserProfileServiceTest {
 
     }
 
+    /*@Test
+    public void uploadFileAndRemoveFileTest() throws Exception {
+        // Arrange
+        UserProfile user = new UserProfile();
+        user.setId(1L);
+        user.setRole(Role.teacher);
+        user.setFirstName("Max");
+        user.setLastName("Mustermann");
+        user.setUsername("max.mustermann@example.com");
 
+        userProfileService.signUpUser(user);
 
+        // Erstelle den Inhalt der Datei
+        byte[] fileContent = "Inhalt der Datei".getBytes(StandardCharsets.UTF_8);
 
+        // Erstelle den MockMultipartFile
+        MultipartFile file = new MockMultipartFile("file", "testfile.txt", MediaType.TEXT_PLAIN_VALUE, fileContent);
+
+        Pair<Boolean, String> result1 = userProfileService.uploadProfilePicture(user.getId(), file);
+        String currentWorkingDirectory = System.getProperty("user.dir");
+        File sourceFolder = new File(currentWorkingDirectory);
+        String absolutePath = sourceFolder.getAbsolutePath();
+        String folderPath = absolutePath + "/" + UPLOAD_DIR + user.getId() + "/" + file.getOriginalFilename();
+
+        Pair<Boolean, String> result2 = userProfileService.removeImage(user.getId());
+
+        assertTrue(result1.getFirst());
+        assertEquals(folderPath.replace("/", "\\"), result1.getSecond());
+
+        assertTrue(result2.getFirst());
+        assertEquals("Delete successfully", result2.getSecond());
+    }*/
 }
