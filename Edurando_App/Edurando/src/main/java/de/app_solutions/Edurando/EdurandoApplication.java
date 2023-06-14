@@ -73,7 +73,7 @@ public class EdurandoApplication {
         return result;
     }
 
-    @Bean
+    /*@Bean
     CommandLineRunner commandLineRunner(UserProfileService userProfileService) {
 
 
@@ -95,7 +95,7 @@ public class EdurandoApplication {
             userProfileService.signUpUser(new UserProfile("Teacher", "Emily", "Jones", "Emily.Jones@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 5.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
             userProfileService.signUpUser(new UserProfile("Teacher", "William", "Brown", "William.Brown@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
         };
-    }
+    }*/
 
 
 }
