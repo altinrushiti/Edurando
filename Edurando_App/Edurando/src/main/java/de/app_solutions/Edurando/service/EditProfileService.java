@@ -48,7 +48,6 @@ public class EditProfileService {
         user.setRole(editPersonalDataRequest.getRole().equalsIgnoreCase("Student") ? Role.student : Role.teacher);
         user.setPersonalBiography(editPersonalDataRequest.getPersonalBiography());
         user.setMobile(editPersonalDataRequest.getMobile());
-        user.setProfilePictureReference(editPersonalDataRequest.getProfilePictureReference());
 
         Address address = user.getAddress();
         address.setStreet(editPersonalDataRequest.getStreet());

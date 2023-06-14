@@ -26,7 +26,6 @@ public class EdurandoApplication {
         SpringApplication.run(EdurandoApplication.class, args);
     }
 
-/*
 
     public Pair<List<Subject>, List<Topic>> randomSubjectTopic() {
         Random random = new Random();
@@ -74,28 +73,29 @@ public class EdurandoApplication {
         return result;
     }
 
-    @Bean
+    /*@Bean
     CommandLineRunner commandLineRunner(UserProfileService userProfileService) {
 
 
         return args -> {
 
-            userProfileService.signUpUser(new UserProfile("Student", "Krish", "Kalra", "krish.kalra@stud.th-luebeck.de", "Test_123", true));
+            userProfileService.signUpUser(new UserProfile("Student", "Krish", "Kalra", "krish.kalra1@stud.th-luebeck.de", "Test_123", true));
             userProfileService.signUpUser(new UserProfile("Student", "Krish", "Kalra", "krish.kalra2@stud.th-luebeck.de", "Test_123", true));
             userProfileService.signUpUser(new UserProfile("Student", "Krish", "Kalra", "krish.kalra3@stud.th-luebeck.de", "Test_123", true));
-            userProfileService.signUpUser(new UserProfile("Teacher", "Krish", "Kalra", "krish.kalra4@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 5.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
+            userProfileService.signUpUser(new UserProfile("Teacher", "Krish", "Kalra", "krish.kalra@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 5.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
             userProfileService.signUpUser(new UserProfile("Teacher", "Altin", "Rushiti", "altin.rushiti@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
             userProfileService.signUpUser(new UserProfile("Teacher", "Zainoul", "Barry", "zainoul.barry@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
             userProfileService.signUpUser(new UserProfile("Teacher", "Bennet", "Gurklies", "bennet.gurklies@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
             userProfileService.signUpUser(new UserProfile("Teacher", "Ahmed", "Radwan", "ahmed.radwan@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
             userProfileService.signUpUser(new UserProfile("Teacher", "Ghamdan", "Al-Sofey", "ghamdan.al-sofeygg@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
             userProfileService.signUpUser(new UserProfile("Teacher", "Sena", "Demircik", "sena.demircik@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 5.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
-
-
+            userProfileService.signUpUser(new UserProfile("Teacher", "John", "Smith", "John.Smith@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
+            userProfileService.signUpUser(new UserProfile("Teacher", "Jane", "Johnson", "Jane.Johnson@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
+            userProfileService.signUpUser(new UserProfile("Teacher", "Michael", "Williams", "Michael.Williams@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 3.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
+            userProfileService.signUpUser(new UserProfile("Teacher", "Emily", "Jones", "Emily.Jones@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 5.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
+            userProfileService.signUpUser(new UserProfile("Teacher", "William", "Brown", "William.Brown@stud.th-luebeck.de", "Test_123", true, randomSubjectTopic().getFirst(), randomSubjectTopic().getSecond(), 4.0f, "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"));
         };
-    }
-
- */
+    }*/
 
 
 }

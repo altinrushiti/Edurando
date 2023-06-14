@@ -25,7 +25,7 @@ public class UserProfile implements UserDetails {
     private String firstName;
     private String lastName;
     private String mobile = "";
-    private String profilePictureReference = "../assets/p_placeholder.png";
+    private String profilePictureReference = "../../../assets/p_placeholder.png";
     private String personalBiography = "";
     private float rating;
     private String gender = "";
@@ -38,8 +38,6 @@ public class UserProfile implements UserDetails {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "receiver")
     private List<ChatMessage> chatMessages;
 
-    public UserProfile(String student, String krish, String kalra, String s, String test123, List<Subject> subjects1, boolean b) {
-    }
 
     public List<ChatMessage> getChatMessages() {
         if (chatMessages == null) {

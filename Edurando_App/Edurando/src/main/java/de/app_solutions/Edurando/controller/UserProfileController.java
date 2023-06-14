@@ -5,8 +5,13 @@ import de.app_solutions.Edurando.model.UserProfileDTO;
 import de.app_solutions.Edurando.repository.UserProfileRepository;
 import de.app_solutions.Edurando.service.UserProfileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.util.Pair;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -42,6 +47,28 @@ public class UserProfileController {
         List<UserProfile> filteredProfiles = userProfileRepository.search(searchTerm);
 
         return ResponseEntity.ok(filteredProfiles);
+    }
+
+    @PostMapping(path = "/upload")
+    public ResponseEntity<String> getUserProfile(@RequestParam("id") String id, @RequestParam("file") MultipartFile file) throws IOException {
+        Pair<Boolean, String> result = userProfileService.uploadProfilePicture(Long.parseLong(id), file);
+
+        if (result.getFirst()) {
+            return ResponseEntity.ok().body(result.getSecond());
+        } else {
+            return ResponseEntity.badRequest().body(result.getSecond());
+        }
+    }
+
+    @DeleteMapping("removeImage")
+    public ResponseEntity<String> removeImage(@RequestParam("id") String id) {
+        Pair<Boolean, String> result = userProfileService.removeImage(Long.parseLong(id));
+
+        if (result.getFirst()) {
+            return ResponseEntity.ok().body(result.getSecond());
+        } else {
+            return ResponseEntity.badRequest().body(result.getSecond());
+        }
     }
 
 }

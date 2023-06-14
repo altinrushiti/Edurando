@@ -38,8 +38,8 @@
           </label>
         </div>
       </div>
-      <div v-if="!user.getIsLoggedOut" class="absolute w-[2.5%] bg-white right-0 border-gray-200 rounded-full shadow dark:bg-gray-800 dark:border-gray-700 m-[1%] hover:cursor-pointer" @click="showSubmenu = !showSubmenu">
-        <img class="rounded-full" src="@/assets/p_placeholder.png" alt="" />
+      <div v-if="!user.getIsLoggedOut" class="absolute w-auto bg-white right-0 border-gray-200 rounded-full shadow dark:bg-gray-800 dark:border-gray-700 m-[1%] hover:cursor-pointer" @click="showSubmenu = !showSubmenu">
+        <img class="rounded-full w-[50px] h-[50px]" :src="i" alt="" />
       </div>
       <div v-else class="flex">
         <RouterLink to="/register">
@@ -62,19 +62,33 @@
 </template>
 
 <script setup>
-import {onMounted, ref, watch} from "vue";
+import {
+  computed,
+  defineAsyncComponent,
+  defineCustomElement,
+  defineModel,
+  defineOptions,
+  onMounted,
+  ref,
+  watch
+} from "vue";
 import {useUserStore} from "@/store/store";
 import {useRouter} from "vue-router";
-
 const showSubmenu = ref(false)
+
 const user = useUserStore()
 const router = useRouter()
 const searchTerm = ref('')
 
-onMounted(() => {
-  console.log(user.getIsLoggedOut === true)
-  console.log(user.getUser)
-})
+const i = ref(null)
+
+onMounted(async () => {
+  if (user.getUser !== null) {
+    const imageModule = await import(user.getUser.profilePictureReference);
+    i.value = imageModule.default
+    console.log(user.getUser.profilePictureReference)
+  }
+});
 
 watch(() => searchTerm.value, (newValue) => {
   if (newValue.length > 2) {
@@ -97,6 +111,16 @@ async function logOut() {
 
 function redirectToHome() {
   router.push('/')
+}
+
+/*function getImgUrl(pet) {
+  var images = require.context('../assets/', false, /\.png$/)
+  return images('./' + pet + ".png")
+}*/
+
+function importModule(path) {
+  // who knows what will be imported here?
+  return import(path);
 }
 
 </script>
