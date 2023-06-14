@@ -3,6 +3,7 @@ import EdCard from "@/shared/ui/EdCard.vue";
 import {useUserStore} from "@/store/store";
 import EdModal from "@/shared/ui/EdModal.vue";
 import {ref} from "vue";
+import Footer from "@/modules/Footer/Footer.vue";
 
 const userStore = useUserStore()
 const showModal = ref(false)
@@ -30,6 +31,7 @@ function closeModal() {
     </div>
     <EdModal v-if="showModal" :item="user" @close-modal="closeModal"/>
   </div>
+  <Footer />
 </template>
 
 <style scoped>

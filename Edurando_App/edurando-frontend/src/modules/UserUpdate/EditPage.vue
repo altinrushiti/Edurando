@@ -43,6 +43,7 @@
 <script setup>
 import { ref } from 'vue';
 import {useUserStore} from "@/store/store";
+import Footer from "@/modules/Footer/Footer.vue";
 
 const isSidebarOpen = ref(false);
 const user = useUserStore()
