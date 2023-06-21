@@ -36,7 +36,7 @@ public class EdurandoApplication {
 
         int indexOfArray;
 
-        String[] subjectsArray = {"Math", "Physics", "Chemistry", "Biology", "History","Programming"};
+        String[] subjectsArray = {"Maths", "Physics", "Chemistry", "Biology", "History","Programming"};
         String[] topicsArray = {"Algebra", "Mechanics", "Organic Chemistry", "Genetics", "World War II","C"};
 
 

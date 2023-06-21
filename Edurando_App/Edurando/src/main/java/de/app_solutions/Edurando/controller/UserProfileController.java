@@ -20,7 +20,6 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:5173")
 public class UserProfileController {
     private final UserProfileService userProfileService;
-    private final UserProfileRepository userProfileRepository;
 
     @GetMapping("/profiles")
     public List<UserProfileDTO> getUserProfiles() {
@@ -44,7 +43,7 @@ public class UserProfileController {
 
     @GetMapping("/profiles/search/{searchTerm}")
     public ResponseEntity<List<UserProfile>> search(@PathVariable String searchTerm) {
-        List<UserProfile> filteredProfiles = userProfileRepository.search(searchTerm);
+        List<UserProfile> filteredProfiles = userProfileService.search(searchTerm);
 
         return ResponseEntity.ok(filteredProfiles);
     }

@@ -1,6 +1,7 @@
 package de.app_solutions.Edurando.controller;
 
 import de.app_solutions.Edurando.model.*;
+import de.app_solutions.Edurando.service.ChatService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -32,6 +33,8 @@ public class ChatControllerTest {
     @MockBean
     private ChatController chatController;
 
+    @MockBean
+    private ChatService chatService;
     @Test
     public void testEditChatSenders_Success() throws Exception {
         ChatReceiverRequest request = new ChatReceiverRequest(1L, 2L);
