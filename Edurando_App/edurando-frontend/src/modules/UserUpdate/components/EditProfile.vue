@@ -25,14 +25,14 @@
                         <input id="firstname" name="firstname" type="text" v-model="user.firstName" required
                                autocomplete="firstname" placeholder="Firstname"
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                               pattern="[A-Za-zäöüÄÖÜ]+" title="Please only enter letters">
+                               pattern="[A-Za-zäöüÄÖÜß\-]+" title="Please only enter letters">
                   </div>
                     <div>
                         <label for="lastname" class="text-black dark:text-[#b5a9fc] font-font-family p-1">Last Name</label>
                         <input id="lastname" name="lastname" type="text" v-model="user.lastName"
                                autocomplete="lastname" required placeholder="Lastname"
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black rounded-t-md focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                               pattern="[A-Za-zäöüÄÖÜ]+" title="Please only enter letters">
+                               pattern="[A-Za-zäöüÄÖÜß\-]+" title="Please only enter letters">
                     </div>
                     <div>
                         <label for="biography" class="text-black dark:text-[#b5a9fc] font-font-family p-1">Biography</label>
@@ -67,7 +67,7 @@
                             <input id="street" name="street" type="text" v-model="user.street"
                                    placeholder="Street"
                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                                   pattern="[A-Za-zäöüÄÖÜ]+" title="Please only enter your street here">
+                                   pattern="[A-Za-zäöüÄÖÜß\-]+" title="Please only enter your street here">
                         </div>
                         <div class="w-full md:w-1/2 px-3">
                             <label for="houseNumber" class="text-black dark:text-[#b5a9fc] font-font-family p-1">House Number</label>
@@ -104,7 +104,7 @@
 
                     <div>
                         <label for="mobile" class="text-black dark:text-[#b5a9fc] font-font-family mb-2">Mobile</label>
-                        <input id="mobile" name="mobile" type="tel" v-model="user.mobile" pattern="[0-9]"
+                        <input id="mobile" name="mobile" type="tel" v-model="user.mobile"   pattern="^[+]?[0-9]+$"
 
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Mobile number">
