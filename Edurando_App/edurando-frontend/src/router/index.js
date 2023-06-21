@@ -114,7 +114,7 @@ const router = createRouter({
             name: 'Password-Form',
             component: PasswordForm,
 
-        }
+        },
         {
             path: '/about',
             name: 'about',
