@@ -47,8 +47,8 @@
                                 class="bg-white text-gray-900 rounded-none relative block w-full px-3 py-2 border border-gray-300 rounded-b-md focus:outline-none dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                 id="role" v-model="user.gender">
                             <option value="" disabled>Select gender</option>
-                            <option value="Man">Man</option>
-                            <option value="Woman">Women</option>
+                            <option class="2xl" value="Male">Male</option>
+                            <option class="2xl" value="Female">Female</option>
                         </select>
                     </div>
                     <div>
@@ -65,14 +65,14 @@
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                             <label for="street" class="text-black dark:text-[#b5a9fc] font-font-family p-1">Street</label>
                             <input id="street" name="street" type="text" v-model="user.street"
-                                   autocomplete="new-password" placeholder="Street"
+                                   placeholder="Street"
                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                                   pattern="/^[a-zA-ZäöüÄÖÜß\s]+$/" title="Please only enter your street here">
+                                   pattern="[A-Za-zäöüÄÖÜ]+" title="Please only enter your street here">
                         </div>
                         <div class="w-full md:w-1/2 px-3">
                             <label for="houseNumber" class="text-black dark:text-[#b5a9fc] font-font-family p-1">House Number</label>
                             <input id="houseNumber" name="houseNumber" type="text" v-model="user.houseNumber"
-                                   autocomplete="new-password"
+
                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                    placeholder="House Number">
                         </div>
@@ -81,31 +81,31 @@
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                             <label for="postcode" class="text-black dark:text-[#b5a9fc] font-font-family p-1">Postcode</label>
                             <input id="postcode" name="postcode" type="tel" v-model="user.postCode" pattern="[0-9]{5}"
-                                   autocomplete="new-password"
+
                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                    placeholder="Postcode">
                         </div>
                         <div class="w-full md:w-1/2 px-3">
-                            <label for="state" class="text-black dark:text-[#b5a9fc] font-font-family p-1">City</label>
-                            <input id="state" name="state" type="text" v-model="user.city"
-                                   autocomplete="new-password"
+                            <label for="city" class="text-black dark:text-[#b5a9fc] font-font-family p-1">City</label>
+                            <input id="city" name="city" type="text" v-model="user.city"
+
                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                                   placeholder="State">
+                                   placeholder="City">
                         </div>
                     </div>
 
                     <div>
                         <label for="state" class="text-black dark:text-[#b5a9fc] font-font-family p-1">State</label>
                         <input id="state" name="state" type="text" v-model="user.state"
-                               autocomplete="new-password"
+
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="State">
                     </div>
 
                     <div>
                         <label for="mobile" class="text-black dark:text-[#b5a9fc] font-font-family mb-2">Mobile</label>
-                        <input id="mobile" name="mobile" type="tel" v-model="user.mobile" pattern="[0-9]{13}"
-                               autocomplete="new-password"
+                        <input id="mobile" name="mobile" type="tel" v-model="user.mobile" pattern="[0-9]"
+
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                placeholder="Mobile number">
                     </div>

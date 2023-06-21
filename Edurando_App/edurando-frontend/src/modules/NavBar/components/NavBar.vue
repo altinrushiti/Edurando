@@ -130,7 +130,7 @@ function importModule(path) {
   position: absolute;
   max-width: 400px;
   width: 100%;
-  left: 40%;
+  left: 36.5%;
 }
 
 .box .search-box {
@@ -161,7 +161,6 @@ function importModule(path) {
 
 .search-box .icon {
   position: absolute;
-
   right: 0;
   top: 0;
   width: 50px;

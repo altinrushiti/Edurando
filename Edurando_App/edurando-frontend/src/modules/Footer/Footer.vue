@@ -9,7 +9,6 @@
                         <li><router-link to="/imprint">Imprint</router-link></li>
                         <li><router-link to="/TermsOfService">Terms of Service</router-link></li>
                         <li><router-link to="/PrivacyPolicy">Privacy Policy</router-link></li>
-                        <li><router-link to="/LegalNotice">Legal Notice</router-link></li>
                         <li><router-link to="/FAQ">FAQ</router-link></li>
                     </ul>
                 </div>

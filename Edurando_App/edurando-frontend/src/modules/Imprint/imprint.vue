@@ -10,9 +10,9 @@
           <div class="text-black mt-4 dark:text-white">
             <p class="text-lg font-medium">Edurando AG</p>
             <p class="text-lg font-medium">D-20095 Hamburg</p>
-            <p class="text-lg font-medium mb-4">Telefon: +49 - 12 - 34 56*</p>
+            <p class="text-lg font-medium mb-4">Telefon: +49 40 87654321</p>
             <p class="text-lg">(Mo-Fr: 08:00 Uhr - 17:00 Uhr)</p>
-            <p class="text-lg"> E-Mail: xedurando@gmail.com​*</p>
+            <p class="text-lg"> E-Mail: info.edurando@gmail.com​*</p>
             <p class="text-lg">Internet: edurando.de</p>
           </div>
         </div>
