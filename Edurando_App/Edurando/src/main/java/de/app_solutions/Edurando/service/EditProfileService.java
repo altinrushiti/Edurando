@@ -15,12 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static de.app_solutions.Edurando.service.UserProfileService.USER_NOT_FOUND_BY_ID;
+
 @Service
 @Data
 public class EditProfileService {
-
-    private final static String USER_NOT_FOUND = "User with Email %s was not found.";
-    private final static String USER_NOT_FOUND_BY_ID = "User with id: %s was not found.";
     private final UserProfileRepository userProfileRepository;
     private final AddressRepository addressRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
