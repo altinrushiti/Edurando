@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.util.Pair;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -150,6 +151,9 @@ public class UserProfileService implements UserDetailsService {
         } catch (IOException e) {
             return Pair.of(false, "Fehler beim Speichern der Datei");
         }
+    }
+    public List<UserProfile> search(String searchTerm) {
+        return userProfileRepository.search(searchTerm);
     }
 
     public Pair<Boolean, String> removeImage(Long id) {

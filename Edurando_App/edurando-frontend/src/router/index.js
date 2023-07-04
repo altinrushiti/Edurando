@@ -114,11 +114,15 @@ const router = createRouter({
             name: 'Password-Form',
             component: PasswordForm,
 
-        }
-
+        },
+        {
+            path: '/about',
+            name: 'about',
+            component: About
+        },
     ]
 })
-
+import About from "@/modules/About/About.vue";
 router.beforeEach(async (to, from, next) => {
     const isLogged = userStore.getUser !== null
 
