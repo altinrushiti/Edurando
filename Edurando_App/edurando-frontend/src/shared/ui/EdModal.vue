@@ -4,6 +4,7 @@ import {reactive, ref} from "vue";
 import {showPasswordError, transformData} from "@/functions/functions";
 import {useUserStore} from "@/store/store";
 import {useRouter} from "vue-router";
+import receiver from "@/modules/Chat/Components/Receiver.vue";
 
 const props = defineProps(["item"])
 const subjects = reactive(transformData(props.item.topics))
@@ -24,6 +25,7 @@ async function redirectToChat() {
     const response1 = await axios.put('/editChatReceivers', {id: userStorage.getUser.id, chatReceiver: props.item.id})
     result.value = response1.data
     const response2 = await router.push('/chat/' + props.item.id)
+    const response3 = await userStorage.fetchChatReceiverById(props.item.id)
     console.log(props.item.id)
   } catch (error) {
     showError.value = true

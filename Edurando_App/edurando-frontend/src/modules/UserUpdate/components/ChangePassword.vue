@@ -56,11 +56,13 @@ import EditPage from '@/modules/UserUpdate/EditPage.vue';
 import Footer from "@/modules/Footer/Footer.vue";
 import {useRouter} from "vue-router";
 import {showPasswordError} from '@/functions/functions'
+import {useUserStore} from "@/store/store";
 
 const result = ref('')
 const router = useRouter()
+const userStore = useUserStore()
 const password = reactive({
-    id: 1,
+    id: userStore.getUser.id,
     currentPassword: '',
     newPassword: '',
     newPasswordRepeat: '',

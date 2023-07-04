@@ -8,7 +8,18 @@
         </h2>
       </div>
       <form class="mt-8 space-y-6" @submit.prevent="registerUser">
-        <div class="rounded-md shadow-sm space-y-2">
+        <div class="rounded-md space-y-2">
+          <div>
+            <label for="role"
+                   class="text-black dark:text-[#b5a9fc] font-font-family flex p-1 font-size=10px">Role</label>
+            <select
+                class="bg-white text-gray-900 rounded-none relative block w-full px-3 py-2 border border-gray-300 rounded-b-md dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                id="role" v-model="user.role">
+              <option value="" disabled>Select role</option>
+              <option value="Student">Student</option>
+              <option value="Teacher">Teacher</option>
+            </select>
+          </div>
           <div>
             <label for="firstname" class="text-black dark:text-[#b5a9fc] font-font-family p-2">First Name</label>
             <input id="firstname" name="firstname" type="text" v-model="user.firstName"
@@ -36,34 +47,24 @@
             <label for="password" class="text-black dark:text-[#b5a9fc] font-font-family p-1">Password</label>
             <input id="password1" name="password1" type="password" v-model="user.password"
                    autocomplete="off" required
-                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black rounded-b-md focus:outline-none focus:z-10 sm:text-sm" :class="user.password.length === 0 ? 'focus:ring-red-700 focus:border-red-700 border-2' : !isPasswordValid(user.password, user.passwordRepeat) ? 'ring-red-700 border-red-700 border-2' : 'ring-green-700 border-green-700 border-2'"
                    placeholder="Password">
           </div>
-          <p v-if="showPasswordError(user.password)" class="text-red-500 text-xs">Please choose a more secure password,
-            at
-            least 8 characters long, known only to you, and difficult for others to guess."</p>
           <div>
             <label for="password" class="text-black dark:text-[#b5a9fc] font-font-family p-1">Repeat your
               Password</label>
             <input autocomplete="off" id="password2" name="password2" type="password"
                    v-model="user.passwordRepeat"
                    required
-                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black rounded-b-md focus:outline-none focus:z-10 sm:text-sm" :class="user.passwordRepeat.length === 0 ? 'focus:ring-red-700 focus:border-red-700 border-2' : !isPasswordRepeatValid(user.password, user.passwordRepeat) ? 'ring-red-700 border-red-700 border-2' : 'ring-green-700 border-green-700 border-2'"
                    placeholder="Repeat Password">
           </div>
-          <p v-if="showPasswordRepeatError(user.password, user.passwordRepeat)" class="text-red-500 text-xs">Passwords
-            do not
-            match</p>
-          <div>
-            <label for="role"
-                   class="text-black dark:text-[#b5a9fc] font-font-family flex p-1 font-size=10px">Role</label>
-            <select
-                class="bg-white text-gray-900 rounded-none relative block w-full px-3 py-2 border border-gray-300 rounded-b-md dark:bg-[#c6c5d1] dark:border-[#9895ad] dark:text-black focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
-                id="role" v-model="user.role">
-              <option value="" disabled>Select role</option>
-              <option value="Student">Student</option>
-              <option value="Teacher">Teacher</option>
-            </select>
+          <div class="shadow-xl h-auto w-auto rounded-2xl">
+            <div class="flex justify-center">
+              <ul class="text-red-600">
+                <li v-for="e in showPasswordError(user.password, user.passwordRepeat)"><font-awesome-icon :icon="['fa', 'xmark']"/> {{e}}</li>
+              </ul>
+            </div>
           </div>
           <div>
             <label for="terms" class="text-black dark:text-[#b5a9fc] font-font-family flex p-1 font-size=10px">
@@ -90,14 +91,16 @@
 </template>
 
 <script setup>
-import {reactive, ref} from "vue";
+import {reactive, ref, watch} from "vue";
 import axios from 'axios';
 import {useRouter} from "vue-router";
-import {showPasswordError, showPasswordRepeatError} from '@/functions/functions'
+import {showPasswordError, isPasswordValid, isPasswordRepeatValid} from '@/functions/functions'
 import {useEmailStore} from "@/modules/Registration/emailStore";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 const result = ref("")
 const error = ref([])
+const passwordError = ref([])
 const router = useRouter()
 const user = reactive({
   role: '',

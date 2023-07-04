@@ -40,7 +40,7 @@ async function sendEmail() {
             Find Profile
           </h2>
           <p class="mt-2 text-center text-gray-600 dark:text-gray-400">
-            Bitte gib deine E-Mail-Adresse ein, um dein Passwort zurückzusetzen.
+            Please enter your email address to reset your password.
           </p>
         </div>
         <form class="mt-3 space-y-6 bg-white rounded-md p-8" @submit.prevent="sendEmail">

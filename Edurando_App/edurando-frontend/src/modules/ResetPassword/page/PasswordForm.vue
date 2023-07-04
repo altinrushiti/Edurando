@@ -1,6 +1,6 @@
 <script setup>
 import {reactive, ref} from "vue";
-import {showPasswordRepeatError} from "@/functions/functions";
+import {} from "@/functions/functions";
 import axios from "axios";
 import {useRouter} from "vue-router";
 import {useEmailStore} from "@/modules/ResetPassword/emailStore";
@@ -11,7 +11,7 @@ const password = reactive({
   newPassword: '',
   newPasswordRepeat: '',
 });
-const result = ref("e")
+const result = ref("")
 async function onSetPassword() {
   /*if (password.password!== password.confirmPassword && !password.password.email) {
     alert('Passwords do not match')
