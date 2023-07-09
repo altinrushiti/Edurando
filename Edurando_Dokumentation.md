@@ -5,6 +5,7 @@
 - [Dokumentation](#dokumentation)
   - [Inhaltsverzeichnis](#inhaltsverzeichnis)
   - [Softwarearchitektur und „schwierige“ Implementierungsprobleme](#softwarearchitektur-und-schwierige-implementierungsprobleme)
+  - Authentication (DaoAuthenticationProvider) 
   - [Testkonzept](#testkonzept)
   - [DoD](#dod)
   - [Branching Modell](#branching-modell)
@@ -28,7 +29,7 @@ Die Entwicklung des Frontends erfolgt unter Verwendung des JavaScript-Frameworks
 
 Durch die Kombination dieser Komponenten in der Softwarearchitektur entsteht eine robuste und skalierbare Anwendung. Die klare Trennung von Backend und Frontend ermöglicht es den Entwicklern, sich auf ihre jeweiligen Aufgaben zu konzentrieren und effizient zusammenzuarbeiten. Die Verwendung bewährter Frameworks wie Spring Boot, Postgresql, Tailwind und Vue.js stellt sicher, dass die Anwendung auf einer soliden Basis aufbaut und den Anforderungen der Benutzer gerecht wird.
 
-## Authentication (DaoAuthenticationProvider) :
+## Authentication (DaoAuthenticationProvider) 
 
 Um die Authentication von Benutzern in Edurando durchzuführen, wird DaoAuthenticationProvider benutzt.Der DaoAuthenticationProvider ist eine Implementierung des AuthenticationProvider-Interfaces und bietet eine einfache Möglichkeit, Benutzeranmeldeinformationen zu überprüfen und die Authentifizierung durchzuführen. Er arbeitet eng mit einem UserDetailsService zusammen, um Benutzerdetails abzurufen und zu überprüfen.
 
