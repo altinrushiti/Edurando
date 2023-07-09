@@ -5,7 +5,6 @@
 - [Dokumentation](#dokumentation)
   - [Inhaltsverzeichnis](#inhaltsverzeichnis)
   - [Softwarearchitektur und „schwierige“ Implementierungsprobleme](#softwarearchitektur-und-schwierige-implementierungsprobleme)
-  - [Authentication (DaoAuthenticationProvider)](#authentication-(daoAuthenticationProvider)) 
   - [Testkonzept](#testkonzept)
   - [DoD](#dod)
   - [Branching Modell](#branching-modell)
@@ -27,33 +26,47 @@ Um die Daten der Anwendung zu speichern, wird die relationale Datenbank Postgres
 Für das Frontend-Design setzt die Architektur auf das CSS-Framework Tailwind. Mit Tailwind können Entwickler schnell und einfach attraktive Benutzeroberflächen gestalten. Das Framework bietet eine umfangreiche Sammlung von vorgefertigten Komponenten und Klassen, die es ermöglichen, das Erscheinungsbild des Frontends flexibel anzupassen.
 Die Entwicklung des Frontends erfolgt unter Verwendung des JavaScript-Frameworks Vue.js. Vue.js ist eine leistungsfähige und flexible Plattform für die Entwicklung von interaktiven Benutzeroberflächen. Es ermöglicht die Erstellung von reaktiven Komponenten und erleichtert die Integration mit dem Backend der Anwendung. Vue.js bietet Entwicklern eine intuitive Syntax und umfangreiche Bibliotheken, um komplexe Frontend-Logik zu implementieren und eine nahtlose Benutzererfahrung zu gewährleisten.
 
-Durch die Kombination dieser Komponenten in der Softwarearchitektur entsteht eine robuste und skalierbare Anwendung. Die klare Trennung von Backend und Frontend ermöglicht es den Entwicklern, sich auf ihre jeweiligen Aufgaben zu konzentrieren und effizient zusammenzuarbeiten. Die Verwendung bewährter Frameworks wie Spring Boot, Postgresql, Tailwind und Vue.js stellt sicher, dass die Anwendung auf einer soliden Basis aufbaut und den Anforderungen der Benutzer gerecht wird.
+ 
+### Axios-Dokumentation
+Für die Verbindung zwischen Frontend und Backend haben wir die JavaScript-Bibliothek(Axios)  verwendet.
+#### Einführung
+Axios ist eine JavaScript-Bibliothek, die für die Verbindung zwischen Frontend und Backend verwendet wird. Mit Axios können HTTP-Anfragen von der Frontend-Anwendung an den Backend-Server gesendet und die entsprechenden Antworten empfangen werden.
 
-## Authentication (DaoAuthenticationProvider) 
+#### Installation
+Um Axios in Ihr Projekt zu integrieren, führen Sie bitte die folgenden Schritte aus:
 
-Um die Authentication von Benutzern in Edurando durchzuführen, wird DaoAuthenticationProvider benutzt.Der DaoAuthenticationProvider ist eine Implementierung des AuthenticationProvider-Interfaces und bietet eine einfache Möglichkeit, Benutzeranmeldeinformationen zu überprüfen und die Authentifizierung durchzuführen. Er arbeitet eng mit einem UserDetailsService zusammen, um Benutzerdetails abzurufen und zu überprüfen.
+1. Öffnen Sie die Kommandozeile und navigieren Sie zum Projektverzeichnis.
+2. Führen Sie den Befehl `npm install axios` aus, wenn Sie npm verwenden, oder `yarn add axios`, wenn Sie yarn bevorzugen.
 
-Der DaoAuthenticationProvider verfolgt den Ansatz, Benutzerdetails aus einer Datenbank oder einem anderen Speicherort abzurufen und die eingegebenen Anmeldeinformationen mit den gespeicherten Informationen zu vergleichen. Dazu verwendet er das UserDetailsService-Interface, um die Benutzerdetails abzurufen, und den PasswordEncoder, um die eingegebenen Passwörter zu überprüfen.
-Um die Authentication in Edurando umzusetzen, wird der folgende Code verwendet:
+#### Importieren
+Axios Importieren, indem man den folgenden Befehl verwendest:
+```javascript
+import axios from 'axios';
+````
+#### Verwendung
 
-```java
+##### Senden einer HTTP-Anfrage
+Axios stellt die Methode axios.request() zur Verfügung, um HTTP-Anfragen zu senden. Sie akzeptiert ein Konfigurationsobjekt als Parameter, das verschiedene Optionen enthält, wie z.B. die URL der Anfrage, den HTTP-Verb (GET, POST, PUT, DELETE usw.) und optional die zu sendenden Daten.
 
-@Bean
-public DaoAuthenticationProvider daoAuthenticationProvider() {
-    DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-    provider.setPasswordEncoder(bCryptPasswordEncoder);
-    provider.setUserDetailsService(userProfileService);
-    return provider;
-}
+Hier ist ein Beispiel für das Senden einer GET-Anfrage:
+
+```javascript
+onMounted(async () => {
+    try {
+        const response = await axios.get("http://localhost:9001/api/v1/top-users");
+        responseData.value = response.data;
+        console.log(responseData.value)
+    } catch (error) {
+        console.log(error)
+    }
+});
 ```
+In diesem Beispiel wird eine POST-Anfrage an die URL 'http://localhost:9001/api/v1/top-users' gesendet. Die empfangene Antwort ist im Feld response.data verfügbar. Bei einem Fehler wird dieser im error-Objekt erfasst.
 
-1. Passwortverschlüsselung:
+Für andere HTTP-Verben wie POST, PUT oder DELETE können Sie die entsprechenden Methoden axios.post(), axios.put() oder axios.delete() verwenden.
 
-Die Sicherheit der Benutzerpasswörter ist entscheidend. Deshalb wird einen Passwortencoder (BCryptPasswordEndocer) verwendet um die Passwörter zu verschlüsseln. Der BCryptPasswordEncoder nutzt die starke und sichere Hash-Funktion BCrypt, um die Passwörter zu verschlüsseln. Durch die Verwendung von Salt-Werten und einer sicheren Hash-Funktion wird die Sicherheit der Passwörter verbessert und der Schutz vor Angriffen wie Brute-Force oder Rainbow-Table-Angriffen gewährleistet.  
 
-2. Benutzerdetails-Service:
-
-Der DaoAuthenticationProvider benötigt einen UserDetailsService, um die Benutzerdetails abzurufen.
+Durch die Kombination dieser Komponenten in der Softwarearchitektur entsteht eine robuste und skalierbare Anwendung. Die klare Trennung von Backend und Frontend ermöglicht es den Entwicklern, sich auf ihre jeweiligen Aufgaben zu konzentrieren und effizient zusammenzuarbeiten. Die Verwendung bewährter Frameworks wie Spring Boot, Postgresql, Tailwind und Vue.js stellt sicher, dass die Anwendung auf einer soliden Basis aufbaut und den Anforderungen der Benutzer gerecht wird.
 
 ## Testkonzept
 
@@ -187,43 +200,7 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
 
 ## Velocity des Teams
 
-Der Velocity-Bericht dokumentiert die Geschwindigkeit unseres Teams basierend auf den erledigten Storypoints in jedem Sprint. Die Velocity ist ein Indikator für die Effizienz und Produktivität des Teams.
-
-
-| Sprint | Offene Issues | Erledigte Issues | Erledigte Storypoints im Sprint |
-| ------ | ------ | ------ | ------ |
-|Beginn  |82        |0.    |0
-|1       |71        |11    |73
-|2       |57        |14    |164
-|3       |44        |13    |154
-|4       |25        |19    |167
-
-
-
-Sprint 1:
-In Sprint 1 wurden 11 Issues erfolgreich abgeschlossen, was zu einer Velocity von 73 Storypoints führte. Obwohl noch 71 offene Issues vorhanden waren, konnten wir als Team in diesem Sprint eine solide Leistung erzielen.
-
-Sprint 2:
-Der Velocity-Wert stieg deutlich auf 164 Storypoints an, da das Team 14 weitere Issues erfolgreich abschließen konnte. Die Anzahl der offenen Issues reduzierte sich auf 57, was darauf hindeutet, dass das Team effektiv an der Bewältigung von Aufgaben arbeitete und die Produktivität steigerte.
-
-Sprint 3:
-Auch in diesem Sprint konnten wir als Team eine Leistung mit 154 erledigten Storypoints aufrechterhalten. Obwohl die Anzahl der offenen Issues weiter auf 44 sank, blieb die Velocity stabil. Dies weist darauf him, dass wir komplexere oder umfangreichere Aufgaben bearbeiteten, die mehr Zeit in Anspruch nahmen.
-
-Sprint 4:
-Im letzten Sprint wurde ein bemerkenswerter Anstieg der Velocity auf 167 Storypoints verzeichnet. Dieses Mal wurden 19 Issues erfolgreich abgeschlossen, und die Anzahl der offenen Issues sank auf 25. Wir konnten unsere Produktivität steigern und eine höhere Geschwindigkeit bei der Bearbeitung der Aufgaben erreichen.
-
-Der Velocity-Bericht zeigt, dass wir als Team im Verlauf der Sprints eine positive Entwicklung in Bezug auf die Effizienz und Arbeitsgeschwindigkeit gezeigt haben. Obwohl die Anzahl der offenen Issues variieren kann, konnten wir kontinuierlich eine hohe Anzahl an Storypoints abschließen und somit den Projektfortschritt vorantreiben.
-
-## Reflektion über Probleme im Sprint
-Das Softwareprojekt Edurando hat uns vor verschiedene Herausforderungen gestellt, insbesondere aufgrund seiner Komplexität und der Größe unseres Entwicklungsteams. Wir haben mit der agilen Methode Scrum gearbeitet, wobei wir in 2-wöchigen Sprints gearbeitet haben. In diesem Prozess traten jedoch einige Probleme auf, die wir reflektieren und daraus lernen können.
-
-Effizientes Arbeiten und Aufgabenverteilung: Da es unser erstes größeres Softwareprojekt in einer Gruppe war, mussten wir uns anfangs an das effiziente Arbeiten in einem Team gewöhnen. Die Aufgabenverteilung war manchmal eine Herausforderung, da es wichtig war, dass alle Teammitglieder produktiv und effektiv arbeiten konnten. Hier hätten wir von Anfang an die Aufgaben etwas  ausgewogener und klarer verteilen sollen. 
-
-Vollständiger Abschluss der Sprints: Eine der größten Herausforderungen bestand darin, die geplanten Aufgaben innerhalb der festgelegten Sprints abzuschließen. Oft mussten wir feststellen, dass wir am Tag des Sprint-Reviews nicht alle geplanten Aufgaben abgeschlossen hatten. Dies führte teilweise zu Aufgabenstau und beeinträchtigte den Fortschritt des Projekts. Es war wichtig, dass wir unsere Aufgaben realistisch einschätzten und uns auf die wichtigsten Funktionen konzentrierten, um sicherzustellen, dass wir sie innerhalb der Sprints erfolgreich abschließen konnten. Da wir uns in dem Scrum-Prozess erstmal zurechtfinden mussten, hat sich im Verlauf des Projekts das realistische Einschätzen der Aufgaben, die wir innerhalb eines Sprints bewältigen konnten, deutlich gebessert, was sich positiv auf unsere Velocity auswirkte. 
-
-Zeitmanagement: Das effektive Zeitmanagement war eine weitere Herausforderung. Manchmal haben wir uns in Details verloren und uns nicht rechtzeitig auf die Hauptfunktionen von Edurando konzentriert, wie beispielsweise das Durchsuchen und Anzeigen der Startseite, die Chatfunktion und die Möglichkeit das eigene Profil zu bearbeiten. Dies führte manchmal zu kleinen Verzögerungen und einem erhöhten Druck am Ende der Sprints. Das Zeitmanagement-Problem wird auch damit zusammenhängen, dass Edurando unser erstes richtiges Software-Projekt ist, und wir den Großteil der Technologien (Vue-Js, Axios, Pinia, Spring Security, Mock-Testing, …) und Funktionalitäten, welche die Software benötigt (Registrieren, Chatten, Profil bearbeiten, …), von Grund auf gelernt haben, was am Anfang viel Zeit in Anspruch genommen hat. Trotz dessen haben wir diese erworbenen Kenntnisse auch noch innerhalb der Projektentwicklung nutzen können, um unsere Entwicklungsgeschwindigkeit hochzuhalten. 
-
-Insgesamt war das Softwareprojekt Edurando eine wertvolle Lernerfahrung für uns als Team. Wir haben erkannt, dass effizientes Arbeiten, klare Kommunikation, gute Aufgabenverteilung und realistisches Zeitmanagement entscheidend für das Entwickeln eines anständigen Softwareprojekts und die damit zusammenhängenden Herausforderungen (ein gutes Arbeitsklima, Teamdynamik, Motivation, …)  sind. Durch die Reflektion über die aufgetretenen Probleme können wir diese als Lehren für zukünftige Projekte nutzen und unsere Arbeitsweise weiter optimieren.
+## Reflektion über Probleme im Sprint (steht im Sprint-Protokoll?)
 
 ## Gruppenprotokoll (steht im Sprint-Protokoll?)
 
