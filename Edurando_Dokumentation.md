@@ -27,9 +27,46 @@ Um die Daten der Anwendung zu speichern, wird die relationale Datenbank Postgres
 Für das Frontend-Design setzt die Architektur auf das CSS-Framework Tailwind. Mit Tailwind können Entwickler schnell und einfach attraktive Benutzeroberflächen gestalten. Das Framework bietet eine umfangreiche Sammlung von vorgefertigten Komponenten und Klassen, die es ermöglichen, das Erscheinungsbild des Frontends flexibel anzupassen.
 Die Entwicklung des Frontends erfolgt unter Verwendung des JavaScript-Frameworks Vue.js. Vue.js ist eine leistungsfähige und flexible Plattform für die Entwicklung von interaktiven Benutzeroberflächen. Es ermöglicht die Erstellung von reaktiven Komponenten und erleichtert die Integration mit dem Backend der Anwendung. Vue.js bietet Entwicklern eine intuitive Syntax und umfangreiche Bibliotheken, um komplexe Frontend-Logik zu implementieren und eine nahtlose Benutzererfahrung zu gewährleisten.
 
-Durch die Kombination dieser Komponenten in der Softwarearchitektur entsteht eine robuste und skalierbare Anwendung. Die klare Trennung von Backend und Frontend ermöglicht es den Entwicklern, sich auf ihre jeweiligen Aufgaben zu konzentrieren und effizient zusammenzuarbeiten. Die Verwendung bewährter Frameworks wie Spring Boot, Postgresql, Tailwind und Vue.js stellt sicher, dass die Anwendung auf einer soliden Basis aufbaut und den Anforderungen der Benutzer gerecht wird.
+### Axios
+Für die Verbindung zwischen Frontend und Backend haben wir die JavaScript-Bibliothek(Axios)  verwendet.
 
-## Authentication (DaoAuthenticationProvider) 
+#### Einführung
+Axios ist eine JavaScript-Bibliothek, die für die Verbindung zwischen Frontend und Backend verwendet wird. Mit Axios können HTTP-Anfragen von der Frontend-Anwendung an den Backend-Server gesendet und die entsprechenden Antworten empfangen werden.
+
+#### Installation
+Um Axios in Ihr Projekt zu integrieren, führen Sie bitte die folgenden Schritte aus:
+
+1. Öffnen Sie die Kommandozeile und navigieren Sie zum Projektverzeichnis.
+2. Führen Sie den Befehl `npm install axios` aus, wenn Sie npm verwenden, oder `yarn add axios`, wenn Sie yarn bevorzugen.
+
+#### Importieren
+Axios Importieren, indem man den folgenden Befehl verwendest:
+```javascript
+import axios from 'axios';
+````
+#### Verwendung
+
+##### Senden einer HTTP-Anfrage
+Axios stellt die Methode axios.request() zur Verfügung, um HTTP-Anfragen zu senden. Sie akzeptiert ein Konfigurationsobjekt als Parameter, das verschiedene Optionen enthält, wie z.B. die URL der Anfrage, den HTTP-Verb (GET, POST, PUT, DELETE usw.) und optional die zu sendenden Daten.
+
+Hier ist ein Beispiel für das Senden einer GET-Anfrage:
+
+```javascript
+onMounted(async () => {
+    try {
+        const response = await axios.get("http://localhost:9001/api/v1/top-users");
+        responseData.value = response.data;
+        console.log(responseData.value)
+    } catch (error) {
+        console.log(error)
+    }
+});
+```
+In diesem Beispiel wird eine GET-Anfrage an die URL 'http://localhost:9001/api/v1/top-users' gesendet. Die empfangene Antwort ist im Feld response.data verfügbar. Bei einem Fehler wird dieser im error-Objekt erfasst.
+
+Für andere HTTP-Verben wie POST, PUT oder DELETE können Sie die entsprechenden Methoden axios.post(), axios.put() oder axios.delete() verwenden.
+
+### Authentication (DaoAuthenticationProvider) 
 
 Um die Authentication von Benutzern in Edurando durchzuführen, wird DaoAuthenticationProvider benutzt.Der DaoAuthenticationProvider ist eine Implementierung des AuthenticationProvider-Interfaces und bietet eine einfache Möglichkeit, Benutzeranmeldeinformationen zu überprüfen und die Authentifizierung durchzuführen. Er arbeitet eng mit einem UserDetailsService zusammen, um Benutzerdetails abzurufen und zu überprüfen.
 
@@ -54,6 +91,8 @@ Die Sicherheit der Benutzerpasswörter ist entscheidend. Deshalb wird einen Pass
 2. Benutzerdetails-Service:
 
 Der DaoAuthenticationProvider benötigt einen UserDetailsService, um die Benutzerdetails abzurufen.
+
+Durch die Kombination dieser Komponenten in der Softwarearchitektur entsteht eine robuste und skalierbare Anwendung. Die klare Trennung von Backend und Frontend ermöglicht es den Entwicklern, sich auf ihre jeweiligen Aufgaben zu konzentrieren und effizient zusammenzuarbeiten. Die Verwendung bewährter Frameworks wie Spring Boot, Postgresql, Tailwind und Vue.js stellt sicher, dass die Anwendung auf einer soliden Basis aufbaut und den Anforderungen der Benutzer gerecht wird.
 
 ## Testkonzept
 
