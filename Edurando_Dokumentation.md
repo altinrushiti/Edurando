@@ -119,8 +119,42 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
     [Eine Übersicht über die Änderungen und Verbesserungen der Test- und Buildautomatisierung im Laufe der Zeit.]
 
 ## Schätzung am Anfang (steht im Sprint-Protokoll?)
+1. Sprint:
+Projekt-Preparation(Backlog, Rest-API einrichten, Workflow definieren,...) = 70 SP
+
+2. Sprint:
+Registrieren: 69 SP
+Profil bearbeiten: 63 SP
+
+3. Sprint:
+Anmelden: 45 SP
+Profile durchstöbern: SP 46
+Abmelden: 13 SP
+
+4.Sprint:
+Startseite durchsuchen: 52 SP
+Passwort vergessen: 31 SP
+Chatfenster zwischen Student und Lehrer: 55 SP
+
 
 ## Schätzung am Ende (steht im Sprint-Protokoll?)
+1. Sprint:
+Projekt-Preparation(Backlog, Rest-API einrichten, Workflow definieren,...) = 73 SP
+
+2. Sprint:
+Registrieren: 85 SP
+Profil bearbeiten: 79 SP
+
+3. Sprint:
+Anmelden: 70 SP
+Profile durchstöbern: SP 63
+Abmelden: 21 SP
+
+4. Sprint:
+Startseite durchsuchen: 52 SP
+Passwort vergessen: 60 SP
+Chatfenster zwischen Student und Lehrer: 55 SP
+
 
 ## Burndown-Chart
 
