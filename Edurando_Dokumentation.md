@@ -3,20 +3,20 @@
 ## Inhaltsverzeichnis
 
 
-  - [Softwarearchitektur und „schwierige“ Implementierungsprobleme](#softwarearchitektur-und-schwierige-implementierungsprobleme)
-    - [Authentication (DaoAuthenticationProvider)](#authentication-(daoAuthenticationProvider)) 
-  - [Testkonzept](#testkonzept)
-  - [DoD](#dod)
-  - [Branching Modell](#branching-modell)
-  - [Test-, Buildautomatisierung, CI](#test--buildautomatisierung-ci)
-  - [Schätzung am Anfang (steht im Sprint-Protokoll?)](#schätzung-am-anfang-steht-im-sprint-protokoll)
-  - [Schätzung am Ende (steht im Sprint-Protokoll?)](#schätzung-am-ende-steht-im-sprint-protokoll)
-  - [Burndown-Chart](#burndown-chart)
-  - [Velocity des Teams](#velocity-des-teams)
-  - [Reflektion über Probleme im Sprint (steht im Sprint-Protokoll?)](#reflektion-über-probleme-im-sprint-steht-im-sprint-protokoll)
-  - [Gruppenprotokoll (steht im Sprint-Protokoll?)](#gruppenprotokoll-steht-im-sprint-protokoll)
-  - [Usability](#usability)
-
+- [Softwarearchitektur und „schwierige“ Implementierungsprobleme](#softwarearchitektur-und-schwierige-implementierungsprobleme)
+  - [Axios](#axios)
+  - [Authentication (DaoAuthenticationProvider)](#authentication-daoauthenticationprovider) 
+- [Testkonzept](#testkonzept)
+- [DoD](#dod)
+- [Branching Modell](#branching-modell)
+- [Test-, Buildautomatisierung, CI](#test-buildautomatisierung-ci)
+- [Schätzung am Anfang (steht im Sprint-Protokoll?)](#schätzung-am-anfang-steht-im-sprint-protokoll)
+- [Schätzung am Ende (steht im Sprint-Protokoll?)](#schätzung-am-ende-steht-im-sprint-protokoll)
+- [Burndown-Chart](#burndown-chart)
+- [Velocity des Teams](#velocity-des-teams)
+- [Reflektion über Probleme im Sprint (steht im Sprint-Protokoll?)](#reflektion-über-probleme-im-sprint-steht-im-sprint-protokoll)
+- [Gruppenprotokoll (steht im Sprint-Protokoll?)](#gruppenprotokoll-steht-im-sprint-protokoll)
+- [Usability](#usability)
 ## Softwarearchitektur und „schwierige“ Implementierungsprobleme
 
 Die Softwarearchitektur des Projekts umfasst eine Vielzahl von Komponenten, die gemeinsam arbeiten, um eine robuste und leistungsstarke Anwendung zu ermöglichen. Das Fundament dieser Architektur bildet das Backend-Framework Spring Boot. Mit seiner Unterstützung können Entwickler effizient und schnell das Backend der Anwendung entwickeln. Spring Boot bietet eine Vielzahl von Funktionen und Erweiterungen, die die Entwicklung erleichtern und die Wartbarkeit der Anwendung verbessern.
