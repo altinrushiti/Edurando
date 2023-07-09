@@ -5,7 +5,7 @@
 - [Dokumentation](#dokumentation)
   - [Inhaltsverzeichnis](#inhaltsverzeichnis)
   - [Softwarearchitektur und „schwierige“ Implementierungsprobleme](#softwarearchitektur-und-schwierige-implementierungsprobleme)
-  - [Authentication (DaoAuthenticationProvider)] 
+  - [Authentication (DaoAuthenticationProvider)](#Authentication (DaoAuthenticationProvider)) 
   - [Testkonzept](#testkonzept)
   - [DoD](#dod)
   - [Branching Modell](#branching-modell)
