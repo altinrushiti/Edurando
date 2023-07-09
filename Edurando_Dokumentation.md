@@ -209,10 +209,10 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
 ## Test-, Buildautomatisierung, CI
 
 1. Technologie-Stack:
-  Junit Tests mit Mock und Postman Tests
+   - Junit Tests mit Mock und Postman Tests
 
 2. Verzeichnisstruktur und Organisationsansatz:
-  Die Anwendung selbst verwendet die Postgresql Datenbank.
+   - Die Anwendung selbst verwendet die Postgresql Datenbank.
   Für das Testen wurde eine seperate h2 in-momory-dantenbank
   erstellt. Dafür wurde die Datenbank im Ordner src/test
   resources/application.properties konfiguriert. Und im
@@ -267,7 +267,7 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
 
 7. Testdatenmanagement:
     - Die Datenbank wird am Anfang der Pipeline erstellt und
-  die Daten die im Test hinzugefügt werden hinzugefügt. Am
+  die Daten die im Test hinzugefügt werden, werden hinzugefügt. Am
   Ende der Pipeline werden die Daten von der Datebank
   gelöscht. 
 
