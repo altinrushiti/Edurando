@@ -118,7 +118,7 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
 12. Änderungsprotokoll:
     [Eine Übersicht über die Änderungen und Verbesserungen der Test- und Buildautomatisierung im Laufe der Zeit.]
 
-## Schätzung am Anfang (steht im Sprint-Protokoll?)
+## Schätzung am Anfang 
 1. Sprint:
 - Projekt-Preparation(Backlog, Rest-API einrichten, Workflow definieren,...): 70 SP
 
@@ -137,7 +137,7 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
 - Chatfenster zwischen Student und Lehrer: 55 SP
 
 
-## Schätzung am Ende (steht im Sprint-Protokoll?)
+## Schätzung am Ende 
 1. Sprint:
 - Projekt-Preparation(Backlog, Rest-API einrichten, Workflow definieren,...): 73 SP
 
