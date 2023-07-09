@@ -68,6 +68,47 @@ Für andere HTTP-Verben wie POST, PUT oder DELETE können Sie die entsprechenden
 
 Durch die Kombination dieser Komponenten in der Softwarearchitektur entsteht eine robuste und skalierbare Anwendung. Die klare Trennung von Backend und Frontend ermöglicht es den Entwicklern, sich auf ihre jeweiligen Aufgaben zu konzentrieren und effizient zusammenzuarbeiten. Die Verwendung bewährter Frameworks wie Spring Boot, Postgresql, Tailwind und Vue.js stellt sicher, dass die Anwendung auf einer soliden Basis aufbaut und den Anforderungen der Benutzer gerecht wird.
 
+### Axios-Dokumentation
+Für die Verbindung zwischen Frontend und Backend haben wir die JavaScript-Bibliothek(Axios)  verwendet.
+#### Einführung
+Axios ist eine JavaScript-Bibliothek, die für die Verbindung zwischen Frontend und Backend verwendet wird. Mit Axios können HTTP-Anfragen von der Frontend-Anwendung an den Backend-Server gesendet und die entsprechenden Antworten empfangen werden.
+
+#### Installation
+Um Axios in Ihr Projekt zu integrieren, führen Sie bitte die folgenden Schritte aus:
+
+1. Öffnen Sie die Kommandozeile und navigieren Sie zum Projektverzeichnis.
+2. Führen Sie den Befehl `npm install axios` aus, wenn Sie npm verwenden, oder `yarn add axios`, wenn Sie yarn bevorzugen.
+
+#### Importieren
+Axios Importieren, indem man den folgenden Befehl verwendest:
+```javascript
+import axios from 'axios';
+````
+#### Verwendung
+
+##### Senden einer HTTP-Anfrage
+Axios stellt die Methode axios.request() zur Verfügung, um HTTP-Anfragen zu senden. Sie akzeptiert ein Konfigurationsobjekt als Parameter, das verschiedene Optionen enthält, wie z.B. die URL der Anfrage, den HTTP-Verb (GET, POST, PUT, DELETE usw.) und optional die zu sendenden Daten.
+
+Hier ist ein Beispiel für das Senden einer GET-Anfrage:
+
+```javascript
+onMounted(async () => {
+    try {
+        const response = await axios.get("http://localhost:9001/api/v1/top-users");
+        responseData.value = response.data;
+        console.log(responseData.value)
+    } catch (error) {
+        console.log(error)
+    }
+});
+```
+In diesem Beispiel wird eine GET-Anfrage an die URL 'http://localhost:9001/api/v1/top-users' gesendet. Die empfangene Antwort ist im Feld response.data verfügbar. Bei einem Fehler wird dieser im error-Objekt erfasst.
+
+Für andere HTTP-Verben wie POST, PUT oder DELETE können Sie die entsprechenden Methoden axios.post(), axios.put() oder axios.delete() verwenden.
+
+
+Durch die Kombination dieser Komponenten in der Softwarearchitektur entsteht eine robuste und skalierbare Anwendung. Die klare Trennung von Backend und Frontend ermöglicht es den Entwicklern, sich auf ihre jeweiligen Aufgaben zu konzentrieren und effizient zusammenzuarbeiten. Die Verwendung bewährter Frameworks wie Spring Boot, Postgresql, Tailwind und Vue.js stellt sicher, dass die Anwendung auf einer soliden Basis aufbaut und den Anforderungen der Benutzer gerecht wird.
+
 ## Testkonzept
 
 Das Testkonzept für das Projekt setzt sich aus mehreren wichtigen Punkten zusammen, um eine umfassende Testabdeckung und eine hohe Qualität der Anwendung zu gewährleisten.
