@@ -203,6 +203,7 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
 
 
 ## Burndown-Chart
+![Burndown Chart](Burndown_Chart.png)
 
 ## Velocity des Teams
 
@@ -243,8 +244,6 @@ Vollständiger Abschluss der Sprints: Eine der größten Herausforderungen besta
 Zeitmanagement: Das effektive Zeitmanagement war eine weitere Herausforderung. Manchmal haben wir uns in Details verloren und uns nicht rechtzeitig auf die Hauptfunktionen von Edurando konzentriert, wie beispielsweise das Durchsuchen und Anzeigen der Startseite, die Chatfunktion und die Möglichkeit das eigene Profil zu bearbeiten. Dies führte manchmal zu kleinen Verzögerungen und einem erhöhten Druck am Ende der Sprints. Das Zeitmanagement-Problem wird auch damit zusammenhängen, dass Edurando unser erstes richtiges Software-Projekt ist, und wir den Großteil der Technologien (Vue-Js, Axios, Pinia, Spring Security, Mock-Testing, …) und Funktionalitäten, welche die Software benötigt (Registrieren, Chatten, Profil bearbeiten, …), von Grund auf gelernt haben, was am Anfang viel Zeit in Anspruch genommen hat. Trotz dessen haben wir diese erworbenen Kenntnisse auch noch innerhalb der Projektentwicklung nutzen können, um unsere Entwicklungsgeschwindigkeit hochzuhalten. 
 
 Insgesamt war das Softwareprojekt Edurando eine wertvolle Lernerfahrung für uns als Team. Wir haben erkannt, dass effizientes Arbeiten, klare Kommunikation, gute Aufgabenverteilung und realistisches Zeitmanagement entscheidend für das Entwickeln eines anständigen Softwareprojekts und die damit zusammenhängenden Herausforderungen (ein gutes Arbeitsklima, Teamdynamik, Motivation, …)  sind. Durch die Reflektion über die aufgetretenen Probleme können wir diese als Lehren für zukünftige Projekte nutzen und unsere Arbeitsweise weiter optimieren.
-
-## Gruppenprotokoll (steht im Sprint-Protokoll?)
 
 ## Usability
 
