@@ -160,6 +160,33 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
 
 ## Velocity des Teams
 
+Der Velocity-Bericht dokumentiert die Geschwindigkeit unseres Teams basierend auf den erledigten Storypoints in jedem Sprint. Die Velocity ist ein Indikator für die Effizienz und Produktivität des Teams.
+
+
+| Sprint | Offene Issues | Erledigte Issues | Erledigte Storypoints im Sprint |
+| ------ | ------ | ------ | ------ |
+|Beginn  |82        |0.    |0
+|1       |71        |11    |73
+|2       |57        |14    |164
+|3       |44        |13    |154
+|4       |25        |19    |167
+
+
+
+Sprint 1:
+In Sprint 1 wurden 11 Issues erfolgreich abgeschlossen, was zu einer Velocity von 73 Storypoints führte. Obwohl noch 71 offene Issues vorhanden waren, konnten wir als Team in diesem Sprint eine solide Leistung erzielen.
+
+Sprint 2:
+Der Velocity-Wert stieg deutlich auf 164 Storypoints an, da das Team 14 weitere Issues erfolgreich abschließen konnte. Die Anzahl der offenen Issues reduzierte sich auf 57, was darauf hindeutet, dass das Team effektiv an der Bewältigung von Aufgaben arbeitete und die Produktivität steigerte.
+
+Sprint 3:
+Auch in diesem Sprint konnten wir als Team eine Leistung mit 154 erledigten Storypoints aufrechterhalten. Obwohl die Anzahl der offenen Issues weiter auf 44 sank, blieb die Velocity stabil. Dies weist darauf him, dass wir komplexere oder umfangreichere Aufgaben bearbeiteten, die mehr Zeit in Anspruch nahmen.
+
+Sprint 4:
+Im letzten Sprint wurde ein bemerkenswerter Anstieg der Velocity auf 167 Storypoints verzeichnet. Dieses Mal wurden 19 Issues erfolgreich abgeschlossen, und die Anzahl der offenen Issues sank auf 25. Wir konnten unsere Produktivität steigern und eine höhere Geschwindigkeit bei der Bearbeitung der Aufgaben erreichen.
+
+Der Velocity-Bericht zeigt, dass wir als Team im Verlauf der Sprints eine positive Entwicklung in Bezug auf die Effizienz und Arbeitsgeschwindigkeit gezeigt haben. Obwohl die Anzahl der offenen Issues variieren kann, konnten wir kontinuierlich eine hohe Anzahl an Storypoints abschließen und somit den Projektfortschritt vorantreiben.
+
 ## Reflektion über Probleme im Sprint (steht im Sprint-Protokoll?)
 
 ## Gruppenprotokoll (steht im Sprint-Protokoll?)
