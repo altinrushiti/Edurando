@@ -5,6 +5,7 @@
 
 - [Softwarearchitektur und „schwierige“ Implementierungsprobleme](#softwarearchitektur-und-schwierige-implementierungsprobleme)
   - [Axios](#axios)
+  - [Pinia](#pinia)
   - [Authentication (DaoAuthenticationProvider)](#authentication-daoauthenticationprovider) 
 - [Testkonzept](#testkonzept)
 - [DoD](#dod)
