@@ -10,12 +10,10 @@
 - [DoD](#dod)
 - [Branching Modell](#branching-modell)
 - [Test-, Buildautomatisierung, CI](#test-buildautomatisierung-ci)
-- [Schätzung am Anfang (steht im Sprint-Protokoll?)](#schätzung-am-anfang-steht-im-sprint-protokoll)
-- [Schätzung am Ende (steht im Sprint-Protokoll?)](#schätzung-am-ende-steht-im-sprint-protokoll)
+- [Schätzungen](#schätzungen)
 - [Burndown-Chart](#burndown-chart)
 - [Velocity des Teams](#velocity-des-teams)
-- [Reflektion über Probleme im Sprint (steht im Sprint-Protokoll?)](#reflektion-über-probleme-im-sprint-steht-im-sprint-protokoll)
-- [Gruppenprotokoll (steht im Sprint-Protokoll?)](#gruppenprotokoll-steht-im-sprint-protokoll)
+- [Reflektion über Probleme im Sprint](#reflektion-über-probleme-im-sprint)
 - [Usability](#usability)
 ## Softwarearchitektur und „schwierige“ Implementierungsprobleme
 
@@ -27,7 +25,7 @@ Für das Frontend-Design setzt die Architektur auf das CSS-Framework Tailwind. M
 Die Entwicklung des Frontends erfolgt unter Verwendung des JavaScript-Frameworks Vue.js. Vue.js ist eine leistungsfähige und flexible Plattform für die Entwicklung von interaktiven Benutzeroberflächen. Es ermöglicht die Erstellung von reaktiven Komponenten und erleichtert die Integration mit dem Backend der Anwendung. Vue.js bietet Entwicklern eine intuitive Syntax und umfangreiche Bibliotheken, um komplexe Frontend-Logik zu implementieren und eine nahtlose Benutzererfahrung zu gewährleisten.
 
 ### Axios
-Für die Verbindung zwischen Frontend und Backend haben wir die JavaScript-Bibliothek(Axios)  verwendet.
+Für die Verbindung zwischen Frontend und Backend haben wir die JavaScript-Bibliothek "Axios" verwendet.
 
 ##### Einführung
 Axios ist eine JavaScript-Bibliothek, die für die Verbindung zwischen Frontend und Backend verwendet wird. Mit Axios können HTTP-Anfragen von der Frontend-Anwendung an den Backend-Server gesendet und die entsprechenden Antworten empfangen werden.
@@ -38,12 +36,12 @@ Um Axios in Ihr Projekt zu integrieren, führen Sie bitte die folgenden Schritte
 1. Öffnen Sie die Kommandozeile und navigieren Sie zum Projektverzeichnis.
 2. Führen Sie den Befehl `npm install axios` aus, wenn Sie npm verwenden, oder `yarn add axios`, wenn Sie yarn bevorzugen.
 
-##### Importieren
-Axios Importieren, indem man den folgenden Befehl verwendest:
+##### Verwendung
+###### Importieren
+Importieren Sie Axios in Ihrer Vue-Anwendung:
 ```javascript
 import axios from 'axios';
 ````
-##### Verwendung
 
 ###### Senden einer HTTP-Anfrage
 Axios stellt die Methode axios.request() zur Verfügung, um HTTP-Anfragen zu senden. Sie akzeptiert ein Konfigurationsobjekt als Parameter, das verschiedene Optionen enthält, wie z.B. die URL der Anfrage, den HTTP-Verb (GET, POST, PUT, DELETE usw.) und optional die zu sendenden Daten.
@@ -65,8 +63,78 @@ In diesem Beispiel wird eine GET-Anfrage an die URL 'http://localhost:9001/api/v
 
 Für andere HTTP-Verben wie POST, PUT oder DELETE können Sie die entsprechenden Methoden axios.post(), axios.put() oder axios.delete() verwenden.
 
-### Authentication (DaoAuthenticationProvider) 
+### Pinia
+Um den Angemeldeten User zu speichern haben wir die State-Management-Bibliothek von Vue.js verwendet.
 
+##### Einführung
+Pinia ist eine Zustandsverwaltungsbibliothek für Vue.js-Anwendungen. Sie bietet eine einfache und effektive Möglichkeit, den Zustand Ihrer Anwendung zu verwalten und die Daten zwischen Komponenten zu teilen. Pinia wurde speziell für Vue entwickelt und integriert sich nahtlos in die Vue-Ökosystem.
+
+##### Installation
+Um Pinia in Ihrem Vue-Projekt zu verwenden, müssen Sie es zuerst installieren. Hier sind die Schritte, um Pinia zu installieren:
+
+1. Öffnen Sie die Kommandozeile und navigieren Sie zum Projektverzeichnis.
+2. Führen Sie den Befehl `npm install pinia` aus, wenn Sie npm verwenden, oder `yarn add pinia`, wenn Sie yarn bevorzugen.
+
+##### Verwendung
+###### Importieren
+Importieren Sie Pinia in Ihrer Vue-Anwendung:
+```javascript
+import { createPinia } from 'pinia';
+import { createApp } from 'vue';
+
+const app = createApp();
+
+app.use(createPinia());
+````
+Dieser Code erstellt eine neue Pinia-Instanz und registriert sie in Ihrer Vue-Anwendung.
+
+###### Beispiel für das erstellen eines Pinia-Moduls
+Erstellen Sie ein Pinia-Modul:
+```javascript
+import { defineStore } from 'pinia';
+
+export const useUserStore = defineStore('user', {
+  state: () => ({
+    user: null,
+  }),
+  actions: {
+    setUser(user) {
+      this.user = user;
+    },
+  },
+});
+````
+In diesem Beispiel wird ein Pinia-Modul mit dem Namen "user" erstellt. Es enthält einen Zustand "user", der standardmäßig auf null gesetzt ist, und eine Aktion "setUser", um den Benutzer zu aktualisieren.
+
+###### Beispiel für das Speichern eines Users in dem Local Storage
+Nach dem Anmelden den User in dem Local Storage speichern:
+```javascript
+import {reactive} from "vue";
+import {useUserStore} from "@/store/store";
+
+const userStore = useUserStore()
+
+const user = reactive({
+  email: '',
+  password: ''
+})
+
+async function saveUserInLocalStorage() {
+  try {
+    const response = await axios.get(`http://localhost:9001/api/v1/profileByEmail/${user.email}`);
+
+    // User im Localstorage speichern
+    await userStore.setUser(response.data);
+  } catch (error) {
+    console.log(error)
+  }
+}
+````
+In diesem Beispiel wird das Pinia-Modul useUserStore in der Komponente verwendet. Durch den Aufruf von useUserStore() wird eine Instanz des Moduls erstellt und der Zustand und die Aktionen können verwendet werden.
+
+Beachten Sie, dass die useUserStore()-Funktion reaktiv ist. Wenn sich der Zustand des Moduls ändert, werden die Komponenten automatisch aktualisiert.
+
+### Authentication (DaoAuthenticationProvider) 
 Um die Authentication von Benutzern in Edurando durchzuführen, wird DaoAuthenticationProvider benutzt.Der DaoAuthenticationProvider ist eine Implementierung des AuthenticationProvider-Interfaces und bietet eine einfache Möglichkeit, Benutzeranmeldeinformationen zu überprüfen und die Authentifizierung durchzuführen. Er arbeitet eng mit einem UserDetailsService zusammen, um Benutzerdetails abzurufen und zu überprüfen.
 
 Der DaoAuthenticationProvider verfolgt den Ansatz, Benutzerdetails aus einer Datenbank oder einem anderen Speicherort abzurufen und die eingegebenen Anmeldeinformationen mit den gespeicherten Informationen zu vergleichen. Dazu verwendet er das UserDetailsService-Interface, um die Benutzerdetails abzurufen, und den PasswordEncoder, um die eingegebenen Passwörter zu überprüfen.
