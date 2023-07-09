@@ -131,7 +131,7 @@ Anmelden: 45 SP
 Profile durchstöbern: SP 46
 Abmelden: 13 SP
 
-4.Sprint:
+4. Sprint:
 Startseite durchsuchen: 52 SP
 Passwort vergessen: 31 SP
 Chatfenster zwischen Student und Lehrer: 55 SP
