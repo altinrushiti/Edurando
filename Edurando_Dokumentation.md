@@ -28,6 +28,32 @@ Die Entwicklung des Frontends erfolgt unter Verwendung des JavaScript-Frameworks
 
 Durch die Kombination dieser Komponenten in der Softwarearchitektur entsteht eine robuste und skalierbare Anwendung. Die klare Trennung von Backend und Frontend ermöglicht es den Entwicklern, sich auf ihre jeweiligen Aufgaben zu konzentrieren und effizient zusammenzuarbeiten. Die Verwendung bewährter Frameworks wie Spring Boot, Postgresql, Tailwind und Vue.js stellt sicher, dass die Anwendung auf einer soliden Basis aufbaut und den Anforderungen der Benutzer gerecht wird.
 
+## Authentication (DaoAuthenticationProvider) :
+
+Um die Authentication von Benutzern in Edurando durchzuführen, wird DaoAuthenticationProvider benutzt.Der DaoAuthenticationProvider ist eine Implementierung des AuthenticationProvider-Interfaces und bietet eine einfache Möglichkeit, Benutzeranmeldeinformationen zu überprüfen und die Authentifizierung durchzuführen. Er arbeitet eng mit einem UserDetailsService zusammen, um Benutzerdetails abzurufen und zu überprüfen.
+
+Der DaoAuthenticationProvider verfolgt den Ansatz, Benutzerdetails aus einer Datenbank oder einem anderen Speicherort abzurufen und die eingegebenen Anmeldeinformationen mit den gespeicherten Informationen zu vergleichen. Dazu verwendet er das UserDetailsService-Interface, um die Benutzerdetails abzurufen, und den PasswordEncoder, um die eingegebenen Passwörter zu überprüfen.
+Um die Authentication in Edurando umzusetzen, wird der folgende Code verwendet:
+
+```java
+
+@Bean
+public DaoAuthenticationProvider daoAuthenticationProvider() {
+    DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+    provider.setPasswordEncoder(bCryptPasswordEncoder);
+    provider.setUserDetailsService(userProfileService);
+    return provider;
+}
+```
+
+1. Passwortverschlüsselung:
+
+Die Sicherheit der Benutzerpasswörter ist entscheidend. Deshalb wird einen Passwortencoder (BCryptPasswordEndocer) verwendet um die Passwörter zu verschlüsseln. Der BCryptPasswordEncoder nutzt die starke und sichere Hash-Funktion BCrypt, um die Passwörter zu verschlüsseln. Durch die Verwendung von Salt-Werten und einer sicheren Hash-Funktion wird die Sicherheit der Passwörter verbessert und der Schutz vor Angriffen wie Brute-Force oder Rainbow-Table-Angriffen gewährleistet.  
+
+2. Benutzerdetails-Service:
+
+Der DaoAuthenticationProvider benötigt einen UserDetailsService, um die Benutzerdetails abzurufen.
+
 ## Testkonzept
 
 Das Testkonzept für das Projekt setzt sich aus mehreren wichtigen Punkten zusammen, um eine umfassende Testabdeckung und eine hohe Qualität der Anwendung zu gewährleisten.
