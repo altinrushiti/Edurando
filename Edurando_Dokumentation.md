@@ -120,7 +120,7 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
 
 ## Schätzung am Anfang (steht im Sprint-Protokoll?)
 1. Sprint:
-- Projekt-Preparation(Backlog, Rest-API einrichten, Workflow definieren,...) = 70 SP
+- Projekt-Preparation(Backlog, Rest-API einrichten, Workflow definieren,...): 70 SP
 
 2. Sprint:
 - Registrieren: 69 SP
