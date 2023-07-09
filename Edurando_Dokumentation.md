@@ -209,48 +209,68 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
 ## Test-, Buildautomatisierung, CI
 
 1. Technologie-Stack:
-   [Liste der verwendeten Technologien, Tools und Frameworks für Testautomatisierung, Build-Automatisierung und CI einfügen.]
+  Junit Tests mit Mock und Postman Tests
 
 2. Verzeichnisstruktur und Organisationsansatz:
-   [Beschreibung der Struktur des Projekts, insbesondere in Bezug auf die automatisierten Tests und Build-Skripte.]
+  Die Anwendung selbst verwendet die Postgresql Datenbank.
+  Für das Testen wurde eine seperate h2 in-momory-dantenbank
+  erstellt. Dafür wurde die Datenbank im Ordner src/test
+  resources/application.properties konfiguriert. Und im
+  Ordner src/test/java wurden die Tests erstellt.
 
 3. Testautomatisierung:
    - Automatisierte Testarten:
-     [Erklärung, welche Arten von Tests automatisiert sind, z. B. Unit-Tests, Integrationstests, UI-Tests.]
+   Die Junit Tests werden automatisiert getestet
 
    - Testframeworks und Ausführung:
-     [Informationen darüber, wie automatisierte Tests geschrieben werden, welche Testframeworks verwendet werden und wie sie ausgeführt werden.]
+     Die automatisierten Tests sind die Junit Tests die wir
+     mit der Verwendung von Mock erstellt haben.
 
 4. Build-Automatisierung:
    - Build-Prozess:
-     [Beschreibung des Build-Prozesses, wie z. B. Kompilieren, Verpacken und Bereitstellen der Anwendung.]
-
-   - Build-Tools und Konfiguration:
-     [Verwendung von Build-Tools (z. B. Maven, Gradle) und deren Konfiguration.]
+   Mit der Ausführung von "gradlew" werden die Quellcodes der
+   Anwendung kompiliert. Dabei werden die Java-Klassen aus
+   den Quelldateien generiert und in ausführbaren Bytecode
+   übersetzt
 
 5. CI-Konfiguration:
-   [Erklärung, wie die Continuous Integration eingerichtet ist und wie sie funktioniert. Welche Build-Jobs werden automatisch ausgeführt, und in welcher Reihenfolge?]
+   - Stages:
+   Es werden drei Stages definiert: "build", "test" und
+   "deploy". Stages definieren die Abschnitte des CI
+   CD-Pipelines.
+
+   - Before Script:
+   Im "before_script"-Abschnitt werden einige Befehle
+   ausgeführt, bevor die Jobs in den Stages beginnen.
+   In diesem Fall wird der Gradle-Benutzerverzeichnis
+   GRADLE_USER_HOME) konfiguriert und das Paket "findutils"
+   mit dem Befehl apt-get install findutils installiert.
 
 6. Testsuite-Ausführung:
-   [Beschreibung, wie die Tests in der CI-Pipeline ausgeführt werden und wie die Testergebnisse gesammelt und interpretiert werden. Was passiert im Fehlerfall?]
+   - Build-Job:
+   Der Build-Job befindet sich in der "build" Stage.
+   Der Job wechselt zum Verzeichnis Edurando_App/Edurando
+   und führt dann den Build-Prozess aus.
+   Der Befehl ./gradlew build kompiliert das Projekt mit
+   Gradle.
+   Nach erfolgreichem Build wird die Meldung "Compile
+   complete" ausgegeben.
+   
+   - Unit-Test-Job:
+   Der Unit-Test-Job befindet sich in der "test" Stage.
+   Der Job wechselt zum Verzeichnis Edurando_App/Edurando
+   und führt dann die JUnit-Tests aus.
+   Der Befehl ./gradlew test führt die JUnit-Tests mit
+   Gradle aus.
+   Nach Abschluss der Tests wird die Meldung "JUNIT tests
+   succeeded with a code coverage of 74%" ausgegeben.
 
 7. Testdatenmanagement:
-   [Wie werden Testdaten erstellt und verwaltet, um wiederholbare und zuverlässige Tests sicherzustellen?]
+    - Die Datenbank wird am Anfang der Pipeline erstellt und
+  die Daten die im Test hinzugefügt werden hinzugefügt. Am
+  Ende der Pipeline werden die Daten von der Datebank
+  gelöscht. 
 
-8. Sicherheitsaspekte:
-   [Berücksichtigung von Zugriffsrechten und Sicherheitsaspekten in der CI-Umgebung.]
-
-9. Skalierung und Performance:
-    [Falls relevant, wie wird die Skalierbarkeit der Test- und Buildautomatisierung sichergestellt?]
-
-10. Troubleshooting und FAQs:
-    [Häufige Probleme und Fehlerquellen bei der Test- und Buildautomatisierung und mögliche Lösungen.]
-
-11. Ressourcen und Links:
-    [Verweise auf externe Ressourcen, Tools oder Tutorials, die hilfreich sein könnten.]
-
-12. Änderungsprotokoll:
-    [Eine Übersicht über die Änderungen und Verbesserungen der Test- und Buildautomatisierung im Laufe der Zeit.]
 
 ## Schätzungen
 
