@@ -213,9 +213,9 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
 
 2. Verzeichnisstruktur und Organisationsansatz:
    - Die Anwendung selbst verwendet die Postgresql Datenbank.
-  Für das Testen wurde eine seperate h2 in-momory-dantenbank
+  Für das Testen wurde eine seperate h2 in-memory-datenbank
   erstellt. Dafür wurde die Datenbank im Ordner src/test
-  resources/application.properties konfiguriert. Und im
+  resources/application.properties konfiguriert und im
   Ordner src/test/java wurden die Tests erstellt.
 
 3. Testautomatisierung:
@@ -223,7 +223,7 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
    Die Junit Tests werden automatisiert getestet
 
    - Testframeworks und Ausführung:
-     Die automatisierten Tests sind die Junit Tests die wir
+     Die automatisierten Tests sind die Junit Tests die wir teilweise
      mit der Verwendung von Mock erstellt haben.
 
 4. Build-Automatisierung:
@@ -235,8 +235,7 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
 
 5. CI-Konfiguration:
    - Stages:
-   Es werden drei Stages definiert: "build", "test" und
-   "deploy". Stages definieren die Abschnitte des CI
+   Es werden drei Stages definiert: "build" und "test". Stages definieren die Abschnitte des CI
    CD-Pipelines.
 
    - Before Script:
@@ -267,8 +266,8 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
 
 7. Testdatenmanagement:
     - Die Datenbank wird am Anfang der Pipeline erstellt und
-  die Daten die im Test hinzugefügt werden, werden hinzugefügt. Am
-  Ende der Pipeline werden die Daten von der Datebank
+  die Daten die im Test bereitgestellt werden, werden in die Testdatenbank hinzugefügt. Am
+  Ende der Testdurchläufe werden die Daten von der Datebank
   gelöscht. 
 
 
