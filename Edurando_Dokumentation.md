@@ -281,7 +281,7 @@ Der Velocity-Bericht dokumentiert die Geschwindigkeit unseres Teams basierend au
 
 | Sprint | Offene Issues | Erledigte Issues | Erledigte Storypoints im Sprint |
 | ------ | ------ | ------ | ------ |
-|Beginn  |82        |0.    |0
+|Beginn  |82        |0     |0
 |1       |71        |11    |73
 |2       |57        |14    |164
 |3       |44        |13    |154
