@@ -213,7 +213,7 @@ Im letzten Sprint wurde ein bemerkenswerter Anstieg der Velocity auf 167 Storypo
 
 Der Velocity-Bericht zeigt, dass wir als Team im Verlauf der Sprints eine positive Entwicklung in Bezug auf die Effizienz und Arbeitsgeschwindigkeit gezeigt haben. Obwohl die Anzahl der offenen Issues variieren kann, konnten wir kontinuierlich eine hohe Anzahl an Storypoints abschließen und somit den Projektfortschritt vorantreiben.
 
-## Reflektion über Probleme im Sprint (steht im Sprint-Protokoll?)
+## Reflektion über Probleme im Sprint
 Das Softwareprojekt Edurando hat uns vor verschiedene Herausforderungen gestellt, insbesondere aufgrund seiner Komplexität und der Größe unseres Entwicklungsteams. Wir haben mit der agilen Methode Scrum gearbeitet, wobei wir in 2-wöchigen Sprints gearbeitet haben. In diesem Prozess traten jedoch einige Probleme auf, die wir reflektieren und daraus lernen können.
 
 Effizientes Arbeiten und Aufgabenverteilung: Da es unser erstes größeres Softwareprojekt in einer Gruppe war, mussten wir uns anfangs an das effiziente Arbeiten in einem Team gewöhnen. Die Aufgabenverteilung war manchmal eine Herausforderung, da es wichtig war, dass alle Teammitglieder produktiv und effektiv arbeiten konnten. Hier hätten wir von Anfang an die Aufgaben etwas  ausgewogener und klarer verteilen sollen. 
