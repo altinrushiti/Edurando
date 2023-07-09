@@ -2,10 +2,9 @@
 
 ## Inhaltsverzeichnis
 
-- [Dokumentation](#dokumentation)
-  - [Inhaltsverzeichnis](#inhaltsverzeichnis)
+
   - [Softwarearchitektur und „schwierige“ Implementierungsprobleme](#softwarearchitektur-und-schwierige-implementierungsprobleme)
-  - [Authentication (DaoAuthenticationProvider)](#authentication-(daoAuthenticationProvider)) 
+    - [Authentication (DaoAuthenticationProvider)](#authentication-(daoAuthenticationProvider)) 
   - [Testkonzept](#testkonzept)
   - [DoD](#dod)
   - [Branching Modell](#branching-modell)
@@ -30,23 +29,23 @@ Die Entwicklung des Frontends erfolgt unter Verwendung des JavaScript-Frameworks
 ### Axios
 Für die Verbindung zwischen Frontend und Backend haben wir die JavaScript-Bibliothek(Axios)  verwendet.
 
-#### Einführung
+##### Einführung
 Axios ist eine JavaScript-Bibliothek, die für die Verbindung zwischen Frontend und Backend verwendet wird. Mit Axios können HTTP-Anfragen von der Frontend-Anwendung an den Backend-Server gesendet und die entsprechenden Antworten empfangen werden.
 
-#### Installation
+##### Installation
 Um Axios in Ihr Projekt zu integrieren, führen Sie bitte die folgenden Schritte aus:
 
 1. Öffnen Sie die Kommandozeile und navigieren Sie zum Projektverzeichnis.
 2. Führen Sie den Befehl `npm install axios` aus, wenn Sie npm verwenden, oder `yarn add axios`, wenn Sie yarn bevorzugen.
 
-#### Importieren
+##### Importieren
 Axios Importieren, indem man den folgenden Befehl verwendest:
 ```javascript
 import axios from 'axios';
 ````
-#### Verwendung
+##### Verwendung
 
-##### Senden einer HTTP-Anfrage
+###### Senden einer HTTP-Anfrage
 Axios stellt die Methode axios.request() zur Verfügung, um HTTP-Anfragen zu senden. Sie akzeptiert ein Konfigurationsobjekt als Parameter, das verschiedene Optionen enthält, wie z.B. die URL der Anfrage, den HTTP-Verb (GET, POST, PUT, DELETE usw.) und optional die zu sendenden Daten.
 
 Hier ist ein Beispiel für das Senden einer GET-Anfrage:
@@ -84,11 +83,11 @@ public DaoAuthenticationProvider daoAuthenticationProvider() {
 }
 ```
 
-1. Passwortverschlüsselung:
+##### Passwortverschlüsselung
 
 Die Sicherheit der Benutzerpasswörter ist entscheidend. Deshalb wird einen Passwortencoder (BCryptPasswordEndocer) verwendet um die Passwörter zu verschlüsseln. Der BCryptPasswordEncoder nutzt die starke und sichere Hash-Funktion BCrypt, um die Passwörter zu verschlüsseln. Durch die Verwendung von Salt-Werten und einer sicheren Hash-Funktion wird die Sicherheit der Passwörter verbessert und der Schutz vor Angriffen wie Brute-Force oder Rainbow-Table-Angriffen gewährleistet.  
 
-2. Benutzerdetails-Service:
+##### Benutzerdetails-Service
 
 Der DaoAuthenticationProvider benötigt einen UserDetailsService, um die Benutzerdetails abzurufen.
 
