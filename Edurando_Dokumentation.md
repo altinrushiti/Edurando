@@ -147,7 +147,7 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
 
 3. Sprint:
 - Anmelden: 70 SP
-- Profile durchstöbern: SP 63
+- Profile durchstöbern: 63 SP
 - Abmelden: 21 SP
 
 4. Sprint:
