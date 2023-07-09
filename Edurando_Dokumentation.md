@@ -184,42 +184,23 @@ Durch dieses Gitflow-Branching-Modell gewährleisten wir eine klare Strukturieru
 12. Änderungsprotokoll:
     [Eine Übersicht über die Änderungen und Verbesserungen der Test- und Buildautomatisierung im Laufe der Zeit.]
 
-## Schätzung am Anfang 
-1. Sprint:
-- Projekt-Preparation(Backlog, Rest-API einrichten, Workflow definieren,...): 70 SP
+## Schätzungen
 
-2. Sprint:
-- Registrieren: 69 SP
-- Profil bearbeiten: 63 SP
-
-3. Sprint:
-- Anmelden: 45 SP
-- Profile durchstöbern: SP 46
-- Abmelden: 13 SP
-
-4. Sprint:
-- Startseite durchsuchen: 52 SP
-- Passwort vergessen: 31 SP
-- Chatfenster zwischen Student und Lehrer: 55 SP
-
-
-## Schätzung am Ende 
-1. Sprint:
-- Projekt-Preparation(Backlog, Rest-API einrichten, Workflow definieren,...): 73 SP
-
-2. Sprint:
-- Registrieren: 85 SP
-- Profil bearbeiten: 79 SP
-
-3. Sprint:
-- Anmelden: 70 SP
-- Profile durchstöbern: 63 SP
-- Abmelden: 21 SP
-
-4. Sprint:
-- Startseite durchsuchen: 52 SP
-- Passwort vergessen: 60 SP
-- Chatfenster zwischen Student und Lehrer: 55 SP
+| Epen   | Titel                                 | Schätzung am Anfang | Schätzung am Ende |
+| ------ | ------------------------------------- | ---- | -------- |
+|E1      |Registrieren                           |69    |85        |   
+|E2      |Anmelden                               |21    |70        |
+|E3      |Profile durchstöbern                   |46    |63        |
+|E4      |Nachhilfe bezahlen                     |0     |0         |
+|E5      |Profil bearbeiten                      |63    |79        |
+|E6      |Startseite durchsuchen                 |52    |52        |
+|E7      |Passwort vergessen                     |31    |60        |
+|E8      |Chatfenster zwischen Student und Lehrer|55    |55        |
+|E9      |Bewerten                               |0     |0         |
+|E10     |Konto löschen                          |0     |0         |
+|E11     |Abmelden                               |13    |21        |
+|E12     |Einstellungen                          |0     |0         |
+|Summe   |                                       |350   |485       |
 
 
 ## Burndown-Chart
